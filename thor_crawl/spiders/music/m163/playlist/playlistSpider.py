@@ -41,6 +41,7 @@ class PlaylistSpider(BaseSpider):
 
         # 持久化
         self.main_table = 'm163_playlist'
+        self.user_table = 'm163_user'
         self.save_threshold = 0
         self.persistent_data_user = set()
         self.persistent_data_playlist = list()
@@ -84,7 +85,12 @@ class PlaylistSpider(BaseSpider):
 
             for playlist_json in playlist_group:
                 playlist = self.get_play_list(playlist_json)
+                user = self.get_user(playlist_json['creator'])
+                subscriber = self.get_user(playlist_json['subscribers'][0])
+
                 self.persistent_data_playlist.append(playlist)
+                self.persistent_data_user.add(user)
+                self.persistent_data_user.add(subscriber)
 
             # 如果还有数据则继续抓取
             if more is False:
@@ -95,40 +101,78 @@ class PlaylistSpider(BaseSpider):
         self.save()
 
     @staticmethod
-    def get_play_list(play_list_json):
+    def get_play_list(playlist_json):
         param = {
-            'main_id': play_list_json['id'],
-            'name': play_list_json['name'],
-            'track_number_update_time': play_list_json['trackNumberUpdateTime'],
-            'status': play_list_json['status'],
-            'user_id': play_list_json['userId'],
-            'create_time': play_list_json['createTime'],
-            'update_time': play_list_json['updateTime'],
-            'subscribed_count': play_list_json['subscribedCount'],
-            'track_count': play_list_json['trackCount'],
-            'cloud_track_count': play_list_json['cloudTrackCount'],
-            'cover_img_url': play_list_json['coverImgUrl'],
-            'cover_img_id': play_list_json['coverImgId'],
-            'description': play_list_json['description'],
-            'tags': Constant.DEFAULT_SEP.join(play_list_json['tags']),
-            'play_count': play_list_json['playCount'],
-            'track_update_time': play_list_json['trackUpdateTime'],
-            'special_type': play_list_json['specialType'],
-            'total_duration': play_list_json['totalDuration'],
-            'tracks': play_list_json['tracks'],
-            'subscribed': play_list_json['subscribed'],
-            'comment_thread_id': play_list_json['commentThreadId'],
-            'new_imported': play_list_json['newImported'],
-            'ad_type': play_list_json['adType'],
-            'high_quality': play_list_json['highQuality'],
-            'privacy': play_list_json['privacy'],
-            'ordered': play_list_json['ordered'],
-            'anonimous': play_list_json['anonimous'],
-            'share_count': play_list_json['shareCount'],
-            'cover_img_id_str': play_list_json['coverImgId_str'] if 'coverImgId_str' in play_list_json else Constant.STR_EMPTY,
-            'comment_count': play_list_json['commentCount'],
-            'creator_id': play_list_json['creator']['userId'],
-            'subscriber_id': play_list_json['subscribers'][0]['userId']
+            'main_id': playlist_json['id'],
+            'name': playlist_json['name'],
+            'track_number_update_time': playlist_json['trackNumberUpdateTime'],
+            'status': playlist_json['status'],
+            'user_id': playlist_json['userId'],
+            'create_time': playlist_json['createTime'],
+            'update_time': playlist_json['updateTime'],
+            'subscribed_count': playlist_json['subscribedCount'],
+            'track_count': playlist_json['trackCount'],
+            'cloud_track_count': playlist_json['cloudTrackCount'],
+            'cover_img_url': playlist_json['coverImgUrl'],
+            'cover_img_id': playlist_json['coverImgId'],
+            'description': playlist_json['description'],
+            'tags': Constant.DEFAULT_SEP.join(playlist_json['tags']),
+            'play_count': playlist_json['playCount'],
+            'track_update_time': playlist_json['trackUpdateTime'],
+            'special_type': playlist_json['specialType'],
+            'total_duration': playlist_json['totalDuration'],
+            'tracks': playlist_json['tracks'],
+            'subscribed': playlist_json['subscribed'],
+            'comment_thread_id': playlist_json['commentThreadId'],
+            'new_imported': playlist_json['newImported'],
+            'ad_type': playlist_json['adType'],
+            'high_quality': playlist_json['highQuality'],
+            'privacy': playlist_json['privacy'],
+            'ordered': playlist_json['ordered'],
+            'anonimous': playlist_json['anonimous'],
+            'share_count': playlist_json['shareCount'],
+            'cover_img_id__str': playlist_json['coverImgId_str'] if 'coverImgId_str' in playlist_json else Constant.STR_EMPTY,
+            'comment_count': playlist_json['commentCount'],
+            'creator_id': playlist_json['creator']['userId'],
+            'subscriber_id': playlist_json['subscribers'][0]['userId']
+        }
+
+        for key, value in param.items():
+            if param[key] is None:
+                param[key] = ''
+
+        return param
+
+    @staticmethod
+    def get_user(user_json):
+        param = {
+            'default_avatar': user_json['defaultAvatar'],
+            'province': user_json['province'],
+            'auth_status': user_json['authStatus'],
+            'followed': user_json['followed'],
+            'avatar_url': user_json['avatarUrl'],
+            'account_status': user_json['accountStatus'],
+            'gender': user_json['gender'],
+            'city': user_json['city'],
+            'birthday': user_json['birthday'],
+            'user_id': user_json['userId'],
+            'user_type': user_json['userType'],
+            'nickname': user_json['nickname'],
+            'signature': user_json['signature'],
+            'description': user_json['description'],
+            'detail_description': user_json['detailDescription'],
+            'avatar_img_id': user_json['avatarImgId'],
+            'background_img_id': user_json['backgroundImgId'],
+            'background_url': user_json['backgroundUrl'],
+            'authority': user_json['authority'],
+            'mutual': user_json['mutual'],
+            'expert_tags': Constant.DEFAULT_SEP.join(user_json['expertTags']),
+            'dj_status': user_json['djStatus'],
+            'vip_type': user_json['vipType'],
+            'remark_name': user_json['remarkName'],
+            'avatar_img_id_str': user_json['avatarImgIdStr'],
+            'background_img_id_str': user_json['backgroundImgIdStr'],
+            'avatar_img_id__str': user_json['avatarImgId_str']
         }
 
         for key, value in param.items():
@@ -147,6 +191,15 @@ class PlaylistSpider(BaseSpider):
                 logging.error('save except:', e)
             finally:
                 self.persistent_data_playlist = list()
+        if len(self.persistent_data_user) > self.save_threshold:
+            try:
+                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+            except AttributeError as e:
+                self.dao = DaoUtils()
+                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                logging.error('save except:', e)
+            finally:
+                self.persistent_data_user = set()
 
     def save_final(self):
         if len(self.persistent_data_playlist) > 0:
@@ -158,6 +211,15 @@ class PlaylistSpider(BaseSpider):
                 logging.error('save_final except:', e)
             finally:
                 self.persistent_data_playlist = list()
+        if len(self.persistent_data_user) > 0:
+            try:
+                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+            except AttributeError as e:
+                self.dao = DaoUtils()
+                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                logging.error('save_final except:', e)
+            finally:
+                self.persistent_data_user = set()
 
 
 if __name__ == '__main__':

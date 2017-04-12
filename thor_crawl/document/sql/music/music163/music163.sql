@@ -47,7 +47,7 @@ CREATE TABLE `m163_playlist` (
   `description`              VARCHAR(512) NOT NULL DEFAULT ''
   COMMENT '描述',
 
-  `tags`                     VARCHAR(64)  NOT NULL DEFAULT ''
+  `tags`                     VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '标签，用英文逗号分隔',
 
   `play_count`               INT(16)      NOT NULL DEFAULT 0
@@ -92,7 +92,7 @@ CREATE TABLE `m163_playlist` (
   `share_count`              INT(16)      NOT NULL DEFAULT 0
   COMMENT '分享数',
 
-  `cover_img_id_str`         VARCHAR(32)  NOT NULL DEFAULT 0
+  `cover_img_id__str`        VARCHAR(32)  NOT NULL DEFAULT 0
   COMMENT '封面图片ID字符串',
 
   `comment_count`            INT(16)      NOT NULL DEFAULT 0
@@ -113,108 +113,93 @@ CREATE TABLE `m163_playlist` (
 ### 网易云音乐 用户表
 DROP TABLE IF EXISTS `m163_user`;
 CREATE TABLE `m163_user` (
-  `id`                       INT(16)      NOT NULL AUTO_INCREMENT
+  `id`                    INT(16)      NOT NULL AUTO_INCREMENT
   COMMENT '数据库自增ID',
-  `gmt_create`               DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
+  `gmt_create`            DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
   COMMENT '数据创建时间',
-  `gmt_modify`               DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
+  `gmt_modify`            DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
   COMMENT '数据修改时间',
 
-  `main_id`                  INT(16)      NOT NULL
+  `default_avatar`        BOOLEAN      NOT NULL DEFAULT FALSE
   COMMENT '主ID，歌单ID',
 
-  `name`                     VARCHAR(128) NOT NULL DEFAULT ''
-  COMMENT '歌单名称',
+  `province`              VARCHAR(16)  NOT NULL DEFAULT ''
+  COMMENT '省会编号',
 
-  `track_number_update_time` INT(16)      NOT NULL DEFAULT 0
+  `auth_status`           TINYINT      NOT NULL DEFAULT 0
   COMMENT '',
 
-  `status`                   TINYINT      NOT NULL DEFAULT 0
+  `followed`              BOOLEAN      NOT NULL DEFAULT FALSE
   COMMENT '',
 
-  `user_id`                  INT(16)      NOT NULL DEFAULT 0
-  COMMENT '用户ID',
+  `avatar_url`            VARCHAR(128) NOT NULL DEFAULT ''
+  COMMENT '用户头像地址',
 
-  `create_time`              INT(16)      NOT NULL DEFAULT 0
-  COMMENT '创建时间',
-
-  `update_time`              INT(16)      NOT NULL DEFAULT 0
-  COMMENT '更新时间',
-
-  `subscribed_count`         INT(16)      NOT NULL DEFAULT 0
-  COMMENT '被收藏数量',
-
-  `track_count`              INT(16)      NOT NULL DEFAULT 0
-  COMMENT '歌单中歌曲数量',
-
-  `cloud_track_count`        INT(16)      NOT NULL DEFAULT 0
+  `account_status`        TINYINT      NOT NULL DEFAULT 0
   COMMENT '',
 
-  `cover_img_url`            VARCHAR(128) NOT NULL DEFAULT ''
-  COMMENT '封面图片',
+  `gender`                SMALLINT     NOT NULL DEFAULT 0
+  COMMENT '',
 
-  `cover_img_id`             VARCHAR(16)  NOT NULL DEFAULT 0
-  COMMENT '封面图片ID',
+  `city`                  VARCHAR(16)  NOT NULL DEFAULT ''
+  COMMENT '城市编号',
 
-  `description`              VARCHAR(512) NOT NULL DEFAULT ''
+  `birthday`              VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '生日',
+
+  `user_id`               INT(16)      NOT NULL DEFAULT 0
+  COMMENT '网易的用户ID',
+
+  `user_type`             TINYINT      NOT NULL DEFAULT 0
+  COMMENT '网易的用户类型',
+
+  `nickname`              VARCHAR(32)  NOT NULL DEFAULT 0
+  COMMENT '用户昵称',
+
+  `signature`             VARCHAR(128) NOT NULL DEFAULT ''
+  COMMENT '个人介绍',
+
+  `description`           VARCHAR(256) NOT NULL DEFAULT ''
   COMMENT '描述',
 
-  `tags`                     VARCHAR(64)  NOT NULL DEFAULT ''
-  COMMENT '标签，用英文逗号分隔',
+  `detail_description`    VARCHAR(256) NOT NULL DEFAULT ''
+  COMMENT '细节描述',
 
-  `play_count`               INT(16)      NOT NULL DEFAULT 0
-  COMMENT '收听数',
-
-  `track_update_time`        INT(16)      NOT NULL DEFAULT 0
+  `avatar_img_id`         VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '',
 
-  `special_type`             TINYINT      NOT NULL DEFAULT 0
+  `background_img_id`     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '',
 
-  `total_duration`           TINYINT      NOT NULL DEFAULT 0
+  `background_url`        VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '',
 
-  `tracks`                   VARCHAR(16)  NOT NULL DEFAULT ''
+  `authority`             SMALLINT     NOT NULL DEFAULT 0
   COMMENT '',
 
-  `subscribed`               VARCHAR(16)  NOT NULL DEFAULT ''
+  `mutual`                SMALLINT     NOT NULL DEFAULT 0
   COMMENT '',
 
-  `comment_thread_id`        VARCHAR(32)  NOT NULL DEFAULT ''
+  `expert_tags`           VARCHAR(128) NOT NULL DEFAULT ''
+  COMMENT '音乐达人标签',
+
+  `dj_status`             TINYINT      NOT NULL DEFAULT 0
+  COMMENT '网易的用户类型',
+
+  `vip_type`              TINYINT      NOT NULL DEFAULT 0
   COMMENT '',
 
-  `new_imported`             BOOLEAN      NOT NULL DEFAULT FALSE
+  `remark_name`           VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '',
 
-  `ad_type`                  TINYINT      NOT NULL DEFAULT 0
+  `avatar_img_id_str`     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '',
 
-  `high_quality`             BOOLEAN      NOT NULL DEFAULT FALSE
+  `background_img_id_str` VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '',
 
-  `privacy`                  TINYINT      NOT NULL DEFAULT 0
+  `avatar_img_id__str`    VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '',
-
-  `ordered`                  BOOLEAN      NOT NULL DEFAULT FALSE
-  COMMENT '',
-
-  `anonimous`                BOOLEAN      NOT NULL DEFAULT FALSE
-  COMMENT '',
-
-  `share_count`              INT(16)      NOT NULL DEFAULT 0
-  COMMENT '分享数',
-
-  `cover_img_id_str`         VARCHAR(16)  NOT NULL DEFAULT 0
-  COMMENT '封面图片ID字符串',
-
-  `comment_count`            INT(16)      NOT NULL DEFAULT 0
-  COMMENT '评论数',
-
-  `creator_id`               INT(16)      NOT NULL
-  COMMENT '创建者的用户ID',
-
-  `subscriber_id`            INT(16)      NOT NULL DEFAULT 0
-  COMMENT '其中一个订阅者的用户ID',
 
   PRIMARY KEY (`id`)
 )
