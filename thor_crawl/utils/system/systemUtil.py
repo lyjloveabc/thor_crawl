@@ -2,8 +2,10 @@
 系统工具
 """
 import os
+import logging
 
 from thor_crawl.utils.constant.constant import Constant
+from thor_crawl.utils.constant.resultCode import ResultCode
 
 
 class SystemUtil:
@@ -35,7 +37,7 @@ class SystemUtil:
                 elif is_dir and go_deep:
                     SystemUtil.batch_rename_file(path=old_full_file_name)
                 else:
-                    print('oh, my god!')
+                    logging.error(ResultCode.CONDITION_NOT_CONFORM)
 
 
 if __name__ == '__main__':
