@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>基金项目-平安陆金所官网</title>
+    <meta name="keywords" content="">
+    <meta name="description" content=>
+    <meta name="WT.pn_sku" content="">
+    <meta name="WT.page_name" content="">
+
+    <link rel="shortcut icon" href="//static.lufaxcdn.com/config/images/favicon-new.ico" />
+<link type="text/css" rel="stylesheet" href="//static.lufaxcdn.com/lufax-public/base/base.3fdc013e.css"/>
+    <link rel="stylesheet" href="//static.lufaxcdn.com/lufax-components/lufax-components.946f06e4.css">
+    <link type="text/css" rel="stylesheet" href="//static.lufaxcdn.com/lufax-public/lufax-public/lufax-public.94ee6782.css"/>
+<link type="text/css" rel="stylesheet" href="//static.lufaxcdn.com/lufax-public/lufax-lib/lufax-lib.717f0a66.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://static.lufaxcdn.com/jijin/resource/productDetail/module/recommend.8a1362a1.css">
+
+                <link rel="stylesheet" type="text/css" href="https://static.lufaxcdn.com/jijin/resource/listing/main/newBigList/fundBigList.ee2bc1cc.css">
+        
+    
+
+</head>
+
+<body>
+
+    <input type="hidden" id="userId" name="userId" value=""/>
+<input type="hidden" id="userName" name="userName" value=""/>
+<input type="hidden" id="isNewUser" name="isNewUser" value=""/>
+
+<input type="hidden" id="staticPath" name="staticPath" value="https://static.lufaxcdn.com"/>
+
+<input type="hidden" id="listHostUrl" name="listHostUrl" value="https://e.lufunds.com/jijin"/>
+<input type="hidden" id="siteHostUrl" name="siteHostUrl" value="https://www.lu.com"/>
+<input type="hidden" id="userHostUrl" name="userHostUrl" value="https://e.lufunds.com/user"/>
+<input type="hidden" id="jijinUserHostUrl" name="jijinUserHostUrl" value="https://e.lufunds.com/user" />
+<input type="hidden" id="jijinTradingHostUrl" name="jijinTradingHostUrl" value="https://e.lufunds.com/trading" />
+<input type="hidden" id="myHostUrl" name="myHostUrl" value="https://e.lufunds.com/my"/>
+<input type="hidden" id="tradeHostUrl" name="tradeHostUrl" value="https://trading.lu.com/trading"/>
+<input type="hidden" id="cashierHostUrl" name="cashierHostUrl" value="https://e.lufunds.com/cashier"/>
+<input type="hidden" id="rsaPublicKey" name="rsaPublicKey" value="BE24E372DC1B329633A6A014A7C02797915E3C363DD6EE119377BD645329B7E6446B4A71AC5F878EBC870C6D8BFD3C06B92E6C6E93390B34192A7A9E430800091761473FAC2CC0A68A828B2589A8CB729C19161E8E27F4C0F3CDE9701FAFE48D2B65947799072AFA6A3F2D7BDBEF8B6D7429C2D115A3E5F723467D57B3AC6967"/>
+<input type="hidden" id="jijinWebContextPath" value="/jijin" />
+<input type="hidden" id="left-menu-current" value="jijinSelected"/>
+
+<input type="hidden" id="domain" name="domain" value="lu.com"/>
+    <div class="lufax-header" id="lufax-header">
+    <div class="top-wrap">
+        <div class="top-body clearfix">
+            <ul class="top-login-status clearfix top-login hidden" id="top-login">
+                <li>您好，<a href="//e.lufunds.com/jijin/my" class="user-name"></a>
+                    <a class="my-account my-msg" id="my-account" href="//e.lufunds.com/my/user-msg" target="_blank">
+                        <i class="icon-msg"></i>
+                        <span id="header-my-account" data-sk="头部-消息">消息</span>
+                        <span id="header-my-msg-panel" class="msg-wrap hidden"> <span id="msg-count"></span> </span>
+                    </a>
+                    <span class="safe-logout-wrap">| <a href="//e.lufunds.com/user/logout" id="safe-logout">安全退出</a></span>
+                </li>
+            </ul>
+            <ul class="top-login-status clearfix top-cookie hidden" id="top-cookie">
+                <li id="header-cookie-home-icon" class="home-icon"><a href="//www.lufax.com/"></a></li>
+                <li class="top-cookie">您好，<a id="header-cookie-name" href="//e.lufunds.com/user/funds-login" class="cookie-name" data-sk="头部-用户名"></a> <a id="header-cookie-login" href="//e.lufunds.com/user/funds-login?returnPostURL=http%3A%2F%2Fwww.lufax.com%2F" data-sk="头部-登录"> 登录 </a><span class="seperator">|</span><a id="header-cookie-register" href="//e.lufunds.com/user/funds-register" data-sk="头部-注册">注册</a></li>
+            </ul>
+            <ul class="top-login-status clearfix top-noLog hidden" id="top-noLog">
+                <li class="top-noLog">您好，欢迎来到陆资管！ <a id="header-nolog-login" href="//e.lufunds.com/user/funds-login?returnPostURL=http%3A%2F%2Fwww.lufax.com%2F"  data-sk="头部-登录">登录</a><span class="seperator">|</span><a id="header-nolog-register" href="//e.lufunds.com/user/funds-register" data-sk="头部-注册">注册</a></li>
+            </ul>
+            <ul class="media-link clearfix">
+                <li><a href="//e.lufunds.com/jijin/my" target="_blank" >我的基金</a></li>
+                <!-- <li><a id="header-lumi" href="//lumi.lufax.com/lumi/index" target="_blank"  data-sk="头部-会员俱乐部">会员俱乐部</a></li>
+                <li class="lumi-link"><a id="header-vip" href="//vip.lufax.com/vip" target="_blank"  data-sk="头部-VIP非凡会">VIP非凡会</a></li>
+                <li><a id="header-chongjinsuo" href="//list.lufax.com/list/chongjinsuo" target="_blank"  data-sk="头部-重金所">重金所</a></li>
+                <li><a id="header-qianjiaosuo" href="//list.lufax.com/list/qianjiaosuo" target="_blank"  data-sk="头部-前交所">前交所</a></li>
+                <li><a id="header-help-center" href="//www.lufax.com/help/" target="_blank"  data-sk="头部-帮助中心">帮助中心</a></li>
+                <li id="header-mobile-panel" class="mobile-link"><a id="header-mobile" href="//www.lufax.com/activity/app201307/index.html" target="_blank" data-sk="头部-手机版"><i class="icon-mobile"></i>手机版</a></li>
+                <li id="header-weibo-panel" class="weibo-link"><a id="header-weibo" href="http://e.weibo.com/lufax" target="_blank"><i id="header-weibo-icon" class="icon-weibo">&nbsp;</i></a></li>
+                <li id="header-weixin-panel" class="weixin">
+                    <a id="header-weixin" href="javascript:void(0);"><i id="header-weixin-icon" class="icon-weixin">&nbsp;</i></a>
+                    <p><b></b><span class="lufax-code weixin-code"></span></p>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <div class="head-body-wrap">
+        <div class="head-body clearfix">
+            <div class="fund-logo-wrap">
+                <a href="//e.lufunds.com/jijin/list"><div class="fund-logo"></div></a>
+                <div class="fund-slogan">上海陆金所资产管理有限公司</div>
+            </div>
+            <div class="back-lufax">
+                <a href="//www.lufax.com/" target="_blank">前往陆金所首页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+<input type="hidden" id="current-page" value="fund"/>
+<input type="hidden" id="topProductCount" value="3"/>
+
+<form method="get" id="filterForm">
+    <input id="subType" name="subType" value="" type="hidden"/>
+    <input id="haitongGrade" name="haitongGrade" value="" type="hidden"/>
+    <input id="fundGroup" name="fundGroupId" value="" type="hidden"/>
+    <input id="currentPage" name="currentPage" value="1" type="hidden"/>
+    <input id="orderType" name="orderType" value="twelve_month_increase_desc" type="hidden"/>
+    <input id="searchWord" name="searchWord" value="" type="hidden"/>
+    <input id="canFixInvest" name="canFixInvest" value="" type="hidden"/>
+</form>
+
+
+
+
+
+
+
+
+
+<!--	head	-->
+<div class="main-wide-wrap" data-sk-area="FundList-ska">
+    
+
+<div class="wide-slide-box" id="wide-slide">
+    <ul class="slides">
+                    <li>
+                <a href="https://promo.lu.com/activity-pages/1031HAHJPC/index.html" target="_blank" data-sk="JJ_PC_BANNER1"><img src="https://static.lufaxcdn.com/wcm-images/OUvTHMHPj8GvkhvTgZC5LQ.jpg"></a>
+            </li>
+                    <li>
+                <a href="https://e.lufunds.com/activity-pages/xinnianpc2-20161227/index.html" target="_blank" data-sk="JJ_PC_BANNER2"><img src="https://static.lufaxcdn.com/wcm-images/BD36X-5aeZIX8ti3YvbBzg.jpg"></a>
+            </li>
+                    <li>
+                <a href="https://promo.lu.com/activity-pages/1031hbyqPC/index.html" target="_blank" data-sk="JJ_PC_BANNER3"><img src="https://static.lufaxcdn.com/wcm-images/GkxJOS4AsUZLGHydjDpxmA.jpg"></a>
+            </li>
+            </ul>
+    <div class="lumi-focus hidden">
+        <ul class="nav-container banner-nav">
+                            <li class="nav-item"></li>
+                            <li class="nav-item"></li>
+                            <li class="nav-item"></li>
+                    </ul>
+    </div>
+</div><div class="function-entrance clearfix">
+    <div>			<a href="https://e.lufunds.com/activity-pages/dtb-20160726/index.html" target="_blank">
+					<img src="https://static.lufaxcdn.com/wcm-images/q--4FK60dLGjAlfdAaATFg.png" data-sk="JJ_PC_FUNCTION1" alt=""/>
+		</a>
+</div>
+    <div>			<a href="https://e.lufunds.com/jijin/youxuan?groupNum=1" target="_blank">
+					<img src="https://static.lufaxcdn.com/wcm-images/tzBwIBWycfvS1aL9sSX1kQ.png" data-sk="JJ_PC_FUNCTION2" alt=""/>
+		</a>
+</div>
+    <div>			<a href="https://e.lufunds.com/activity-pages/0909wjjxPC/index.html" target="_blank">
+					<img src="https://static.lufaxcdn.com/wcm-images/BlgYAfcdhc2C4cCWigT5IA.png" data-sk="JJ_PC_FUNCTION3" alt=""/>
+		</a>
+</div>
+    <div class="right">			<a href="https://e.lufunds.com/activity/hjhz" target="_blank">
+					<img src="https://static.lufaxcdn.com/wcm-images/2tkRmTR4CsB-bG_UkIoFXA.png" data-sk="JJ_PC_FUNCTION4" alt=""/>
+		</a>
+</div>
+</div>
+<div class="fund-recommend-wrap clearfix">
+    <div class="fund-recommend">
+        <div class="recommend-title"><span class="fund-icon icon-recommend"></span>热门推荐</div>
+        <div class="recommend-list">
+            <ul class="clearfix">
+                                                            <a class="recommend-product" data-sk="Fund1" data-sk-area="Fund" href="//e.lufunds.com/jijin/detail?productId=2283130" target="_blank">
+                            <li class="">
+                                <p class="fund-name">华安易富黄金ETF联接C</p>
+                                <p class="fund-comment">紧跟金价，0费率</p>
+                                <p class="fund-icon icon-line"></p>
+                                <p class="fund-profit">        近一年涨幅
+    </p>
+                                                                <p class="fund-increase">                        <span class="increase-number">15.37</span>
+    <span class="increase-number percentage">%</span>
+    </p>
+                            </li>
+                        </a>
+                                                                                <a class="recommend-product" data-sk="Fund2" data-sk-area="Fund" href="//e.lufunds.com/jijin/detail?productId=8385295" target="_blank">
+                            <li class="">
+                                <p class="fund-name">华宝兴业标普油气人民币</p>
+                                <p class="fund-comment">股神巴菲特的“选择”</p>
+                                <p class="fund-icon icon-line"></p>
+                                <p class="fund-profit">        近一年涨幅
+    </p>
+                                                                <p class="fund-increase">                        <span class="increase-number">59.55</span>
+    <span class="increase-number percentage">%</span>
+    </p>
+                            </li>
+                        </a>
+                                                                                <a class="recommend-product" data-sk="Fund3" data-sk-area="Fund" href="//e.lufunds.com/jijin/detail?productId=138181183" target="_blank">
+                            <li class=" last ">
+                                <p class="fund-name">泰达宏利睿选稳健</p>
+                                <p class="fund-comment">掌控风险，把握收益</p>
+                                <p class="fund-icon icon-line"></p>
+                                <p class="fund-profit">        近一年涨幅
+    </p>
+                                                                <p class="fund-increase">        --
+    </p>
+                            </li>
+                        </a>
+                                                                                                                        </ul>
+        </div>
+    </div>
+
+    <div class="fund-preference">
+        <div class="recommend-title"><span class="fund-icon icon-prefer"></span>优选主题</div>
+        <div class="preference-list">
+            <ul class="clearfix">
+                                                                                                                                                                        <a class="preference-group" data-sk="FundTheme4" data-sk-area="FundTheme" href="//e.lufunds.com/jijin/youxuan?groupNum=5" target="_blank">
+                            <li>
+                                <p class="first"><span class="preference-title">优选商品基金</span>
+                                    <span class="preference-text">淘金达人</span>
+                                </p>
+                                <p>
+                                        <span class="fund-increase">                        <span class="increase-number">15.37</span>
+    <span class="increase-number percentage">%</span>
+                                            </span>
+                                    <span class="fund-profit">        近一年涨幅
+    </span>
+                                </p>
+                                <p class="front-img fund-4"></p>
+                            </li>
+                        </a>
+                                                                                <a class="preference-group" data-sk="FundTheme5" data-sk-area="FundTheme" href="//e.lufunds.com/jijin/youxuan?groupNum=1" target="_blank">
+                            <li>
+                                <p class="first"><span class="preference-title">优选混合型基金</span>
+                                    <span class="preference-text">总有一款适合你</span>
+                                </p>
+                                <p>
+                                        <span class="fund-increase">                        <span class="increase-number">29.15</span>
+    <span class="increase-number percentage">%</span>
+                                            </span>
+                                    <span class="fund-profit">        近一年涨幅
+    </span>
+                                </p>
+                                <p class="front-img fund-5"></p>
+                            </li>
+                        </a>
+                                                </ul>
+        </div>
+    </div>
+</div>    <div class="productContent">
+        <div class="clearfix tabHead" id="sortTab">
+            <ul class="tabSelect" >
+                <li class="selected" id="allTab" data-sk="All-Jijin" data-identity="fundGroupId" data-val="">全部基金</li>
+                <li class="" id="smartTab">智能优选</li>
+            </ul>
+                                                                                <div class="search-wrap" data-sk-area="FundSearch-ska">
+                <input id="searchInput" data-placeholder="万家精选" maxlength="15" class="search-input" name="searchWord" value="" type="text"/>
+                <a href="javascript:;" class="search-button" data-sk="Search">搜索</a></div>
+        </div>
+        <div class="tabContents">
+    <div class="filter-wrap" data-sk="">
+        <dl class="clearfix invest-filter">
+            <dt>基金类型</dt>
+            <dd class="clearfix">
+                <span class="all"><a href="javascript:void(0);" class="cur" data-sk="Zhonglei-All" data-identity="subType" data-val="">不限</a></span>
+                <ul class="selection clearfix fund-type">
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Zhaiquan" data-identity="subType" data-val="BOND">债券型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Gupiao" data-identity="subType" data-val="STOCK">股票型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Currcy" data-identity="subType" data-val="CURRENCY">货币型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Licai" data-identity="subType" data-val="LICAI">理财型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Dklicai" data-identity="subType" data-val="DKLICAI">定开理财型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Hunhe" data-identity="subType" data-val="MIXED">混合型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Zhishu" data-identity="subType" data-val="EXPONENT">指数型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-QDII" data-identity="subType" data-val="QDII">QDII型</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Zhonglei-Qita" data-identity="subType" data-val="OTHER">其他</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="clearfix invest-filter">
+            <dt>海通评级</dt>
+            <dd class="clearfix">
+                <span class="all"><a class="cur" href="javascript:void(0);" data-sk="Pingji-All" data-identity="haitongGrade" data-val="">不限</a></span>
+                <ul class="selection clearfix">
+                    <li><a class="" href="javascript:void(0);" data-sk="Pingji-5" data-identity="haitongGrade" data-val="5">5星</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Pingji-4" data-identity="haitongGrade" data-val="4">4星及以上</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Pingji-3" data-identity="haitongGrade" data-val="3">3星及以上</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Pingji-2" data-identity="haitongGrade" data-val="2">2星及以上</a></li>
+                    <li><a class="" href="javascript:void(0);" data-sk="Pingji-1" data-identity="haitongGrade" data-val="1">1星及以上</a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="themeContent" data-sk-area="FundHot-ska">
+    <dl class="clearfix theme-filter">
+        <dt>热门</dt>
+        <dd class="clearfix">
+            <ul class="selection clearfix">
+                                                <li class="first"><a class="theme-name" data-sk="All-reMen" href="javascript:void(0);" data-identity="fundGroupId" data-val=""><span class="cur">不限</span></a></li>
+                <li class="hotContainer hideMore">
+                    <ul>
+                                                                                          <li><a class="theme-name " data-sk="All-reMen" title="国企改革试点全面铺开，国改主题再迎风口" href="javascript:void(0);" data-identity="fundGroupId" data-val="8472"><span  class="">国企改革</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="财政宽松预期强烈，基建走起" href="javascript:void(0);" data-identity="fundGroupId" data-val="8473"><span  class="">财政宽松</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="老外最爱，迎接深港通" href="javascript:void(0);" data-identity="fundGroupId" data-val="8475"><span  class="">高分红</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="一切都在贬值的时候，唯有黄金价值永恒" href="javascript:void(0);" data-identity="fundGroupId" data-val="8479"><span  class="">黄金股拿得多</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="16年政策重心，煤炭、钢铁、有色等行业去产能下的机会" href="javascript:void(0);" data-identity="fundGroupId" data-val="8500"><span  class="">供给侧改革</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="涨价主题+高分红，行业复苏，盈利改善" href="javascript:void(0);" data-identity="fundGroupId" data-val="8478"><span  class="">白酒</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="欧洲杯+美洲杯+奥运会，空调、彩电、啤酒一个都不能少" href="javascript:void(0);" data-identity="fundGroupId" data-val="8477"><span  class="">家电</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="行业改革提速，受政策及事件催化" href="javascript:void(0);" data-identity="fundGroupId" data-val="8501"><span  class="">军工</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="汽车产业链的“苹果”" href="javascript:void(0);" data-identity="fundGroupId" data-val="8486"><span  class="">特斯拉产业链</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="没有电池，特斯拉还不如拖拉机" href="javascript:void(0);" data-identity="fundGroupId" data-val="8502"><span  class="">锂电池</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="未来技术发展趋势，市场潜力巨大" href="javascript:void(0);" data-identity="fundGroupId" data-val="8468"><span  class="">物联网</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="即将爆发的下一代显示技术" href="javascript:void(0);" data-identity="fundGroupId" data-val="8503"><span  class="">OLED</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="出口业务占比高，直接受益人民币贬值" href="javascript:void(0);" data-identity="fundGroupId" data-val="8504"><span  class="">人民币贬值</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="弱势反弹先锋" href="javascript:void(0);" data-identity="fundGroupId" data-val="8480"><span  class="">次新股拿得多</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="存量博弈的震荡市下，业绩为王，精选白马" href="javascript:void(0);" data-identity="fundGroupId" data-val="8476"><span  class="">白马成长组合</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="需求缺口大+政府补贴，充电桩建设在爆发风口" href="javascript:void(0);" data-identity="fundGroupId" data-val="8484"><span  class="">充电桩</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="玉米、豆粕涨了，猪饲料岂能不涨" href="javascript:void(0);" data-identity="fundGroupId" data-val="8488"><span  class="">饲料养殖产业链</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="防御板块，受益风险偏好下降" href="javascript:void(0);" data-identity="fundGroupId" data-val="8471"><span  class="">生物医药</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="民间投资重要抓手，政策不断加码" href="javascript:void(0);" data-identity="fundGroupId" data-val="8494"><span  class="">PPP</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="稀土价格进入全面上涨周期" href="javascript:void(0);" data-identity="fundGroupId" data-val="8505"><span  class="">稀土永磁</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="通航改革顶层设计方案出台，概念股迎风口" href="javascript:void(0);" data-identity="fundGroupId" data-val="8489"><span  class="">通用航空</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="受益深港通" href="javascript:void(0);" data-identity="fundGroupId" data-val="8490"><span  class="">券商股拿得多</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="类似下一个“智能手机”的产业大方向，催化剂不断" href="javascript:void(0);" data-identity="fundGroupId" data-val="8495"><span  class="">虚拟现实</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="消费升级，有望受暑假、迪士尼等事件催化" href="javascript:void(0);" data-identity="fundGroupId" data-val="8506"><span  class="">旅游产业</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="行业空间大、体育赛事催化" href="javascript:void(0);" data-identity="fundGroupId" data-val="8464"><span  class="">体育产业</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="政策红利，消费升级，在线教育投资升温" href="javascript:void(0);" data-identity="fundGroupId" data-val="8465"><span  class="">教育产业</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="人口老龄化下的机遇" href="javascript:void(0);" data-identity="fundGroupId" data-val="8470"><span  class="">养老产业</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="监管执法趋严，投资力度加大，利好政策不断" href="javascript:void(0);" data-identity="fundGroupId" data-val="8508"><span  class="">环保</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="6月开园带动主题投资升温" href="javascript:void(0);" data-identity="fundGroupId" data-val="8507"><span  class="">迪士尼</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="AlphaGo引发关注，长期大主题，行业前景广阔" href="javascript:void(0);" data-identity="fundGroupId" data-val="8469"><span  class="">人工智能</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="产业布局加速，市场前景广阔" href="javascript:void(0);" data-identity="fundGroupId" data-val="8487"><span  class="">无人驾驶</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="政策松绑+技术推进，无人机市场迎高速成长期" href="javascript:void(0);" data-identity="fundGroupId" data-val="8509"><span  class="">无人机</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="魏则西事件不改精准医疗大趋势，受政策和技术驱动" href="javascript:void(0);" data-identity="fundGroupId" data-val="8466"><span  class="">精准医疗</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="产业快速推进，政策大力扶持" href="javascript:void(0);" data-identity="fundGroupId" data-val="8491"><span  class="">量子通信</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="技术屡获突破，产业化大幕拉开" href="javascript:void(0);" data-identity="fundGroupId" data-val="8481"><span  class="">石墨烯</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="未来技术发展趋势，市场潜力巨大" href="javascript:void(0);" data-identity="fundGroupId" data-val="8482"><span  class="">大数据</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="未来技术发展趋势，市场潜力巨大" href="javascript:void(0);" data-identity="fundGroupId" data-val="8474"><span  class="">云计算</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="热门IP通过影视、游戏、动漫等实现流量变现" href="javascript:void(0);" data-identity="fundGroupId" data-val="8493"><span  class="">IP变现</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="全球工业革命浪潮，制造业升级，国家战略" href="javascript:void(0);" data-identity="fundGroupId" data-val="8496"><span  class="">工业4.0</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="产业五年规划出台，迎发展良机" href="javascript:void(0);" data-identity="fundGroupId" data-val="8485"><span  class="">机器人</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="政策护航，应用广阔，产业资本积极布局" href="javascript:void(0);" data-identity="fundGroupId" data-val="8497"><span  class="">3D打印</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="受益核电重启和核电出海等国家战略" href="javascript:void(0);" data-identity="fundGroupId" data-val="8492"><span  class="">核电行业</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="渗透率偏低、增长潜力较大，受恐怖袭击等事件催化" href="javascript:void(0);" data-identity="fundGroupId" data-val="8483"><span  class="">安防监控</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="民生关注焦点，涉及生物育种、食品安全检测等" href="javascript:void(0);" data-identity="fundGroupId" data-val="8498"><span  class="">食品安全</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="国家政策焦点，十三五加速推进" href="javascript:void(0);" data-identity="fundGroupId" data-val="8499"><span  class="">农业现代化</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="定义未来生活方式，前景广阔" href="javascript:void(0);" data-identity="fundGroupId" data-val="8467"><span  class="">智能家居</span>
+            
+        </a>
+        </li>
+                            <li><a class="theme-name " data-sk="All-reMen" title="行业发展大势所趋，政策促规范发展" href="javascript:void(0);" data-identity="fundGroupId" data-val="8510"><span  class="">互联网金融</span>
+            
+        </a>
+        </li>
+                                </ul>
+                </li>
+            </ul>
+        </dd>
+        <a class="display-indicator is-folded">
+            <span class="indicator-text">更多</span>
+            <span class="icon-arrow-big"></span>
+        </a>
+    </dl>
+</div>
+<div class="listTable">
+    <table id="fixedHead" class="fixedHead">
+        
+
+
+
+
+
+
+
+
+
+<thead class="sort-gather sort-fund">
+    <th class="align-left fund-code firstCol">基金代码</th>
+    <th class="align-left simple-name">基金简称</th>
+            <th class="align-left">最新净值</th>
+        <th><a class="" data-identity="order" data-val="day_increase_desc" data-sk="increaseDay">日增长率<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+    
+    <th><a class="" data-identity="order" data-val="one_month_increase_desc" data-sk="increaseMonth">近一个月<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+    <th><a class="" data-identity="order" data-val="three_month_increase_desc" data-sk="increaseQuater">近三个月<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+            <th><a class="cur desc" data-identity="order" data-val="twelve_month_increase_asc" data-sk="increaseYear">近一年<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+                <th><a class="" data-identity="order" data-val="this_year_increase_desc" data-sk="increaseThisyear">今年以来<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+        <th><a class="" data-identity="order" data-val="total_increase_desc" data-sk="increaseAll">成立以来<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+            <th>起投金额(元)</th>
+    <th class="last"><label><input type="checkbox" class="canFixInvest" /> 可定投</label></th>
+</thead>
+    </table>
+    <table class="" id="fundTable">
+        
+
+
+
+
+
+
+
+
+
+<thead class="sort-gather sort-fund">
+    <th class="align-left fund-code firstCol">基金代码</th>
+    <th class="align-left simple-name">基金简称</th>
+            <th class="align-left">最新净值</th>
+        <th><a class="" data-identity="order" data-val="day_increase_desc" data-sk="increaseDay">日增长率<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+    
+    <th><a class="" data-identity="order" data-val="one_month_increase_desc" data-sk="increaseMonth">近一个月<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+    <th><a class="" data-identity="order" data-val="three_month_increase_desc" data-sk="increaseQuater">近三个月<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+            <th><a class="cur desc" data-identity="order" data-val="twelve_month_increase_asc" data-sk="increaseYear">近一年<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+                <th><a class="" data-identity="order" data-val="this_year_increase_desc" data-sk="increaseThisyear">今年以来<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+        <th><a class="" data-identity="order" data-val="total_increase_desc" data-sk="increaseAll">成立以来<b class="icon-arrow-up sprite-list"></b><b class="icon-arrow-down sprite-list"></b></a></th>
+            <th>起投金额(元)</th>
+    <th class="last"><label><input type="checkbox" class="canFixInvest" /> 可定投</label></th>
+</thead>
+        <tbody>
+                                                                                                                                <tr class="firstLine" data-sk-area="FundList-a" data-sk="AllFundList-1">
+                        <td class="align-left fund-code firstCol">530008</td>
+                        <td class="align-left">
+                            <a class="project-name" title="建信稳定增利C" href="//e.lufunds.com/jijin/detail?productId=2283052" target="_blank">建信稳定增利C</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.6140</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.06%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">0.44%</span>
+    </td>
+                            <td>                        <span class="is-decrease">-2.60%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">0.25%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">0.06%</span>
+    </td>
+                                <td>                        <span class="increase-number">103.93%</span>
+    </td>
+                                                                                                        <td>10.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=2283052" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-2">
+                        <td class="align-left fund-code firstCol">000824</td>
+                        <td class="align-left">
+                            <a class="project-name" title="圆信永丰双红利A" href="//e.lufunds.com/jijin/detail?productId=4122916" target="_blank">圆信永丰双红利A</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.1260</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.27%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">0.63%</span>
+    </td>
+                            <td>                        <span class="is-decrease">-2.00%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">25.53%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">0.54%</span>
+    </td>
+                                <td>                        <span class="increase-number">104.43%</span>
+    </td>
+                                                                                                        <td>200.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=4122916" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-3">
+                        <td class="align-left fund-code firstCol">519983</td>
+                        <td class="align-left">
+                            <a class="project-name" title="长信量化先锋A" href="//e.lufunds.com/jijin/detail?productId=8512938" target="_blank">长信量化先锋A</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.8980</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.96%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-2.72%</span>
+    </td>
+                            <td>                        <span class="is-decrease">-3.50%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">29.15%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-3.61%</span>
+    </td>
+                                <td>                        <span class="increase-number">162.71%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=8512938" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-4">
+                        <td class="align-left fund-code firstCol">378546</td>
+                        <td class="align-left">
+                            <a class="project-name" title="上投摩根全球天然资源" href="//e.lufunds.com/jijin/detail?productId=2186850" target="_blank">上投摩根全球天然资源</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>0.6820</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">1.53%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">6.07%</span>
+    </td>
+                            <td>                        <span class="increase-number">12.17%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">68.40%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">4.44%</span>
+    </td>
+                                <td>                        <span class="is-decrease">-31.80%</span>
+    </td>
+                                                                                                        <td>100.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=2186850" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-5">
+                        <td class="align-left fund-code firstCol">162411</td>
+                        <td class="align-left">
+                            <a class="project-name" title="华宝兴业标普油气人民币" href="//e.lufunds.com/jijin/detail?productId=8385295" target="_blank">华宝兴业标普油气人民币</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>0.7020</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.35%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-3.57%</span>
+    </td>
+                            <td>                        <span class="increase-number">10.03%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">59.55%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-1.68%</span>
+    </td>
+                                <td>                        <span class="is-decrease">-29.80%</span>
+    </td>
+                                                                                                        <td>100.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=8385295" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-6">
+                        <td class="align-left fund-code firstCol">001380</td>
+                        <td class="align-left">
+                            <a class="project-name" title="鹏华弘盛C" href="//e.lufunds.com/jijin/detail?productId=2279202" target="_blank">鹏华弘盛C</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.5124</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.08%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">0.48%</span>
+    </td>
+                            <td>                        <span class="is-decrease">-0.11%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">46.55%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">0.01%</span>
+    </td>
+                                <td>                        <span class="increase-number">50.94%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=2279202" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-7">
+                        <td class="align-left fund-code firstCol">163208</td>
+                        <td class="align-left">
+                            <a class="project-name" title="诺安油气能源" href="//e.lufunds.com/jijin/detail?productId=8385307" target="_blank">诺安油气能源</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>0.9700</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="is-decrease">-2.18%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-3.10%</span>
+    </td>
+                            <td>                        <span class="increase-number">7.78%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">41.19%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-1.82%</span>
+    </td>
+                                <td>                        <span class="is-decrease">-3.00%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=8385307" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-8">
+                        <td class="align-left fund-code firstCol">161725</td>
+                        <td class="align-left">
+                            <a class="project-name" title="招商中证白酒" href="//e.lufunds.com/jijin/detail?productId=8385650" target="_blank">招商中证白酒</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.0030</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.20%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">5.03%</span>
+    </td>
+                            <td>                        <span class="increase-number">6.66%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">41.14%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">2.45%</span>
+    </td>
+                                <td>                        <span class="increase-number">4.46%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=8385650" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-9">
+                        <td class="align-left fund-code firstCol">001903</td>
+                        <td class="align-left">
+                            <a class="project-name" title="光大欣鑫A" href="//e.lufunds.com/jijin/detail?productId=23662136" target="_blank">光大欣鑫A</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.5300</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.00%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">0.79%</span>
+    </td>
+                            <td>                        <span class="is-decrease">-2.80%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">40.44%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">0.26%</span>
+    </td>
+                                <td>                        <span class="increase-number">59.26%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=23662136" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-10">
+                        <td class="align-left fund-code firstCol">160416</td>
+                        <td class="align-left">
+                            <a class="project-name" title="华安标普全球石油" href="//e.lufunds.com/jijin/detail?productId=9357111" target="_blank">华安标普全球石油</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.0120</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="is-decrease">-1.65%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-1.65%</span>
+    </td>
+                            <td>                        <span class="increase-number">7.20%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">40.36%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-1.27%</span>
+    </td>
+                                <td>                        <span class="increase-number">5.18%</span>
+    </td>
+                                                                                                        <td>1.00</td>
+                        <td class="last">
+                                                            <a href="//e.lufunds.com/jijin/detail?productId=9357111" class="btn btn-assist" target="_blank">暂停交易</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-11">
+                        <td class="align-left fund-code firstCol">420003</td>
+                        <td class="align-left">
+                            <a class="project-name" title="天弘永定成长" href="//e.lufunds.com/jijin/detail?productId=6252971" target="_blank">天弘永定成长</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.8354</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">1.21%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">2.59%</span>
+    </td>
+                            <td>                        <span class="increase-number">0.21%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">39.10%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-0.11%</span>
+    </td>
+                                <td>                        <span class="increase-number">144.77%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=6252971" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-12">
+                        <td class="align-left fund-code firstCol">210004</td>
+                        <td class="align-left">
+                            <a class="project-name" title="金鹰稳健成长" href="//e.lufunds.com/jijin/detail?productId=2429437" target="_blank">金鹰稳健成长</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.4950</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.40%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-2.99%</span>
+    </td>
+                            <td>                        <span class="increase-number">1.84%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">38.81%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-3.30%</span>
+    </td>
+                                <td>                        <span class="increase-number">150.15%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=2429437" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-13">
+                        <td class="align-left fund-code firstCol">002186</td>
+                        <td class="align-left">
+                            <a class="project-name" title="国联安鑫享C" href="//e.lufunds.com/jijin/detail?productId=18290018" target="_blank">国联安鑫享C</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>1.4180</p>
+                                            <p class="fund-date">2017/01/23</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.00%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">0.85%</span>
+    </td>
+                            <td>                        <span class="increase-number">0.57%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">37.94%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">0.57%</span>
+    </td>
+                                <td>                        <span class="increase-number">38.34%</span>
+    </td>
+                                                                                                        <td>1,000.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=18290018" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                <tr class="" data-sk-area="FundList-a" data-sk="AllFundList-14">
+                        <td class="align-left fund-code firstCol">160121</td>
+                        <td class="align-left">
+                            <a class="project-name" title="南方金砖四国" href="//e.lufunds.com/jijin/detail?productId=5818609" target="_blank">南方金砖四国</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>0.8820</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="increase-number">0.83%</span>
+    </td>
+                                                        <td>                        <span class="increase-number">4.63%</span>
+    </td>
+                            <td>                        <span class="increase-number">0.23%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">37.17%</span>
+    </td>
+                                                                                        <td>                        <span class="increase-number">1.85%</span>
+    </td>
+                                <td>                        <span class="is-decrease">-10.08%</span>
+    </td>
+                                                                                                        <td>10.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=5818609" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                                                                                                    <tr class="lastLine" data-sk-area="FundList-a" data-sk="AllFundList-15">
+                        <td class="align-left fund-code firstCol">164815</td>
+                        <td class="align-left">
+                            <a class="project-name" title="工银瑞信国际原油人民币" href="//e.lufunds.com/jijin/detail?productId=8385266" target="_blank">工银瑞信国际原油人民币</a>
+                        </td>
+                                                                                    <td class="align-left">
+                                                                                                                        <p>0.8707</p>
+                                            <p class="fund-date">2017/01/20</p>
+                                                                                                            </td>
+                                <td>                        <span class="is-decrease">-0.49%</span>
+    </td>
+                                                        <td>                        <span class="is-decrease">-1.28%</span>
+    </td>
+                            <td>                        <span class="increase-number">4.28%</span>
+    </td>
+                                                            <td>                        <span class="increase-number">35.20%</span>
+    </td>
+                                                                                        <td>                        <span class="is-decrease">-1.99%</span>
+    </td>
+                                <td>                        <span class="is-decrease">-12.93%</span>
+    </td>
+                                                                                                        <td>10.00</td>
+                        <td class="last">
+                                                            <a class="btn btn-primary" href="//e.lufunds.com/jijin/detail?productId=8385266" target="_blank">投资</a>
+                                                    </td>
+                    </tr>
+                                    </tbody>
+    </table>
+    
+</div>
+
+    </div>
+    <div class="pagination ui_complex_pagination">
+                        <div class="pagination-inner">
+                            <span class="btns disabled btn_page btn_small first">首页</span>
+            <span class="btns disabled btn_page btn_small prev"><span class="caret">&lt;</span> 上一页</span>
+        
+        <p class="pageNum">第1页/共250页</p>
+
+                    <a class="btns btn_page btn_small next" href="javascript:void(0)" data-identity="pages"
+               data-val=2>下一页<span
+                    class="caret">&gt;</span></a>
+            <a class="btns btn_page btn_small last" href="javascript:void(0)" data-identity="pages"
+               data-val="250">尾页</a>
+            </div>
+        </div>
+</div>
+
+
+
+    <div class="lufunds-footer">
+    <ul class="info-wrap">
+        <li>
+            <a href="http://www.lufunds.com/front/common_100344.jhtml" target="_blank" class="qualification">
+                基金销售资格
+                <i></i>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.csrc.gov.cn/pub/newsite/" target="_blank" class="supervise">
+                监督机构
+                <i></i>
+            </a>
+        </li>
+        <li>
+            <a href="http://bank.pingan.com/index.shtml" target="_blank" class="bank">
+                监管银行
+                <i></i>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.amac.org.cn/" target="_blank" class="self-discipline">
+                自律组织
+                <i></i>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright-wrap">
+        <div class="copyright">
+            <span class="hot-line">客服热线 400 821 9031 (工作日9:00～17:00)</span>
+            <span>CopyRight 上海陆金所资产管理有限公司 陆基金官方网站  <a target="_blank" href="http://www.miibeian.gov.cn">备案/许可证编号 : 沪ICP备15012701号</a></span>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var Global = {};
+    Global.basePath = "/jijin/";
+    Global.rarvAppPath="http://rsrv.lufax.app/rsrv-app/";
+</script>
+
+    <script type="text/javascript" src="//static.lufaxcdn.com/lufax-public/jquery/jquery.ed07cc96.js"></script>
+    <script type="text/javascript" src="//static.lufaxcdn.com/lufax-components/lufax-components.fund.7cb88ae0.js"></script>
+    <script type="text/javascript" src="//static.lufaxcdn.com/lufax-public/lufax-lib/lufax-lib.bf30faf2.js"></script>
+<script type="text/javascript" src="//static.lufaxcdn.com/lufax-public/lufax-public/lufax-public.6bd3ace3.js"></script>
+
+    
+    
+        <script type="text/javascript" src="https://static.lufaxcdn.com/jijin/resource/require/require_config.8af23136.js"></script>
+    
+        <script type="text/javascript" src="https://static.lufaxcdn.com/jijin/resource/listing/main/newBigList/allFundV2.f2f8423d.js"></script>
+    
+    <script type="text/javascript" src="//static.lufaxcdn.com/lufax-public/statistic/statistic.9a599d27.js"></script>
+<!-- put int <head> tag-->
+
+<script language="javascript" type="text/javascript">
+    function loadWTScript(a, b) {
+        var c = document.createElement("script");
+        c.type = "text/javascript",
+                c.async = !0,
+                c.src = a,
+                dcsReady(c, b),
+                document.getElementsByTagName("head")[0].appendChild(c)
+    }
+    function dcsReady(a, b) {
+        a.readyState ? a.onreadystatechange = function() { ("loaded" == a.readyState || "complete" == a.readyState) && (a.onreadystatechange = null, b())
+        }: a.onload = function() {
+            b()
+        }
+    }
+    loadWTScript(window.location.protocol.indexOf('https:')==0?'https://pa-ssl.pingan.com/app_js/sdc/prd/sdc9.js':'http://www.pingan.com/app_js/sdc/prd/sdc9.js', function(){
+        if (typeof(_tag) != "undefined"){
+            _tag.dcsid="dcsxqgp7nakqoagskruioagxc_1k3h"; //dcsid参数用于设置日志记录在哪个文件里
+            _tag.DCSext.platform="lu";  //按需要修改成不同的平台名称，例如toa
+            var s=_tag.dcsGetIdAsync();
+            if(s)
+                dcsReady(s,function(){_tag.dcsCollect()});
+            else
+                _tag.dcsCollect();
+        }
+    })
+</script>
+<div style="display: none">
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1005340584/?value=0&guid=ON&script=0"/>
+        </div>
+    </noscript>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 1005340584;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+</div>
+<script type="text/javascript" src="https://static.lufaxcdn.com/lufax-public/statistic_sdc/20141016.statistic_sdc.min.js"></script>
+</body>
+</html>

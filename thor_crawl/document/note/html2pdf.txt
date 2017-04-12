@@ -1,0 +1,18 @@
+# options = {
+#         # 'page-size': 'Letter',
+#         # 'margin-top': '0.75in',
+#         # 'margin-right': '0.75in',
+#         # 'margin-bottom': '0.75in',
+#         # 'margin-left': '0.75in',
+#         'encoding': "UTF-8",
+#         'no-outline': None,
+#         'minimum-font-size': 30,
+#         'disable-smart-shrinking': None,
+#         'no-pdf-compression': None
+#     }
+#
+# toc = {
+#         'xsl-style-sheet': 'toc.xsl'
+#     }
+#
+# pdfkit.from_url('http://www.cbia.com.cn/index.php/Home/Infoforum/infodetail/code/ATH1459315004XQBT', 'out.pdf', options=options)

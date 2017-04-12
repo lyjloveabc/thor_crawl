@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <script type="text/javascript">
+        var timePoints = {}, rTime = {}, rTimeBase = new Date().getTime(), _speedNotReported = true;
+    </script>
+    <meta charset="utf-8">
+    <title>个人中心 - 全民K歌</title>
+    <script type="text/javascript">
+        if (/android|iphone|ipad|ipod/ig.test(navigator.userAgent)) {
+            location.replace('http://kg.qq.com/d.html' + location.search);
+        }
+    </script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Tencent-ISUX-Music">
+    <meta name="Copyright" content="Tencent">
+    <meta name="keywords" content="作品,伴奏,粉丝,关注,合唱,一起唱,独唱,K歌,K歌软件,在线K歌,唱歌,唱K,手机KTV,手机K歌,手机K歌软件,练歌,练歌软件,微信K歌神器,手机K歌神器,K歌软件哪个好"/>
+    <meta name="description" content="全球首款熟人社交K歌应用，集合练歌模式、好友PK等特色功能，还能和好友互发弹幕互动，赶紧下载和小伙伴一起争夺擂主吧！"/>
+    <meta name="baidu-site-verification" content="giMDplPvug"/>
+    <meta name="applicable-device" content="pc,mobile">
+    <script type="text/javascript">
+        timePoints['cssbegin'] = new Date().getTime();//css加载开始
+    </script>
+    <!--[if lte IE 8]>
+    <link href="//kg.qq.com/gtimg/mediastyle/kge_v2/ie8.css" rel="stylesheet"/><![endif]-->
+    <!--[if lte IE 9]>
+    <style type="text/css">.my_show__mask, .my_show__bg {
+        display: none;
+    }</style><![endif]-->
+    <link href="//kg.qq.com/gtimg/mediastyle/kge_v2/center.css" rel="stylesheet"/>
+    <script type="text/javascript">
+        timePoints['cssend'] = new Date().getTime();//css加载完成，head加载结束
+    </script>
+</head>
+<body>
+<!--头部 S-->
+<div class="mod_bar js_kg_head">
+</div>
+<!--头部 E-->
+<!--导航 S-->
+<div class="mod_nav js_kg_nav">
+</div>
+<!--导航 E-->
+<!--主要内容 S-->
+<div class="mod_wrap">
+    <!--个人信息 S-->
+    <div class="my_show">
+    </div>
+    <!--个人信息 E-->
+    <!--导航 S-->
+    <div class="my_nav">
+    </div>
+    <!--导航 E-->
+    <!--作品 S-->
+    <div class="opus_show" id="opus_show">
+    </div>
+    <div class="mod_pages" id="mod_pages"></div>
+    <!--作品 E-->
+    <div class="mod_up">
+        <a href="#" class="icon icon_up">回到顶部</a>
+    </div>
+</div>
+<!--主要内容 E-->
+<!--尾部 S-->
+<div class="mod_footer" id="frame_bottom">
+    <!--这里是底部版权信息等，这里的内容由JS生成-->
+</div>
+<!-- 提示浮层 -->
+<div id="popup"></div>
+<script type="text/html" id="user_tmpl">
+    <div class="my_show__bg" style="display:none">
+    </div>
+    <div class="my_show__mask" style="display:none"></div>
+    <div class="my_show__con">
+        <img class="my_show__photo" src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/face_default.png" data-lazyload="{head_img_url}" alt=""/>
+        <div class="my_show__user">
+            <span class="my_show__name">{nickname}</span>
+            <span class="icon_level_big icon_lb{level}"></span><span>{vip_green}</span>
+        </div>
+        <div class="my_show__info">
+            {levelname}
+            <span class="icon icon_{sex}"></span>
+            {age} {address}
+        </div>
+        <a href="http://kg.qq.com/html/contest/work_upload.html" class="btn_upload" title="上传作品" style="display:{upload}">上传作品</a>
+    </div>
+    <div class="my_show__share">
+        <a href="javascript:;" id="share_qzone" target="_blank"><span class="icon icon_qzone"></span></a>
+        <a href="javascript:;" id="share_sina" target="_blank"><span class="icon icon_sina"></span></a>
+        <a href="javascript:;" id="share_wechat"><span class="icon icon_weixin"></span></a>
+        <div class="my_share__code" style="display:none;" id="wechat_pic">
+            <img alt=""/>
+            <p>微信扫描分享朋友圈</p>
+            <span class="arrow_top"></span>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="user_list_tmpl">
+    <ul class="my_nav__list">
+        <li><a href="javascript:" class="my_nav__item my_nav__item--current" id="ugc">{guest}的作品 {ugc_total_count}</a></li>
+        <li><a href="javascript:" class="my_nav__item" id="album">{guest}的专辑 {album}</a></li>
+        <li><a href="javascript:" class="my_nav__item" id="followers">{guest}的粉丝 {follower}</a></li>
+        <li><a href="javascript:" class="my_nav__item" id="following">{guest}的关注 {following}</a></li>
+    </ul>
+</script>
+<script type="text/html" id="ugc_tmpl">
+    <li class="opus_list__item">
+        <a href="http://kg.qq.com/share.html?s={shareid}" class="opus_list__show opus_list__show--current">
+            <div class="opus_list__img"><img src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/face_default.png" data-lazyload="{avatar}"
+                                             alt=""/></div>
+            <div class="opus_list__mask"></div>
+            <div class="opus_list__count">
+                <span class="opus_list__icon icon_play_s icon"></span>
+                <p class="opus_list__song"><span class="icon {icon}"></span> {title}</p>
+                <p class="opus_list__name"><em>{score_rank}</em><span class="icon icon_listen"></span>{play_count}</p>
+            </div>
+            <span class="corner corner_{mask}"></span>
+        </a>
+    </li>
+</script>
+<script type="text/html" id="followers_tmpl">
+    <li>
+        <a href="//kg.qq.com/personal.html?uid={uid}" class="fans_list__item">
+            <div class="fans_list__photo">
+                <img class="fans_list__img" src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/face_default.png" data-lazyload="{head_img_url}"
+                     width="50" height="50" alt=""/>
+                <span class="icon_level_big icon_lb{level}"></span>
+            </div>
+            <p class="fans_list__name">{nickname}</p>
+            <p class="fans_list__info">{levelname}</p>
+        </a>
+    </li>
+</script>
+<script type="text/html" id="ugc_full">
+    <div class="mod_tips_full">
+        <img src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/tips_empty.png" alt="提示"/>
+        <p>还没有作品哦！</p>
+    </div>
+</script>
+<script type="text/html" id="followers_full">
+    <div class="mod_tips_full">
+        <img src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/tips_sad.png" alt="提示"/>
+        <p>还没有粉丝哦！</p>
+    </div>
+</script>
+<script type="text/html" id="following_full">
+    <div class="mod_tips_full">
+        <img src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/tips_sad.png" alt="提示"/>
+        <p>还没有关注别人哦！</p>
+    </div>
+</script>
+<script type="text/html" id="mod_tip">
+    <div style="width:384px;position:absolute;top:260px;left:50%; margin-left:-192px;">
+        <div class="popup_dialog popup_system">
+            <div class="popup_dialog_hd">
+                <h3>弹窗标题</h3>
+                <a href="javascript:;" class="popup_dialog_close" title="关闭">关闭</a>
+            </div>
+            <div class="popup_dialog_cont">
+                <div class="popup_system_type">
+                    <i class="icon icon_warning"></i>
+                    <p class="other_tip">{title}</p>
+                    <p class="dialog_info">{tip}</p>
+                    <p class="dialog_btn">
+                        <a href="javascript:;" title="确认" class="btn_confirm">确认</a>
+                        <a href="javascript:;" title="取消" class="btn_cancel">取消</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+    <!-- HTML加载完成 -->
+    timePoints['jsbegin'] = new Date().getTime(); //js加载开始
+</script>
+<!-- 要引入的JS文件，这个文件用来动态生成页面的头部和底部，最终这个文件会在服务端合并请开发删除 -->
+<script src="//kg.qq.com/gtimg/mediastyle/global/js/jquery.min.js"></script>
+<script type="text/javascript" src="//kg.qq.com/gtimg/music/kg/lib/sea-kg.js?max_age=31104000000"></script>
+<!--ie6 png fix-->
+<!--[if IE 6]>
+<script type="text/javascript" src="//kg.qq.com/gtimg/mediastyle/kge_v2/sprite/DD_belatedPNG_0.0.8a.js"></script><![endif]-->
+<script>
+    $(document).ready(function () {
+        timePoints['domready'] = new Date().getTime(); //domready加载完成
+    });
+
+    rTime['1'] = new Date().getTime() - rTimeBase;
+    document.domain = 'qq.com';
+
+    seajs.config({
+        base: '//kg.qq.com/gtimg/music/kg',
+        timeout: 8000
+    });
+    var list = [
+        '/music/kg/lib/common.js',
+        '/music/kg/lib/user.js',
+        '/music/kg/lib/lazy.js'
+    ]
+    document.write('<script type="text/javascript" charset="utf-8" src="\/\/kg.qq.com\/gtimg\/c\/=' + list.join(',') + '"><\/script>');
+</script>
+<script>
+    String.prototype.tplFormat = function () {
+        var a = arguments;
+        var data = (a.length == 1 && typeof (a[0]) == 'object') ? a[0] : a;
+        return this.replace(/[\r\t\n]/g, '').replace(/\{([\d\w]+)?\}/g, function (m, n) {
+            return data[n] !== undefined ? data[n].toString() : m;
+        });
+    };
+
+    define('main', function (require, exports, module) {
+        var user = require('lib/user');
+        var common = require('lib/common');
+        var lazy = require('lib/lazy');
+        var loc = require('loc');
+        var g_followers = 0, g_ugc = 0, g_share = null;
+        var levelMap = {
+            0: '',
+            1: 'C',
+            2: 'B',
+            3: 'A',
+            4: 'S',
+            5: 'SS',
+            6: 'SSS'
+        };
+        exports = module.exports = {
+            init: function () {
+                user.init({
+                    callback: function () {
+                        setTimeout(function () {
+                            exports.get.user();
+                            exports.bind();
+                        }, 1200);
+                    }
+                });
+                this.get.user();
+                this.bind();
+                //pv上报
+                common.pv();
+            },
+            param: {//pre_uid:上一次拉取的最后一个粉丝的uid,last_tm:后台返回的上一次拉取粉丝时间
+                pre_uid: 0,
+                last_tm: 0,
+                followingIndex: 1,
+                ugcIndex: 1,
+                ugcPage: 8,
+                followerPage: 18,
+                followingPage: 18
+            },
+            get: {
+                user: function () {
+                    rTime['2'] = new Date().getTime() - rTimeBase;
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/kg_ugc_get_homepage',
+                        data: {
+                            type: 'get_uinfo',
+                            start: 1,
+                            num: exports.param.ugcPage,
+                            touin: common.getParameter('touin'),
+                            share_uid: common.getParameter('uid')
+                        },
+                        success: function (res) {
+                            g_ugc = res.data.ugc_total_count;
+                            g_followers = res.data.follower;
+                            exports.render.user(res.data);
+                        },
+                        error: function (e) {
+                            alert('获取信息失败，请稍后重试！');
+                        }
+                    });
+                },
+                followers: function () {//拉取粉丝信息
+                    rTime['4'] = new Date().getTime() - rTimeBase;
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/kg_ugc_get_homepage',
+                        data: {
+                            type: 'get_follower',
+                            pre_uid: exports.param.pre_uid,
+                            last_tm: exports.param.last_tm,
+                            touin: common.getParameter('touin'),
+                            share_uid: common.getParameter('uid')
+                        },
+                        success: function (res) {
+                            if (res.data.follower) {
+                                exports.render.followers(res.data);
+                                exports.param.last_tm = res.data.last_tm;
+                                $('#followers').html($('#followers').html().replace(/\d+/, res.data.follower_num));
+                            } else {
+                                $('#opus_show').html($('#followers_full').html());
+                            }
+                        },
+                        error: function (e) {
+                            alert('获取信息失败，请稍后重试！');
+                        }
+                    });
+                },
+                following: function () {//拉取关注信息
+                    rTime['6'] = new Date().getTime() - rTimeBase;
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/kg_ugc_get_homepage',
+                        data: {
+                            type: 'get_following',
+                            touin: common.getParameter('touin'),
+                            start: exports.param.followingIndex,
+                            share_uid: common.getParameter('uid')
+                        },
+                        success: function (res) {
+                            if (res.data.following) {
+                                exports.render.following(res.data);
+                                $('#following').html($('#following').html().replace(/\d+/, res.data.following_num));
+                            } else {
+                                $('#opus_show').html($('#following_full').html());
+                            }
+
+                            new Image().src = common.parseUrlHttps('http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=170&flag2=138&flag3=26&6=' + rTime['6'] + '&7=' + rTime['7']);
+                        },
+                        error: function (e) {
+                            alert(e.message);
+                        }
+                    });
+                },
+                ugc: function () {//拉取作品
+                    rTime['8'] = new Date().getTime() - rTimeBase;
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/kg_ugc_get_homepage',
+                        data: {
+                            type: 'get_ugc',
+                            start: exports.param.ugcIndex,
+                            num: exports.param.ugcPage,
+                            touin: common.getParameter('touin'),
+                            share_uid: common.getParameter('uid')
+                        },
+                        success: function (res) {
+                            exports.render.ugc(res.data);
+                            $('#ugc').html($('#ugc').html().replace(/\d+/, res.data.ugc_total_count));
+                        },
+                        error: function (e) {
+                            alert('获取信息失败，请稍后重试！');
+                        }
+                    });
+                },
+                album: function () {
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/fcg_user_album_list',
+                        data: {
+                            dest_uid: common.getParameter('uid')
+                        },
+                        success: function (res) {
+                            if (res.data.album_num == 0) {
+                                $('#opus_show').html('<div class="mod_tips_full"><img src="//kg.qq.com/gtimg/mediastyle/kge_v2/img/tips_empty.png" alt="提示" /><p>还没有专辑哦！</p></div>');
+                            } else {
+                                exports.render.album(res.data);
+                            }
+                        },
+                        error: function (e) {
+                            alert(e.message);
+                        }
+                    });
+                }
+            },
+            render: {
+                user: function (o) {
+                    rTime['3'] = new Date().getTime() - rTimeBase;
+                    g_share = {
+                        title: '分享' + o.nickname + '的个人主页',
+                        link: location.protocol + '//kg.qq.com/personal.html?uid=' + common.getParameter('uid'),
+                        img_url: common.parseUrlHttps(o.head_img_url),
+                        content: '作品数：' + o.ugc_total_count + '\n' + '粉丝数：' + o.follower + '\n' + '关注数：' + o.following
+                    };
+
+                    var tmpl = $('#user_tmpl').html(),
+                            works_tmpl = $('#user_list_tmpl').html();
+
+                    if (o.gender) {
+                        o.sex = o.gender == 2 ? 'girl' : 'boy';
+                    } else {
+                        o.sex = '';
+                    }
+
+                    o.address = o.sProvinceId ? loc.getLoc(o.sProvinceId, o.sCityId) : '';
+                    o.vip_green = o.is_vip_green ? '<img src="//kg.qq.com/gtimg/music/icon/h5/vip' + o.green_level + '.png" style="width:21px;height:15px;"/>' : '';
+                    o.age = o.age ? o.age + '岁' : '';
+                    o.follower = exports.numFormat(o.follower);
+                    o.ugc_total_count = exports.numFormat(o.ugc_total_count);
+                    o.following = exports.numFormat(o.following);
+                    o.guest = o.is_guest ? (o.gender == 2 ? '她' : '他') : '我';
+                    o.nickname = common.parseEmoji(o.nickname);
+                    o.upload = o.is_guest ? 'none' : '';
+                    o.album = 0;
+                    $('div.my_nav').html(works_tmpl.tplFormat(o));
+
+                    common.ajax({
+                        url: 'http://cgi.kg.qq.com/fcgi-bin/fcg_user_album_list',
+                        data: {
+                            dest_uid: common.getParameter('uid'),
+                            cmd: 'get_num'
+                        },
+                        success: function (res) {
+                            o.album = res.data.album_num;
+                            $('div.my_nav').html(works_tmpl.tplFormat(o));
+                        }
+                    });
+
+                    $('div.my_show').html(tmpl.tplFormat(o));
+                    lazy.load();
+
+                    exports.share.init();
+                    if (o.ugc_total_count < 1) {
+                        $('#opus_show').html($('#ugc_full').html());
+                    } else {
+                        exports.render.ugc(o);
+                    }
+
+                    if (o.covers && o.covers.length) {
+
+                        var IE = '';
+                        if (window.ActiveXObject) {//使用window.ActiveXObject判断ie
+                            IE = document.documentMode ? document.documentMode : 7;//ie8以下不支持document.documentMode，所以默认ie版本为7
+                        }
+
+                        if (!IE || (IE && IE > 9)) {
+
+                            $('.my_show__bg').html(
+                                    $.map(o.covers, function (item) {
+                                        return '<span style="background-image:url(' + item.cover + ');"></span>'
+                                    }).join('')
+                            ).show();
+
+                            $('.my_show__mask').show();
+                        }
+                    }
+
+                    timePoints['active'] = new Date().getTime();
+
+                    if (location.protocol === 'https:') {
+                        common.speed(1608, 1, 45);
+                    } else {
+                        common.speed(1608, 1, 4);
+                    }
+
+
+                    new Image().src = common.parseUrlHttps('http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=170&flag2=138&flag3=26&' + $.param(rTime));
+
+
+                },
+                followers: function (o) {
+                    rTime['5'] = new Date().getTime() - rTimeBase;
+                    var tmpl = $('#followers_tmpl').html();
+                    var followersHtm = [];
+                    var uid = 0;
+
+                    $.each(o.follower, function (i, follower) {
+                        if (i == o.follower.length - 1) {
+                            uid = follower.uid;
+                        }
+                        follower.nickname = follower.nickname ? common.parseEmoji(follower.nickname) : '&nbsp;';
+                        followersHtm.push(tmpl.tplFormat(follower));
+                    });
+
+                    var htm = followersHtm.join('');
+
+                    if (exports.param.pre_uid != 0) {
+                        $('.fans_list').append(htm);
+                    } else {
+                        $('#opus_show').html('<ul class="fans_list clear_fix">' + htm + '</ul>');
+                    }
+                    lazy.load();
+                    exports.param.pre_uid = uid;
+
+                    if (o.has_more) {
+                        $('#mod_pages').html('<div class="mod_more"><a href="javascript:" class="btn_more" id="follower_more">查看更多</a></div>');
+                    } else {
+                        $('#mod_pages').html('');
+                    }
+
+                    new Image().src = common.parseUrlHttps('http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=170&flag2=138&flag3=26&4=' + rTime['4'] + '&5=' + rTime['5']);
+                },
+                following: function (o) {
+                    rTime['7'] = new Date().getTime() - rTimeBase;
+                    var tmpl = $('#followers_tmpl').html();
+                    var followingsHtm = [];
+
+                    $.each(o.following, function (i, following) {
+                        following.nickname = following.nickname ? common.parseEmoji(following.nickname) : '&nbsp;';
+                        followingsHtm.push(tmpl.tplFormat(following));
+                    });
+
+                    var htm = followingsHtm.join('');
+
+                    if (exports.param.followingIndex != 1) {
+                        $('.fans_list').append(htm);
+                    } else {
+                        $('#opus_show').html('<ul class="fans_list clear_fix">' + htm + '</ul>');
+                    }
+                    lazy.load();
+                    if (exports.param.followingIndex < Math.ceil(o.following_num / exports.param.followingPage)) {
+                        $('#mod_pages').html('<div class="mod_more"><a href="javascript:" class="btn_more" id="following_more">查看更多</a></div>');
+                    } else {
+                        $('#mod_pages').html('');
+                    }
+
+
+                },
+                ugc: function (o) {
+                    rTime['9'] = new Date().getTime() - rTimeBase;
+                    if (o.ugclist) {
+                        var tmpl = $('#ugc_tmpl').html();
+                        var ugcHtm = [];
+
+                        $.each(o.ugclist, function (i, ugc) {
+                            ugc.play_count = exports.numFormat(ugc.play_count);
+                            ugc.mask = (ugc.ugcmask & 0x01) ? 'mv' : (ugc.ugcmask & 0x8000 || ugc.ugcmask & 0x4000 || ugc.ugcmask & 0x2000) ? 'hc' : (ugc.ugcmask & 0x20000) ? 'qc' : (ugc.is_segment) ? 'pa' : '';
+                            ugc.icon = (ugc.ugcmask & 0x40000) ? 'icon_main' : (ugc.ugcmask & 0x800 || ugc.ugcmask & 0x10 || ugc.ugcmask & 0x100) ? 'icon_lock' : (ugc.ugcmask & 0x08) ? 'icon_wait' : '';
+                            ugc.score_rank = levelMap[ugc.score_rank];
+
+                            ugcHtm.push(tmpl.tplFormat(ugc));
+                        });
+
+                        var htm = ugcHtm.join('');
+
+
+                        if (exports.param.ugcIndex != 1) {
+                            $('.opus_list').append(htm);
+                        } else {
+                            $('#opus_show').html('<ul class="opus_list clear_fix">' + htm + '</ul>');
+                        }
+                        lazy.load();
+                        if (exports.param.ugcIndex < Math.ceil(g_ugc / exports.param.ugcPage)) {
+                            $('#mod_pages').html('<div class="mod_more"><a href="javascript:" class="btn_more" id="ugc_more">查看更多</a></div>');
+                        } else {
+                            $('#mod_pages').html('');
+                        }
+                    } else {
+                        $('#opus_show').html($('#ugc_full').html());
+                    }
+
+                    new Image().src = common.parseUrlHttps('http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=170&flag2=138&flag3=26&8=' + rTime['8'] + '&9=' + rTime['9']);
+                },
+                album: function (data) {
+                    var htm = '';
+                    $.each(data.album_list, function (index, item) {
+                        htm += [
+                            '<li class="opus_list__item">',
+                            '<a href="http://kg.qq.com/solo_album_share.html?s=' + item.album_id + '" class="opus_list__show">',
+                            '<div class="opus_list__img"><img src="' + common.parseUrlHttps(item.cover) + '" alt="" /></div>',
+                            '<div class="opus_list__mask"></div>',
+                            '<div class="opus_list__count">',
+                            '<span class="opus_list__icon icon_play_s"></span>',
+                            '<p class="opus_list__song"><span class="opus_list__song_name">' + common.parseEmoji(item.album_name) + '</span><span class="opus_list__song_count">（共' + item.ugc_num + '首）</span></p>',
+                            '<p class="opus_list__name"><span class="opus_list__name_item"><i class="icon icon_gift"></i>' + exports.numFormat(item.gift_num) + '</span><span class="opus_list__name_item"><i class="icon icon_comment"></i>' + exports.numFormat(item.comment_num) + '</span></p>',
+                            '</div>',
+                            '</a>',
+                            '</li>'
+                        ].join("");
+                    });
+                    $('#opus_show').html('<ul class="opus_list clear_fix">' + htm + '</ul>');
+                }
+            },
+            bind: function () {
+                $(document.body).on('click', '.my_nav a', function () {
+                    var id = $(this).attr('id');
+                    $('#mod_pages').html(' ');
+                    $('.my_nav a').removeClass('my_nav__item--current');
+                    $(this).addClass('my_nav__item--current');
+                    exports.param.pre_uid = 0;
+                    exports.param.last_tm = 0;
+                    exports.param.followingIndex = 1;
+                    exports.param.ugcIndex = 1;
+                    exports.get[id]();
+                    return false;
+                })
+                        .on('click', '#follower_more', function () {
+                            exports.param.followerIndex += 1;
+                            exports.get.followers();
+                            return false;
+                        })
+                        .on('click', '#following_more', function () {
+                            exports.param.followingIndex += 1;
+                            exports.get.following();
+                            return false;
+                        })
+                        .on('click', '#ugc_more', function () {
+                            exports.param.ugcIndex += 1;
+                            exports.get.ugc();
+                            return false;
+                        });
+
+                $('#popup').on('click', '.popup_dialog_close,.btn_cancel,.btn_confirm', function () {
+                    $('#popup').hide();
+                });
+            },
+            numFormat: function (num) {
+                return num >= 100000000 ? Math.floor(num / 100000000) + '亿+' : (num >= 1000000 ? Math.floor(num / 10000) + 'W+' : num)
+            },
+            speed: function () {
+                new Image().src = common.parseUrlHttps('http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=170&flag2=138&flag3=26&' + $.param(rTime));
+            },
+            share: {
+                init: function () {
+                    exports.share.shareToQzone();
+                    exports.share.shareToSina();
+                    exports.share.shareToweixin();
+
+                },
+                shareToQzone: function () {
+                    $('#share_qzone').attr('href', 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?' + $.param({
+                                url: g_share.link,
+                                content: g_share.content,
+                                summary: g_share.content,
+                                title: g_share.title,
+                                pics: g_share.img_url
+                            }));
+
+                },
+                shareToSina: function () {
+                    var url = 'http://v.t.sina.com.cn/share/share.php?title=' + encodeURIComponent(g_share.title) + '&pic=' + encodeURIComponent(g_share.img_url) + '&url=' + encodeURIComponent(g_share.link);
+                    $('#share_sina').attr('href', url);
+                },
+                shareToweixin: function () {
+
+                    var stay_link = common.parseUrlHttps("http://t.plcloud.music.qq.com/fcgi-bin/fcg_get_2dcode.fcg?width=128&margin=1&eclevel=&encode=1&url=" + encodeURIComponent(g_share.link + '&stay=true'));
+                    $('#wechat_pic img').attr('src', stay_link);
+                    $(document.body).on('mouseenter', '#share_wechat,#wechat_pic', function () {
+                        $('#wechat_pic').show();
+                    }).on('mouseleave', '#share_wechat,#wechat_pic', function () {
+                        $('#wechat_pic').hide();
+                    })
+
+                }
+            }
+        }
+        exports.init();
+    });
+
+    define('loc', function (require, exports, module) {
+        var loc = {
+            "11": {
+                "name": "北京",
+                "cities": {
+                    "1": "东城",
+                    "2": "西城",
+                    "3": "崇文",
+                    "4": "宣武",
+                    "5": "朝阳",
+                    "6": "丰台",
+                    "7": "石景山",
+                    "8": "海淀",
+                    "9": "门头沟",
+                    "11": "房山",
+                    "12": "通州",
+                    "13": "顺义",
+                    "21": "昌平",
+                    "24": "大兴",
+                    "26": "平谷",
+                    "27": "怀柔",
+                    "28": "密云",
+                    "29": "延庆"
+                }
+            },
+            "12": {
+                "name": "天津",
+                "cities": {
+                    "1": "和平",
+                    "2": "河东",
+                    "3": "河西",
+                    "4": "南开",
+                    "5": "河北",
+                    "6": "红桥",
+                    "7": "塘沽",
+                    "8": "汉沽",
+                    "9": "大港",
+                    "10": "东丽",
+                    "11": "西青",
+                    "12": "津南",
+                    "13": "北辰",
+                    "21": "宁河",
+                    "22": "武清",
+                    "23": "静海",
+                    "24": "宝坻",
+                    "25": "蓟县",
+                    "26": "滨海新区"
+                }
+            },
+            "13": {
+                "name": "河北",
+                "cities": {
+                    "1": "石家庄",
+                    "2": "唐山",
+                    "3": "秦皇岛",
+                    "4": "邯郸",
+                    "5": "邢台",
+                    "6": "保定",
+                    "7": "张家口",
+                    "8": "承德",
+                    "9": "沧州",
+                    "10": "廊坊",
+                    "11": "衡水"
+                }
+            },
+            "14": {
+                "name": "山西",
+                "cities": {
+                    "1": "太原",
+                    "2": "大同",
+                    "3": "阳泉",
+                    "4": "长治",
+                    "5": "晋城",
+                    "6": "朔州",
+                    "7": "晋中",
+                    "8": "运城",
+                    "9": "忻州",
+                    "10": "临汾",
+                    "11": "吕梁"
+                }
+            },
+            "15": {
+                "name": "内蒙古",
+                "cities": {
+                    "1": "呼和浩特",
+                    "2": "包头",
+                    "3": "乌海",
+                    "4": "赤峰",
+                    "5": "通辽",
+                    "6": "鄂尔多斯",
+                    "7": "呼伦贝尔",
+                    "8": "巴彦淖尔",
+                    "9": "乌兰察布",
+                    "22": "兴安",
+                    "25": "锡林郭勒",
+                    "29": "阿拉善"
+                }
+            },
+            "21": {
+                "name": "辽宁",
+                "cities": {
+                    "1": "沈阳",
+                    "2": "大连",
+                    "3": "鞍山",
+                    "4": "抚顺",
+                    "5": "本溪",
+                    "6": "丹东",
+                    "7": "锦州",
+                    "8": "营口",
+                    "9": "阜新",
+                    "10": "辽阳",
+                    "11": "盘锦",
+                    "12": "铁岭",
+                    "13": "朝阳",
+                    "14": "葫芦岛"
+                }
+            },
+            "22": {
+                "name": "吉林",
+                "cities": {"1": "长春", "2": "吉林", "3": "四平", "4": "辽源", "5": "通化", "6": "白山", "7": "松原", "8": "白城", "24": "延边"}
+            },
+            "23": {
+                "name": "黑龙江",
+                "cities": {
+                    "1": "哈尔滨",
+                    "2": "齐齐哈尔",
+                    "3": "鸡西",
+                    "4": "鹤岗",
+                    "5": "双鸭山",
+                    "6": "大庆",
+                    "7": "伊春",
+                    "8": "佳木斯",
+                    "9": "七台河",
+                    "10": "牡丹江",
+                    "11": "黑河",
+                    "12": "绥化",
+                    "27": "大兴安岭"
+                }
+            },
+            "31": {
+                "name": "上海",
+                "cities": {
+                    "1": "黄浦",
+                    "3": "卢湾",
+                    "4": "徐汇",
+                    "5": "长宁",
+                    "6": "静安",
+                    "7": "普陀",
+                    "8": "闸北",
+                    "9": "虹口",
+                    "11": "杨浦",
+                    "12": "闵行",
+                    "13": "宝山",
+                    "14": "嘉定",
+                    "15": "浦东新",
+                    "16": "金山",
+                    "17": "松江",
+                    "25": "南汇",
+                    "26": "奉贤",
+                    "29": "青浦",
+                    "30": "崇明"
+                }
+            },
+            "32": {
+                "name": "江苏",
+                "cities": {
+                    "1": "南京",
+                    "2": "无锡",
+                    "3": "徐州",
+                    "4": "常州",
+                    "5": "苏州",
+                    "6": "南通",
+                    "7": "连云港",
+                    "8": "淮安",
+                    "9": "盐城",
+                    "10": "扬州",
+                    "11": "镇江",
+                    "12": "泰州",
+                    "13": "宿迁"
+                }
+            },
+            "33": {
+                "name": "浙江",
+                "cities": {
+                    "1": "杭州",
+                    "2": "宁波",
+                    "3": "温州",
+                    "4": "嘉兴",
+                    "5": "湖州",
+                    "6": "绍兴",
+                    "7": "金华",
+                    "8": "衢州",
+                    "9": "舟山",
+                    "10": "台州",
+                    "11": "丽水"
+                }
+            },
+            "34": {
+                "name": "安徽",
+                "cities": {
+                    "1": "合肥",
+                    "2": "芜湖",
+                    "3": "蚌埠",
+                    "4": "淮南",
+                    "5": "马鞍山",
+                    "6": "淮北",
+                    "7": "铜陵",
+                    "8": "安庆",
+                    "10": "黄山",
+                    "11": "滁州",
+                    "12": "阜阳",
+                    "13": "宿州",
+                    "14": "巢湖",
+                    "15": "六安",
+                    "16": "亳州",
+                    "17": "池州",
+                    "18": "宣城"
+                }
+            },
+            "35": {
+                "name": "福建",
+                "cities": {"1": "福州", "2": "厦门", "3": "莆田", "4": "三明", "5": "泉州", "6": "漳州", "7": "南平", "8": "龙岩", "9": "宁德"}
+            },
+            "36": {
+                "name": "江西",
+                "cities": {
+                    "1": "南昌",
+                    "2": "景德镇",
+                    "3": "萍乡",
+                    "4": "九江",
+                    "5": "新余",
+                    "6": "鹰潭",
+                    "7": "赣州",
+                    "8": "吉安",
+                    "9": "宜春",
+                    "10": "抚州",
+                    "11": "上饶"
+                }
+            },
+            "37": {
+                "name": "山东",
+                "cities": {
+                    "1": "济南",
+                    "2": "青岛",
+                    "3": "淄博",
+                    "4": "枣庄",
+                    "5": "东营",
+                    "6": "烟台",
+                    "7": "潍坊",
+                    "8": "济宁",
+                    "9": "泰安",
+                    "10": "威海",
+                    "11": "日照",
+                    "12": "莱芜",
+                    "13": "临沂",
+                    "14": "德州",
+                    "15": "聊城",
+                    "16": "滨州",
+                    "17": "菏泽"
+                }
+            },
+            "41": {
+                "name": "河南",
+                "cities": {
+                    "1": "郑州",
+                    "2": "开封",
+                    "3": "洛阳",
+                    "4": "平顶山",
+                    "5": "安阳",
+                    "6": "鹤壁",
+                    "7": "新乡",
+                    "8": "焦作",
+                    "9": "濮阳",
+                    "10": "许昌",
+                    "11": "漯河",
+                    "12": "三门峡",
+                    "13": "南阳",
+                    "14": "商丘",
+                    "15": "信阳",
+                    "16": "周口",
+                    "17": "驻马店",
+                    "18": "济源"
+                }
+            },
+            "42": {
+                "name": "湖北",
+                "cities": {
+                    "1": "武汉",
+                    "2": "黄石",
+                    "3": "十堰",
+                    "5": "宜昌",
+                    "6": "襄阳",
+                    "7": "鄂州",
+                    "8": "荆门",
+                    "9": "孝感",
+                    "10": "荆州",
+                    "11": "黄冈",
+                    "12": "咸宁",
+                    "13": "随州",
+                    "28": "恩施",
+                    "94": "仙桃",
+                    "95": "潜江",
+                    "96": "天门",
+                    "A21": "神农架"
+                }
+            },
+            "43": {
+                "name": "湖南",
+                "cities": {
+                    "1": "长沙",
+                    "2": "株洲",
+                    "3": "湘潭",
+                    "4": "衡阳",
+                    "5": "邵阳",
+                    "6": "岳阳",
+                    "7": "常德",
+                    "8": "张家界",
+                    "9": "益阳",
+                    "10": "郴州",
+                    "11": "永州",
+                    "12": "怀化",
+                    "13": "娄底",
+                    "31": "湘西"
+                }
+            },
+            "44": {
+                "name": "广东",
+                "cities": {
+                    "1": "广州",
+                    "2": "韶关",
+                    "3": "深圳",
+                    "4": "珠海",
+                    "5": "汕头",
+                    "6": "佛山",
+                    "7": "江门",
+                    "8": "湛江",
+                    "9": "茂名",
+                    "12": "肇庆",
+                    "13": "惠州",
+                    "14": "梅州",
+                    "15": "汕尾",
+                    "16": "河源",
+                    "17": "阳江",
+                    "18": "清远",
+                    "19": "东莞",
+                    "20": "中山",
+                    "51": "潮州",
+                    "52": "揭阳",
+                    "53": "云浮"
+                }
+            },
+            "45": {
+                "name": "广西",
+                "cities": {
+                    "1": "南宁",
+                    "2": "柳州",
+                    "3": "桂林",
+                    "4": "梧州",
+                    "5": "北海",
+                    "6": "防城港",
+                    "7": "钦州",
+                    "8": "贵港",
+                    "9": "玉林",
+                    "10": "百色",
+                    "11": "贺州",
+                    "12": "河池",
+                    "13": "来宾",
+                    "14": "崇左"
+                }
+            },
+            "46": {
+                "name": "海南",
+                "cities": {
+                    "1": "海口",
+                    "2": "三亚",
+                    "3": "三沙",
+                    "91": "五指山",
+                    "92": "琼海",
+                    "93": "儋州",
+                    "95": "文昌",
+                    "96": "万宁",
+                    "97": "东方",
+                    "A25": "定安",
+                    "A26": "屯昌",
+                    "A27": "澄迈",
+                    "A28": "临高",
+                    "A30": "白沙",
+                    "A31": "昌江",
+                    "A33": "乐东",
+                    "A34": "陵水",
+                    "A35": "保亭",
+                    "A36": "琼中",
+                    "A37": "西沙",
+                    "A38": "南沙",
+                    "A39": "中沙"
+                }
+            },
+            "50": {
+                "name": "重庆",
+                "cities": {
+                    "1": "万州",
+                    "2": "涪陵",
+                    "3": "渝中",
+                    "4": "大渡口",
+                    "5": "江北",
+                    "6": "沙坪坝",
+                    "7": "九龙坡",
+                    "8": "南岸",
+                    "9": "北碚",
+                    "10": "万盛",
+                    "11": "双桥",
+                    "12": "渝北",
+                    "13": "巴南",
+                    "21": "长寿",
+                    "22": "綦江",
+                    "23": "潼南",
+                    "24": "铜梁",
+                    "25": "大足",
+                    "26": "荣昌",
+                    "27": "璧山",
+                    "28": "梁平",
+                    "29": "城口",
+                    "30": "丰都",
+                    "31": "垫江",
+                    "32": "武隆",
+                    "33": "忠县",
+                    "34": "开县",
+                    "35": "云阳",
+                    "36": "奉节",
+                    "37": "巫山",
+                    "38": "巫溪",
+                    "39": "黔江",
+                    "40": "石柱",
+                    "41": "秀山",
+                    "42": "酉阳",
+                    "43": "彭水",
+                    "81": "江津",
+                    "82": "合川",
+                    "83": "永川",
+                    "84": "南川",
+                    "85": "两江新区"
+                }
+            },
+            "51": {
+                "name": "四川",
+                "cities": {
+                    "1": "成都",
+                    "3": "自贡",
+                    "4": "攀枝花",
+                    "5": "泸州",
+                    "6": "德阳",
+                    "7": "绵阳",
+                    "8": "广元",
+                    "9": "遂宁",
+                    "10": "内江",
+                    "11": "乐山",
+                    "13": "南充",
+                    "14": "眉山",
+                    "15": "宜宾",
+                    "16": "广安",
+                    "17": "达州",
+                    "18": "雅安",
+                    "19": "巴中",
+                    "20": "资阳",
+                    "32": "阿坝",
+                    "33": "甘孜",
+                    "34": "凉山"
+                }
+            },
+            "52": {
+                "name": "贵州",
+                "cities": {"1": "贵阳", "2": "六盘水", "3": "遵义", "4": "安顺", "22": "铜仁", "23": "黔西南", "24": "毕节", "26": "黔东南", "27": "黔南"}
+            },
+            "53": {
+                "name": "云南",
+                "cities": {
+                    "1": "昆明",
+                    "3": "曲靖",
+                    "4": "玉溪",
+                    "5": "保山",
+                    "6": "昭通",
+                    "7": "丽江",
+                    "8": "普洱",
+                    "9": "临沧",
+                    "23": "楚雄",
+                    "25": "红河",
+                    "26": "文山",
+                    "28": "西双版纳",
+                    "29": "大理",
+                    "31": "德宏",
+                    "33": "怒江",
+                    "34": "迪庆"
+                }
+            },
+            "54": {"name": "西藏", "cities": {"1": "拉萨", "21": "昌都", "22": "山南", "23": "日喀则", "24": "那曲", "25": "阿里", "26": "林芝"}},
+            "61": {
+                "name": "陕西",
+                "cities": {"1": "西安", "2": "铜川", "3": "宝鸡", "4": "咸阳", "5": "渭南", "6": "延安", "7": "汉中", "8": "榆林", "9": "安康", "10": "商洛"}
+            },
+            "62": {
+                "name": "甘肃",
+                "cities": {
+                    "1": "兰州市",
+                    "2": "嘉峪关",
+                    "3": "金昌",
+                    "4": "白银",
+                    "5": "天水",
+                    "6": "武威",
+                    "7": "张掖",
+                    "8": "平凉",
+                    "9": "酒泉",
+                    "10": "庆阳",
+                    "11": "定西",
+                    "12": "陇南",
+                    "29": "临夏",
+                    "30": "甘南"
+                }
+            },
+            "63": {"name": "青海", "cities": {"1": "西宁", "21": "海东", "22": "海北", "23": "黄南", "25": "海南", "26": "果洛", "27": "玉树", "28": "海西"}},
+            "64": {"name": "宁夏", "cities": {"1": "银川", "2": "石嘴山", "3": "吴忠", "4": "固原", "5": "中卫"}},
+            "65": {
+                "name": "新疆",
+                "cities": {
+                    "1": "乌鲁木齐",
+                    "2": "克拉玛依",
+                    "21": "吐鲁番",
+                    "22": "哈密",
+                    "23": "昌吉",
+                    "27": "博尔塔拉",
+                    "28": "巴音郭楞",
+                    "29": "阿克苏",
+                    "30": "克孜勒苏",
+                    "31": "喀什",
+                    "32": "和田",
+                    "40": "伊犁",
+                    "42": "塔城",
+                    "43": "阿勒泰",
+                    "91": "石河子",
+                    "92": "阿拉尔",
+                    "93": "图木舒克",
+                    "94": "五家渠",
+                    "95": "北屯"
+                }
+            },
+            "71": {
+                "name": "台湾",
+                "cities": {
+                    "1": "台北市",
+                    "2": "高雄市",
+                    "3": "基隆市",
+                    "4": "台中市",
+                    "5": "台南市",
+                    "6": "新竹市",
+                    "7": "嘉义市",
+                    "8": "台北县",
+                    "9": "宜兰县",
+                    "10": "桃园县",
+                    "11": "新竹县",
+                    "12": "苗栗县",
+                    "13": "台中县",
+                    "14": "彰化县",
+                    "15": "南投县",
+                    "16": "云林县",
+                    "17": "嘉义县",
+                    "18": "台南县",
+                    "19": "高雄县",
+                    "20": "屏东县",
+                    "21": "澎湖县",
+                    "22": "台东县",
+                    "23": "花莲县"
+                }
+            },
+            "81": {
+                "name": "香港",
+                "cities": {
+                    "HCW": "中西区",
+                    "HEA": "东区",
+                    "KKC": "九龙城区",
+                    "KKT": "观塘区",
+                    "HSO": "南区",
+                    "KSS": "深水埗区",
+                    "KWT": "黄大仙区",
+                    "HWC": "湾仔区",
+                    "KYT": "油尖旺区",
+                    "NIS": "离岛区",
+                    "NKT": "葵青区",
+                    "NNO": "北区",
+                    "NSK": "西贡区",
+                    "NST": "沙田区",
+                    "NTM": "屯门区",
+                    "NTP": "大埔区",
+                    "NTW": "荃湾区",
+                    "NYL": "元朗区"
+                }
+            },
+            "82": {
+                "name": "澳门",
+                "cities": {"OLF": "花地玛堂区", "ANT": "圣安多尼堂区", "CAT": "大堂区", "LAW": "望德堂区", "LAZ": "风顺堂区", "TPA": "氹仔", "CLN": "路环"}
+            }
+        };
+        exports = module.exports = {
+            getLoc: function (pid, cid) {
+                var province = pid ? loc[pid] : '';
+                var cityName = cid ? province.cities[cid] : '';
+                return province.name + cityName;
+            }
+        };
+    });
+    seajs.use('main');
+</script>
+<script>
+    timePoints['jsend'] = new Date().getTime(); //js加载完成
+</script>
+</body>
+</html>

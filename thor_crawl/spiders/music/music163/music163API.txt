@@ -1,0 +1,15 @@
+1、歌单（网友精选碟） hot||new http://music.163.com/#/discover/playlist/
+base_url:
+http://music.163.com/api/playlist/list?cat={}&order={}&offset={}&total={}&limit={}
+
+example:
+http://music.163.com/api/playlist/list?cat=全部&order=hot&offset=0&total=true&limit=2
+
+param:
+cat: 全部、华语、欧美等等，音乐类型
+order: hot是热门，new是最新，列表类型
+offset: 分页起始
+total: true 或者 false，不知道干嘛的，可以不用
+limit: 分页大小
+
+2、

@@ -1,0 +1,510 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>资讯</title>
+    <link rel="stylesheet" type="text/css" href="/Public/CSS/Second/style.css"/>
+    <script type="text/javascript" src="/Public/JS/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/Public/JS/alert0320.js"></script>
+    <script src="/Public/JS/jquery.SuperSlide.js" type="text/javascript"></script>
+</head>
+<body>
+<!--top-->
+<div class="top">
+    <div class="topBox ">
+        <p class="fl leftLogin">
+
+            <select name="sel">
+                <option value="Z">中国轴承行业网网员</option>
+                <option value="P">企业报送员</option>
+            </select>
+            <span>用户名 <input type="text" value="" name="user"/></span>
+            <span>密 码 <input type="password" value="" name="password"/></span>
+            <a href="javascript:;" class="loginBtn" onclick="User_login();">登 录</a>
+            <a href="/index.php/Home/Index/findloginpwd" target="_blank">忘记密码</a>
+            <a href="/index.php/HomeIndex/goto_register_one" target="_blank">免费注册</a></p>
+        <p class="fr rightNc"><a href="/index.php/Home/Member/index" target="view_window">会员中心</a> |
+            <a href="javascript:void(0)" onclick="SetHome(this,window.location)">设为首页</a> |
+            <a href="javascript:void(0)" onclick="shoucang(document.title,window.location)">加入收藏</a> |
+            <a href="/index.php/Home/Synthesize/SynthesizeMain" target="_blank">返回行业网</a></p>
+    </div>
+    <div class="topBox dis_hide">
+        <p class="fl" style=" margin-top: 8px;color:rgb(246, 241, 241);"><span
+                style="float: left;">&nbsp;您好，欢迎光临中国轴承行业网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="display:;float:left;"><a href="/index.php/Home/Synthesize/logout" style="color: rgb(246, 241, 241);">退出登陆</a></span>
+        </p>
+        <p class="fr rightNc"><a href="/index.php/Home/Member/index" target="view_window">会员中心</a>
+            | <a href="javascript:void(0)" onclick="SetHome(this,window.location)">设为首页</a>
+            | <a href="javascript:void(0)" onclick="shoucang(document.title,window.location)">加入收藏</a> |
+            <a href="/index.php/Home/Synthesize/SynthesizeMain" target="_blank">返回行业网</a></p>
+    </div>
+</div>
+<!--top-->
+<!--logo adv-->
+<div class="logobox">
+    <h1 class="logo fl"><a href="/index.php/Home/Synthesize/SynthesizeMain" target="_blank"><img width="163" height="59"
+                                                                                                 src="/Uploads/Advert/2016-01-06/568c830940e91.png"/></a></h1>
+    <div class="fr advBox">
+        <div class="searchBox1 fl">
+            <h3 class="searchFei">
+                <a href="javascript:;" class="hover" onclick="but_show(this,'goods')">轴承</a>
+                <a href="javascript:;" onclick="but_show(this,'shebei_search')">设备</a>
+                <a href="javascript:;" onclick="but_show(this,'company')">公司</a>
+                <a href="javascript:;" onclick="but_show(this,'zixun_search')">资讯</a>
+                <a href="javascript:;" onclick="but_show(this,'zhao')">招商</a>
+            </h3>
+            <p class="searchH38">
+            <form action="/index.php/Home/Product/search" method="post" style="margin-top: -35px;">
+                <input type="text" placeholder="请输入关键字" class="inputSet" name="keywords"/>
+                <input style="margin-left: 22px;" type="submit" value="搜索" class="searchBtn"/>
+                <input type="hidden" value="" name="type"/>
+            </form>
+            </p>
+        </div>
+        <a href="http://www.zys.com.cn/" target="_blank"><img width="187" height="59" src="/Uploads/Advert/2016-01-06/568c7d9e3f21e.png"/></a>
+    </div>
+</div>
+<script>
+
+    function User_login() {
+        var sel = $('select[name="sel"]').val().trim();
+        var userName = $('input[name="user"]').val().trim();
+        var pwd = $('input[name="password"]').val().trim();
+        $.ajax({
+            type: 'post',
+            url: '/index.php/Home/Synthesize/UserLogin',
+            data: {sel: sel, user: userName, pwd: pwd},
+            success: function (data) {
+                if (data.success) {
+                    alert('登录成功！欢迎回来。');
+                    window.location.href = "/index.php/Home/Member/index";
+                } else {
+                    alert('用户名或密码错误！');
+                }
+            },
+            error: function () {
+
+            }
+
+        })
+    }
+
+    function but_show(obj, val) {
+        $(obj).addClass('hover');
+        $(obj).siblings().removeClass('hover');
+        $('input[name="type"]').val(val);
+    }
+
+    // 设置为主页
+    function SetHome(obj, vrl) {
+        try {
+            obj.style.behavior = 'url(#default#homepage)';
+            obj.setHomePage(vrl);
+        }
+        catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage', vrl);
+            } else {
+                alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入：" + vrl + "点击确定。");
+            }
+        }
+    }
+    // 加入收藏 兼容360和IE6
+    function shoucang(sTitle, sURL) {
+        try {
+            window.external.addFavorite(sURL, sTitle);
+        }
+        catch (e) {
+            try {
+                window.sidebar.addPanel(sTitle, sURL, "");
+            }
+            catch (e) {
+                alert("加入收藏失败，请使用Ctrl+D进行添加");
+            }
+        }
+    }
+
+</script>
+<!--logo adv-->
+<!--nav-->
+<div class="navBox">
+    <div class="navList">
+        <div class="fl oneSet">
+            <p class="fl navTitle"><a href="/index.php/Home/Association/assMain" target="_blank">协会</a></p>
+            <ul class="fl navCon">
+                <li><a href="/index.php/Home/Association/synopsis" target="_blank">简介</a></li>
+                <li><a href="/index.php/Home/Association/fileinform" target="_blank">文件</a></li>
+                <li><a href="/index.php/Home/Association/activity" target="_blank">活动</a></li>
+                <li><a href="/index.php/Home/Association/member" target="_blank">入会</a></li>
+            </ul>
+        </div>
+        <div class="fl oneSet">
+            <p class="fl navTitle"><a href="/index.php/Home/Infoforum/Infomain" target="_blank"> 公众</a></p>
+            <ul class="fl navCon">
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF" target="_blank">资讯</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451369962448R" target="_blank">通知</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451369985SRMY" target="_blank">公告</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451370006Y8B" target="_blank">展会</a></li>
+            </ul>
+        </div>
+        <div class="fl oneSet1">
+            <p class="fl navTitle1"><a href="/index.php/Home/Infoforum/forummain" target="_blank">V<BR/>I<BR/>P</a></p>
+            <ul class="fl navCon1">
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451446603RBDN" target="_blank">预测分析</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT14514466332FJ5" target="_blank">发展报告</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451446685AKPQ" target="_blank">产业政策</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1451446718T7DN" target="_blank">行业规划</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144570PWK" target="_blank">轴承年鉴</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144624HH67" target="_blank">技术论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144675DJ6" target="_blank">质量论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144692YT8J" target="_blank">管理论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144715DMYE" target="_blank">装备论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT1452144729JBA" target="_blank">专题论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT14521447462P2W" target="_blank">综合论坛</a></li>
+                <li><a href="/index.php/Home/Infoforum/foruminfolist/code/AT14521447697AL" target="_blank">人力资源</a></li>
+            </ul>
+        </div>
+        <div class="fl oneSet2">
+            <p class="fl navTitle1"><a href="/index.php/Home/Index/index/act/1">C<BR/>B<BR/>D</a></p>
+            <ul class="fl navCon2">
+                <li><a href="/index.php/Home/Product/goto_product/act/2" target="_blank">轴承</a></li>
+                <li><a href="/index.php/Home//Product/equipmentList/id/1000001" target="_blank">零配件</a></li>
+                <li><a href="/index.php/Home//Product/equipmentList/id/1000002" target="_blank">工艺装备</a></li>
+                <li><a href="/index.php/Home//Product/equipmentList/id/1000003" target="_blank">试验设备</a></li>
+                <li><a href="/index.php/Home//Product/equipmentList/id/1000004" target="_blank">材料辅料</a></li>
+                <li><a href="/index.php/Home//Product/equipmentList/id/1000005" target="_blank">检测设备</a></li>
+            </ul>
+        </div>
+        <div class="fl oneSet" style="border-right:none;">
+            <p class="fl navTitle"><a href="/index.php/Home/Datastatistics/datamain" target="_blank">统计</a></p>
+            <ul class="fl navCon">
+                <li><a href="/index.php/Home/Datastatistics/monthlyList" target="_blank">月报</a></li>
+                <li><a href="/index.php/Home/Datastatistics/datamain" target="_blank">排行</a></li>
+                <li><a href="/index.php/Home/Datastatistics/importExporList/mark/I" target="_blank">进口</a></li>
+                <li><a href="/index.php/Home/Datastatistics/importExporList/mark/E" target="_blank">出口</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--nav-->
+<!--adv-->
+<!--<p class="advSet"><a href="http://old.cbia.com.cn/img-gg/wuzhouxinchun-zhaopin.html" target="_blank"><img width="230" height="74" src="/Uploads/Advert/2016-01-06/568c8440d3494.png" /></a><a href="http://www.tmb.net.cn/" target="_blank"><img width="498" height="74" src="/Uploads/Advert/2016-01-06/568c847364a9d.png" /></a><a style="margin-right: 0px;" href="http://www.hlbearing.com/" target="_blank"><img width="200" height="74" src="/Uploads/Advert/2017-02-09/589bccdf394ed.gif" /></a></p>-->
+<!--adv-->
+
+<!--content-->
+<div class="list-main ClearFix">
+    <p class="mbdhNav">当前位置: <a href="/index.php/Home/Infoforum/Infomain">首页</a> > 资讯</p>
+
+    <div class="main-left">
+        <h6>资讯</h6>
+        <hr/>
+        <div class="List">
+            <ul>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH14834947979RJH');">
+                        主机市场要闻 </a>
+                    <span>2017-01-04</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1483419840XARP');">
+                        捷太格特（中国）投资有限公司董事长上川正树一行访问中国轴协 </a>
+                    <span>2017-01-03</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1482976708GKU');">
+                        11月份钢铁行业运行情况 </a>
+                    <span>2016-12-29</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1482976633BGW');">
+                        11月份有色金属行业运行情况 </a>
+                    <span>2016-12-29</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1482907269DEY9');">
+                        “齐心协力、慧动未来”——中国轴协应邀参加NSK百年华诞庆典活动 </a>
+                    <span>2016-12-28</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1482804565WX87');">
+                        2017年全国工业和信息化工作会议在京开幕 </a>
+                    <span>2016-12-27</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH14828043318B');">
+                        李克强：弘扬企业家精神和工匠精神 </a>
+                    <span>2016-12-27</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH14827154027SZ5');">
+                        数控机床迎政策利好 国产机床大有可为 </a>
+                    <span>2016-12-26</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1482386567N2F');">
+                        洛阳新强联公司超大型盾构机关节轴承锻件下线 </a>
+                    <span>2016-12-22</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481868395M7YY');">
+                        2016年1－11月汽车销量排名 </a>
+                    <span>2016-12-16</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481868276Z6W8');">
+                        2016年1－11月中国品牌乘用车市场保持较快增长 </a>
+                    <span>2016-12-16</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481851001K3N');">
+                        高端轴承摩擦学技术与应用国家地方联合工程实验室 第一届学术委员会与专家咨询委员会成立并召开第一次...
+                    </a>
+
+                    <span>2016-12-16</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481766400TZFV');">
+                        11月车用柴油机市场销量分析 多家增幅超50% </a>
+                    <span>2016-12-15</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481766081XDJ3');">
+                        环宇轴承研发的精密圆锥滚子轴承获科技技术三等奖 </a>
+                    <span>2016-12-15</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481765974KFLR');">
+                        瓦轴集团为石家庄铁道大学研制实验平台 </a>
+                    <span>2016-12-15</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481765299NAR7');">
+                        粮食烘干机成为农业机械行业下一个大蓝海 </a>
+                    <span>2016-12-15</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481682399TQF');">
+                        瓦轴集团科技创新项目通过验收 </a>
+                    <span>2016-12-14</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481616214PZ93');">
+                        2016年轴承行业人力资源工作会议在厦门召开 </a>
+                    <span>2016-12-13</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481094346PW7');">
+                        舍弗勒大中华区总裁一行访问中国轴协 </a>
+                    <span>2016-12-07</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481092133SAZS');">
+                        宁波轴协交流团来哈轴调研交流（附图） </a>
+                    <span>2016-12-07</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH148100919086QS');">
+                        瓦轴集团研制重载低温轴承 </a>
+                    <span>2016-12-06</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481009064APGR');">
+                        强强联手洛阳高铁轴承有望量产 </a>
+                    <span>2016-12-06</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1481008892AB');">
+                        洛阳LYC：铁路轴承试验技术达到国际先进水平 </a>
+                    <span>2016-12-06</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1480643855825L');">
+                        轴承行业10项科研项目获得中国机械工业科学技术奖 </a>
+                    <span>2016-12-02</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1480643754PV4');">
+                        舍弗勒与德马吉森精机强化滚动轴承增材制造方面合作 </a>
+                    <span>2016-12-02</span>
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="checkUserPower('ATH1480643596Y68');">
+                        斯巴鲁汽车召回部分车型 或导致轴承锁死 </a>
+                    <span>2016-12-02</span>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="page" style="margin-top: 35px;">&nbsp;&nbsp;共<b>12383</b>条记录&nbsp;&nbsp;第<b>3</b>页&nbsp;&nbsp;&nbsp;<a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=1'>首 页</a>&nbsp;<a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=2'>上一页</a>&nbsp<b><a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=1'>1</a></b>&nbsp<b><a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=2'>2</a></b>&nbsp<b><a style='color:red'>3</a></b>&nbsp<b><a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=4'>4</a></b>&nbsp<b><a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=5'>5</a></b>&nbsp<b><a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=6'>6</a></b>&nbsp;<a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=4'>下一页</a>&nbsp;<a
+                href='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=477'>尾 页</a>&nbsp;<input type="text" value="3" onkeydown="javascript:if(event.keyCode==13)
+			{var page=(this.value >477)?477:this.value;
+			location='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page='+page+''}" style="width:25px;margin-right:10px;"><input type="button"
+                                                                                                                                                   value="Go" onclick="javascript:
+			var page=(this.previousSibling.value >477)?477:this.previousSibling.value;
+			location='/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page='+page+''">&nbsp;</div>
+        <div class="left-foot">
+
+        </div>
+    </div>
+    <div class="main-right" style="margin-top: 33px;">
+        <div class="right-one">
+            <p>点击排行</p>
+            <ul>
+                <li>
+                    <span><em class="em1">1</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1465346410U2LS');">关于发布《全国轴承行业“十三五</a>
+                </li>
+                <li>
+                    <span><em class="em1">2</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1478071427BT9B');">全国轴承行业“十三五”规划</a>
+                </li>
+                <li>
+                    <span><em class="em1">3</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1471336143NA9');">关于举办2016上海国际轴承峰</a>
+                </li>
+                <li>
+                    <span><em class="em2">4</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH14656921945LTJ');">关于推荐轴承产业链上下游优秀供</a>
+                </li>
+                <li>
+                    <span><em class="em2">5</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1465261890LQXU');">中国轴承行业网公告</a>
+                </li>
+                <li>
+                    <span><em class="em2">6</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1459927968BK9Z');">关于邀请参加第十五届“2016</a>
+                </li>
+                <li>
+                    <span><em class="em2">7</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1459928039UTTY');">关于在2016中国国际轴承展会</a>
+                </li>
+                <li>
+                    <span><em class="em2">8</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1467765405DA92');">外商需求轴承询价公告</a>
+                </li>
+                <li>
+                    <span><em class="em2">9</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH14587996977874');">关于邀请参加第十五届“2016</a>
+                </li>
+                <li>
+                    <span><em class="em2">10</em></span>
+                    <a style="margin-top: -7px" href="javascript:;" onclick="checkUserPower('ATH1459927903PMJ8');">关于邀请参加2017年美国“拉</a>
+                </li>
+            </ul>
+        </div>
+        <div class="right-three" style="overflow:hidden;height:auto;line-height:20px;">
+            <p style="height:280px;overflow:hidden;margin-bottom:10px;">
+                <a href="http://cbia.com.cn/index.php/Home/Index/index/act/1"><img width="264" height="280" src="/Uploads/Advert/2016-05-25/574512976f477.jpg"/></a>
+            </p>
+            买轴承装备、买轴承零部件就去轴承CBD
+        </div>
+        <div class="right-two" style="overflow:hidden;">
+            <p>VIP网员</p>
+            <div class="topLoop" style="padding:0px 10px;">
+                <div class="bd">
+                    <ul>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/126/act/1" style="display: block;width: 180px;">瓦房店轴承集团有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/128/act/1" style="display: block;width: 180px;">哈尔滨轴承制造有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/129/act/1" style="display: block;width: 180px;">濮阳贝英数控机械设备有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/133/act/1" style="display: block;width: 180px;">浙江陀曼精密机械有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/161/act/1" style="display: block;width: 180px;">洛阳LYC轴承有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/160/act/1" style="display: block;width: 180px;">洛阳LYC轴承有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/159/act/1" style="display: block;width: 180px;">人本集团有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/212/act/1" style="display: block;width: 180px;">常州光洋轴承股份有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/188/act/1" style="display: block;width: 180px;">洛阳轴研科技股份有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/207/act/1" style="display: block;width: 180px;">甘肃海林中科科技股份有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/227/act/1" style="display: block;width: 180px;">恩斯克投资有限公司</a>
+                        </li>
+                        <li style="height:30px;">
+                            <span style="display: block;"></span>
+                            <a href="/index.php/Home/Product/goto_shops/id/258/act/1" style="display: block;width: 180px;">无锡沃尔德轴承有限公司 </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <script type="text/javascript">jQuery(".topLoop").slide({mainCell: ".bd ul", effect: "topMarquee", vis: 8, interTime: 80, autoPlay: true});</script>
+        </div>
+
+    </div>
+</div>
+<!--content-->
+<input type="hidden" name="count" value="12383">
+<!--footer-->
+<div style="clear:both;"></div>
+<!--footer-->
+<div class="footerBox">
+    <div class="foot">
+        <p class="aboutAset">
+            <a href='/index.php/Home/Help/index/type_id/52' target="_blank">登录注册</a>| <a href='/index.php/Home/Help/index/type_id/22' target="_blank">招标发布</a>| <a
+                href='/index.php/Home/Help/index/type_id/23' target="_blank">会员管理</a>| <a href='/index.php/Home/Help/index/type_id/24' target="_blank">联系我们</a>| <a
+                href='/index.php/Home/Help/index/type_id/65' target="_blank">服务信息</a>| <a href='/index.php/Home/Help/index/type_id/67' target="_blank">关于我们</a>| <a
+                href='/index.php/Home/Help/index/type_id/73' target="_blank">网员服务</a>| <a href='/index.php/Home/Help/index/type_id/74' target="_blank">广告服务</a>| <a
+                href='/index.php/Home/Help/index/type_id/76' target="_blank">高薪聘请</a>| <a href='/index.php/Home/Help/index/type_id/77' target="_blank">法律声明</a>| </p>
+        <span>© 2015 Zhouchen.com 轴承协会-中国第一轴承交易信息平台 保留所有权利<br/>中国第一轴承交易信息网站 轴承协会网 京ICP备08125558号</span>
+        <p><a href="javascript:;"><img src="/Public/Image/Second/f1.jpg"/></a><a href="javascript:;"><img src="/Public/Image/Second/f2.jpg"/></a><a
+                href="javascript:;"><img src="/Public/Image/Second/f3.jpg"/></a><a href="javascript:;"><img src="/Public/Image/Second/f4.jpg"/></a></p>
+    </div>
+</div>
+<!--footer-->
+
+</body>
+</html>
+
+<!-- footer -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('input[name="count"]').val() < 1) {
+            $('.page').hide();
+        }
+    });
+
+</script>
