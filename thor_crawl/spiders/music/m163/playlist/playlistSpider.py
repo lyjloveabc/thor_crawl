@@ -33,7 +33,7 @@ class PlaylistSpider(BaseSpider):
         self.base_url = 'http://music.163.com/api/playlist/list?cat={cat}&order={order}&offset={offset}&limit={limit}'
         self.cat = '全部'
         self.order = 'hot'
-        self.limit = 1
+        self.limit = 20
 
         # 响应数据
         self.source_total = 0
@@ -43,7 +43,7 @@ class PlaylistSpider(BaseSpider):
         self.main_table = 'm163_playlist'
         self.user_table = 'm163_user'
         self.save_threshold = 0
-        self.persistent_data_user = set()
+        self.persistent_data_user = list()
         self.persistent_data_playlist = list()
 
     def __del__(self):
@@ -89,11 +89,11 @@ class PlaylistSpider(BaseSpider):
                 subscriber = self.get_user(playlist_json['subscribers'][0])
 
                 self.persistent_data_playlist.append(playlist)
-                self.persistent_data_user.add(user)
-                self.persistent_data_user.add(subscriber)
+                self.persistent_data_user.append(user)
+                self.persistent_data_user.append(subscriber)
 
             # 如果还有数据则继续抓取
-            if more is False:
+            if more:
                 meta['offset'] += self.limit
                 url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
                 yield scrapy.FormRequest(url=url, method='GET', meta=meta)
@@ -166,13 +166,13 @@ class PlaylistSpider(BaseSpider):
             'background_url': user_json['backgroundUrl'],
             'authority': user_json['authority'],
             'mutual': user_json['mutual'],
-            'expert_tags': Constant.DEFAULT_SEP.join(user_json['expertTags']),
+            'expert_tags': Constant.STR_EMPTY if user_json['expertTags'] is None else Constant.DEFAULT_SEP.join(user_json['expertTags']),
             'dj_status': user_json['djStatus'],
             'vip_type': user_json['vipType'],
             'remark_name': user_json['remarkName'],
             'avatar_img_id_str': user_json['avatarImgIdStr'],
             'background_img_id_str': user_json['backgroundImgIdStr'],
-            'avatar_img_id__str': user_json['avatarImgId_str']
+            'avatar_img_id__str': user_json['avatarImgId_str'] if 'avatarImgId_str' in user_json else Constant.STR_EMPTY
         }
 
         for key, value in param.items():
@@ -199,7 +199,7 @@ class PlaylistSpider(BaseSpider):
                 self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
                 logging.error('save except:', e)
             finally:
-                self.persistent_data_user = set()
+                self.persistent_data_user = list()
 
     def save_final(self):
         if len(self.persistent_data_playlist) > 0:
@@ -219,7 +219,7 @@ class PlaylistSpider(BaseSpider):
                 self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
                 logging.error('save_final except:', e)
             finally:
-                self.persistent_data_user = set()
+                self.persistent_data_user = list()
 
 
 if __name__ == '__main__':
