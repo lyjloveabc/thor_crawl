@@ -59,7 +59,7 @@ class Playlist(SQL_ALCHEMY_BASE, BaseAttr):
     __tablename__ = 'm163_playlist'
 
     main_id = Column()
-    name = Column()
+    name = Column(nullable=False)
     track_number_update_time = Column()
     status = Column()
     user_id = Column()

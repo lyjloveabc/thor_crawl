@@ -14,7 +14,7 @@ CREATE TABLE `m163_playlist` (
   `name`                     VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '歌单名称',
 
-  `track_number_update_time` INT(16)      NOT NULL DEFAULT 0
+  `track_number_update_time` VARCHAR(16)  NOT NULL DEFAULT ''
   COMMENT '',
 
   `status`                   TINYINT      NOT NULL DEFAULT 0
@@ -23,10 +23,10 @@ CREATE TABLE `m163_playlist` (
   `user_id`                  INT(16)      NOT NULL DEFAULT 0
   COMMENT '用户ID',
 
-  `create_time`              INT(16)      NOT NULL DEFAULT 0
+  `create_time`              VARCHAR(16)  NOT NULL DEFAULT ''
   COMMENT '创建时间',
 
-  `update_time`              INT(16)      NOT NULL DEFAULT 0
+  `update_time`              VARCHAR(16)  NOT NULL DEFAULT ''
   COMMENT '更新时间',
 
   `subscribed_count`         INT(16)      NOT NULL DEFAULT 0
@@ -41,7 +41,7 @@ CREATE TABLE `m163_playlist` (
   `cover_img_url`            VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '封面图片',
 
-  `cover_img_id`             INT(16)      NOT NULL DEFAULT 0
+  `cover_img_id`             VARCHAR(32)  NOT NULL DEFAULT 0
   COMMENT '封面图片ID',
 
   `description`              VARCHAR(512) NOT NULL DEFAULT ''
@@ -53,7 +53,7 @@ CREATE TABLE `m163_playlist` (
   `play_count`               INT(16)      NOT NULL DEFAULT 0
   COMMENT '收听数',
 
-  `track_update_time`        INT(16)      NOT NULL DEFAULT 0
+  `track_update_time`        VARCHAR(16)  NOT NULL DEFAULT ''
   COMMENT '',
 
   `special_type`             TINYINT      NOT NULL DEFAULT 0
@@ -92,13 +92,13 @@ CREATE TABLE `m163_playlist` (
   `share_count`              INT(16)      NOT NULL DEFAULT 0
   COMMENT '分享数',
 
-  `cover_img_id_str`         VARCHAR(16)  NOT NULL DEFAULT 0
+  `cover_img_id_str`         VARCHAR(32)  NOT NULL DEFAULT 0
   COMMENT '封面图片ID字符串',
 
   `comment_count`            INT(16)      NOT NULL DEFAULT 0
   COMMENT '评论数',
 
-  `creator_id`               INT(16)      NOT NULL
+  `creator_id`               INT(16)      NOT NULL DEFAULT 0
   COMMENT '创建者的用户ID',
 
   `subscriber_id`            INT(16)      NOT NULL DEFAULT 0
@@ -153,7 +153,7 @@ CREATE TABLE `m163_user` (
   `cover_img_url`            VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT '封面图片',
 
-  `cover_img_id`             INT(16)      NOT NULL DEFAULT 0
+  `cover_img_id`             VARCHAR(16)  NOT NULL DEFAULT 0
   COMMENT '封面图片ID',
 
   `description`              VARCHAR(512) NOT NULL DEFAULT ''

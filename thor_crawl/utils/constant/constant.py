@@ -11,6 +11,9 @@ class Constant:
     UNDERLINE_SEP = '_'
     SLASH_SEP = '/'
 
+    # =========================== 特殊字符串 ===========================
+    STR_EMPTY = ''
+
     # =========================== 爬虫 ===========================
     SPIDER_INIT = '---spider __init__!'
     SPIDER_DEL = '---spider __del__!'

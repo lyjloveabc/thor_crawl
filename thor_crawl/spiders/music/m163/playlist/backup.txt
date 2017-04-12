@@ -12,10 +12,13 @@ import logging
 import scrapy
 from scrapy.spiders import BaseSpider
 
-from thor_crawl.utils.constant.constant import Constant
+# 导入SQLAlchemy:
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from thor_crawl.utils.commonUtil import CommonUtil
-from thor_crawl.utils.db.daoUtil import DaoUtils
+from thor_crawl.utils.constant.constant import Constant
+from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
+from thor_crawl.spiders.music.m163.playlist.entity import Playlist
 
 
 class PlaylistSpider(BaseSpider):
@@ -25,25 +28,23 @@ class PlaylistSpider(BaseSpider):
     def __init__(self):
         logging.info(Constant.SPIDER_INIT)
 
-        # ============ 工具 ============
-        self.dao = DaoUtils()
-        self.common_util = CommonUtil()
-
         # 参数
         self.base_url = 'http://music.163.com/api/playlist/list?cat={cat}&order={order}&offset={offset}&limit={limit}'
         self.cat = '全部'
         self.order = 'hot'
-        self.limit = 1
+        self.limit = 20
 
         # 响应数据
         self.source_total = 0
         self.sum_total = 0
 
         # 持久化
-        self.main_table = 'm163_playlist'
         self.save_threshold = 0
         self.persistent_data_user = set()
         self.persistent_data_playlist = list()
+
+        # 数据库连接、session
+        # self.session = PlaylistSpider.get_db_session()
 
     def __del__(self):
         logging.info(Constant.SPIDER_DEL)
@@ -87,7 +88,7 @@ class PlaylistSpider(BaseSpider):
                 self.persistent_data_playlist.append(playlist)
 
             # 如果还有数据则继续抓取
-            if more is False:
+            if more:
                 meta['offset'] += self.limit
                 url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
                 yield scrapy.FormRequest(url=url, method='GET', meta=meta)
@@ -131,33 +132,48 @@ class PlaylistSpider(BaseSpider):
             'subscriber_id': play_list_json['subscribers'][0]['userId']
         }
 
-        for key, value in param.items():
-            if param[key] is None:
-                param[key] = ''
+        return Playlist(main_id=1)
 
-        return param
+    @staticmethod
+    def get_db_session():
+        mysql_config = MySQLConfig.localhost()
+        engine = create_engine('mysql+pymysql://{root}:{password}@{localhost}:3306/{db}'
+                               .format(root=mysql_config['user'], password=mysql_config['password'], localhost=mysql_config['host'], db=mysql_config['db']))
+        # 创建DBSession类型:
+        DBSession = sessionmaker(bind=engine)
+
+        # 返回session对象:
+        return DBSession()
 
     def save(self):
         if len(self.persistent_data_playlist) > self.save_threshold:
-            try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
-            except AttributeError as e:
-                self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
-                logging.error('save except:', e)
-            finally:
-                self.persistent_data_playlist = list()
+            session = PlaylistSpider.get_db_session()
+            for item in self.persistent_data_playlist:
+                session.add(item)
+            session.commit()
+            session.close()
+            self.persistent_data_playlist = list()
+            #
+            # try:
+            #     for item in self.persistent_data_playlist:
+            #         self.session.add(item)
+            #     self.session.commit()
+            # except OSError:
+            #     self.session = PlaylistSpider.get_db_session()
+            #     for item in self.persistent_data_playlist:
+            #         self.session.add(item)
+            #     self.session.commit()
+            # finally:
+            #     self.persistent_data_playlist = list()
 
     def save_final(self):
         if len(self.persistent_data_playlist) > 0:
-            try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
-            except AttributeError as e:
-                self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
-                logging.error('save_final except:', e)
-            finally:
-                self.persistent_data_playlist = list()
+            session = PlaylistSpider.get_db_session()
+            for item in self.persistent_data_playlist:
+                session.add(item)
+            session.commit()
+            session.close()
+            self.persistent_data_playlist = list()
 
 
 if __name__ == '__main__':
