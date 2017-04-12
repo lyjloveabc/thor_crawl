@@ -142,8 +142,9 @@ class PlaylistSpider(BaseSpider):
         for key, value in param.items():
             if param[key] is None:
                 param[key] = ''
-            if '\'' in param[key]:
-                param[key] = str(param[key]).replace('\'', '"')
+            value_str = str(param[key])
+            if '\'' in value_str:
+                param[key] = value_str.replace('\'', '"')
 
         return param
 
@@ -182,8 +183,9 @@ class PlaylistSpider(BaseSpider):
         for key, value in param.items():
             if param[key] is None:
                 param[key] = ''
-            if '\'' in param[key]:
-                param[key] = str(param[key]).replace('\'', '"')
+            value_str = str(param[key])
+            if '\'' in value_str:
+                param[key] = value_str.replace('\'', '"')
 
         return param
 
