@@ -88,6 +88,8 @@ class PlaylistSpider(BaseSpider):
                 user = self.get_user(playlist_json['creator'])
                 subscriber = self.get_user(playlist_json['subscribers'][0])
 
+                print(111, response.url)
+
                 self.persistent_data_playlist.append(playlist)
                 self.persistent_data_user.append(user)
                 self.persistent_data_user.append(subscriber)
@@ -140,6 +142,8 @@ class PlaylistSpider(BaseSpider):
         for key, value in param.items():
             if param[key] is None:
                 param[key] = ''
+            if '\'' in param[key]:
+                param[key] = str(param[key]).replace('\'', '"')
 
         return param
 
@@ -178,6 +182,8 @@ class PlaylistSpider(BaseSpider):
         for key, value in param.items():
             if param[key] is None:
                 param[key] = ''
+            if '\'' in param[key]:
+                param[key] = str(param[key]).replace('\'', '"')
 
         return param
 
