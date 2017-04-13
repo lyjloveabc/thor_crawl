@@ -33,7 +33,7 @@ class PlaylistSpider(BaseSpider):
         self.base_url = 'http://music.163.com/api/playlist/list?cat={cat}&order={order}&offset={offset}&limit={limit}'
         self.cat = '全部'
         self.order = 'hot'
-        self.limit = 1
+        self.limit = 20
 
         # 响应数据
         self.source_total = 0
@@ -42,7 +42,7 @@ class PlaylistSpider(BaseSpider):
         # 持久化
         self.main_table = 'm163_playlist'
         self.user_table = 'm163_user'
-        self.save_threshold = 0
+        self.save_threshold = 100
         self.persistent_data_user = list()
         self.persistent_data_playlist = list()
 
@@ -88,17 +88,15 @@ class PlaylistSpider(BaseSpider):
                 user = self.get_user(playlist_json['creator'])
                 subscriber = self.get_user(playlist_json['subscribers'][0])
 
-                print(111, response.url)
-
                 self.persistent_data_playlist.append(playlist)
                 self.persistent_data_user.append(user)
                 self.persistent_data_user.append(subscriber)
 
             # 如果还有数据则继续抓取
-            # if more:
-            #     meta['offset'] += self.limit
-            #     url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
-            #     yield scrapy.FormRequest(url=url, method='GET', meta=meta)
+            if more:
+                meta['offset'] += self.limit
+                url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
+                yield scrapy.FormRequest(url=url, method='GET', meta=meta)
 
         self.save()
 
@@ -192,19 +190,19 @@ class PlaylistSpider(BaseSpider):
     def save(self):
         if len(self.persistent_data_playlist) > self.save_threshold:
             try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
                 logging.error('save except:', e)
             finally:
                 self.persistent_data_playlist = list()
         if len(self.persistent_data_user) > self.save_threshold:
             try:
-                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
                 logging.error('save except:', e)
             finally:
                 self.persistent_data_user = list()
@@ -212,19 +210,19 @@ class PlaylistSpider(BaseSpider):
     def save_final(self):
         if len(self.persistent_data_playlist) > 0:
             try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data_playlist)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
                 logging.error('save_final except:', e)
             finally:
                 self.persistent_data_playlist = list()
         if len(self.persistent_data_user) > 0:
             try:
-                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.user_table, self.persistent_data_user)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
                 logging.error('save_final except:', e)
             finally:
                 self.persistent_data_user = list()
