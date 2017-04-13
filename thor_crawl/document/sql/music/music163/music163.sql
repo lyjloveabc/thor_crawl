@@ -104,7 +104,8 @@ CREATE TABLE `m163_playlist` (
   `subscriber_id`            INT(16)       NOT NULL DEFAULT 0
   COMMENT '其中一个订阅者的用户ID',
 
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_m163_playlist_id`(main_id)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -201,7 +202,8 @@ CREATE TABLE `m163_user` (
   `avatar_img_id__str`    VARCHAR(32)   NOT NULL DEFAULT ''
   COMMENT '',
 
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_m163_user_id`(user_id)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

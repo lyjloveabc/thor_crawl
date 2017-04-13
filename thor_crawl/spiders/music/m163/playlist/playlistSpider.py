@@ -33,7 +33,7 @@ class PlaylistSpider(BaseSpider):
         self.base_url = 'http://music.163.com/api/playlist/list?cat={cat}&order={order}&offset={offset}&limit={limit}'
         self.cat = '全部'
         self.order = 'hot'
-        self.limit = 20
+        self.limit = 1
 
         # 响应数据
         self.source_total = 0
@@ -95,10 +95,10 @@ class PlaylistSpider(BaseSpider):
                 self.persistent_data_user.append(subscriber)
 
             # 如果还有数据则继续抓取
-            if more:
-                meta['offset'] += self.limit
-                url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
-                yield scrapy.FormRequest(url=url, method='GET', meta=meta)
+            # if more:
+            #     meta['offset'] += self.limit
+            #     url = self.base_url.format(cat=self.cat, order=self.order, offset=meta['offset'], limit=self.limit)
+            #     yield scrapy.FormRequest(url=url, method='GET', meta=meta)
 
         self.save()
 
