@@ -59,7 +59,7 @@ CREATE TABLE `m163_playlist` (
   `special_type`             TINYINT       NOT NULL DEFAULT 0
   COMMENT '',
 
-  `total_duration`           TINYINT       NOT NULL DEFAULT 0
+  `total_duration`           VARCHAR(16)   NOT NULL DEFAULT ''
   COMMENT '',
 
   `tracks`                   VARCHAR(16)   NOT NULL DEFAULT ''
