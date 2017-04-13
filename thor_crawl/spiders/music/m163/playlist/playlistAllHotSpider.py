@@ -1,5 +1,5 @@
 """
-网易云音乐 热门歌单
+网易云音乐 全部、热门歌单
 http://music.163.com/api/playlist/list?cat=全部&order=hot&offset=0&total=true&limit=2
     code = text_json['code']
     more = text_json['more']
