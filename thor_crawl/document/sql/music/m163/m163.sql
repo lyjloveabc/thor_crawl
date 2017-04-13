@@ -101,6 +101,9 @@ CREATE TABLE `m163_playlist` (
   `creator_id`               INT(16)       NOT NULL DEFAULT 0
   COMMENT '创建者的用户ID',
 
+  `subscriber_id`            INT(16)       NOT NULL DEFAULT 0
+  COMMENT '其中一个订阅者的用户ID',
+
   `url_cat`                  VARCHAR(16)   NOT NULL DEFAULT ''
   COMMENT '抓取类型',
 
