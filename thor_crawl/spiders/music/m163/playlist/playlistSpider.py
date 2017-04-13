@@ -64,7 +64,7 @@ class PlaylistSpider(BaseSpider):
 
         for cat in self.cats:
             for order in self.orders:
-                meta = {'offset': 0}
+                meta = {'offset': 0, 'url_cat': cat, 'url_order': order}
                 url = self.base_url.format(cat=cat, order=order, limit=self.limit, offset=meta['offset'])
                 form_request = scrapy.FormRequest(url=url, method='GET', meta=meta)
                 start_requests.append(form_request)
@@ -103,6 +103,9 @@ class PlaylistSpider(BaseSpider):
             for playlist_json in playlist_group:
                 playlist = self.get_play_list(playlist_json)
                 user = self.get_user(playlist_json['creator'])
+
+                playlist['url_cat'] = meta['url_cat']
+                playlist['url_order'] = meta['url_order']
 
                 self.persistent_data_playlist.append(playlist)
                 self.persistent_data_user.append(user)
