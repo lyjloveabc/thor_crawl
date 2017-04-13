@@ -18,7 +18,7 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class PlaylistSpider(BaseSpider):
+class PlaylistAllHotSpider(BaseSpider):
     name = 'music_m163_playlist_hot'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
