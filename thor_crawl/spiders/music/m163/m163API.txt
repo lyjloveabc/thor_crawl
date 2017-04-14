@@ -14,3 +14,7 @@ limit: 分页大小
 
 2、移动端歌单分享、移动端歌单详情页面
 http://music.163.com/#/playlist?id=649646170&userid=278673575&from=singlemessage
+
+3、歌单详情
+http://music.163.com/api/playlist/detail?id=695550541
+

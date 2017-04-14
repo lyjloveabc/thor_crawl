@@ -21,8 +21,8 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class PlaylistSpider(BaseSpider):
-    name = 'music_m163_playlist_playlist'
+class ArtistSongSpider(BaseSpider):
+    name = 'music_m163_song_artistSong'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     def __init__(self):
@@ -62,12 +62,21 @@ class PlaylistSpider(BaseSpider):
     def start_requests(self):
         start_requests = list()
 
-        for cat in self.cats:
-            for order in self.orders:
-                meta = {'offset': 0, 'url_cat': cat, 'url_order': order}
-                url = self.base_url.format(cat=cat, order=order, limit=self.limit, offset=meta['offset'])
-                form_request = scrapy.FormRequest(url=url, method='GET', meta=meta)
-                start_requests.append(form_request)
+        url = 'http://music.163.com/api/artist/{artist_id}'
+        headers = {
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip,deflate,sdch',
+            'Accept-Language': 'zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Host': 'music.163.com',
+            'Referer': 'http://music.163.com/search/',
+            'User-Agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36'  # NOQA
+        }
+        cookies = {'appver': '1.5.2'}
+        form_request = scrapy.FormRequest(url=url.format(artist_id=7763), method='GET', headers=headers, cookies=cookies)
+        start_requests.append(form_request)
 
         return start_requests
 
@@ -84,6 +93,8 @@ class PlaylistSpider(BaseSpider):
         meta = response.meta
         url = response.url
 
+        print(response.body)
+        print(text)
         # 解析json数据
         text_json = json.loads(text)
 
@@ -251,4 +262,4 @@ class PlaylistSpider(BaseSpider):
 
 
 if __name__ == '__main__':
-    logging.info(PlaylistSpider)
+    logging.info(ArtistSongSpider)
