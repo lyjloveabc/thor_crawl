@@ -15,6 +15,7 @@ import re
 import scrapy
 from scrapy.spiders import BaseSpider
 
+from thor_crawl.spiders.music.m163.m163Constant import M163Constant
 from thor_crawl.utils.constant.constant import Constant
 
 from thor_crawl.utils.commonUtil import CommonUtil
@@ -33,7 +34,7 @@ class ArtistSongSpider(BaseSpider):
         self.common_util = CommonUtil()
 
         # 参数
-        self.base_url = 'http://music.163.com/api/playlist/list?cat={cat}&order={order}&limit={limit}&offset={offset}'
+        self.base_url = 'http://music.163.com/api/artist/{artist_id}'
         self.limit = 20
         self.cats = ['全部', '华语', '欧美', '日语', '韩语', '粤语', '小语种',
                      '流行', '摇滚', '民谣', '电子', '舞曲', '说唱', '轻音乐', '爵士', '乡村', 'R&B/Soul', '古典', '民族', '英伦', '金属',
@@ -62,21 +63,11 @@ class ArtistSongSpider(BaseSpider):
     def start_requests(self):
         start_requests = list()
 
-        url = 'http://music.163.com/api/artist/{artist_id}'
-        headers = {
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip,deflate,sdch',
-            'Accept-Language': 'zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4',
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Host': 'music.163.com',
-            'Referer': 'http://music.163.com/search/',
-            'User-Agent':
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36'  # NOQA
-        }
-        cookies = {'appver': '1.5.2'}
-        form_request = scrapy.FormRequest(url=url.format(artist_id=7763), method='GET', headers=headers, cookies=cookies)
-        start_requests.append(form_request)
+        artist_ids = {7763}
+        for artist_id in artist_ids:
+            form_request = scrapy.FormRequest(url=self.base_url.format(artist_id=artist_id), method='GET',
+                                              headers=M163Constant.HEADERS, cookies=M163Constant.COOKIES)
+            start_requests.append(form_request)
 
         return start_requests
 
