@@ -12,4 +12,5 @@ offset: 分页起始
 total: true 或者 false，不知道干嘛的，可以不用
 limit: 分页大小
 
-2、
+2、移动端歌单分享、移动端歌单详情页面
+http://music.163.com/#/playlist?id=649646170&userid=278673575&from=singlemessage
