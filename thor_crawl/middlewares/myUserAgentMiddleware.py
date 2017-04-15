@@ -1,3 +1,7 @@
+"""
+UA 中间件
+"""
+
 import random
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
 
