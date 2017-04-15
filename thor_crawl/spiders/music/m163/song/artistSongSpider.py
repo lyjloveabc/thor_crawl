@@ -34,7 +34,7 @@ class ArtistSongSpider(BaseSpider):
 
         # ============ 数据库数据 ============
         self.playlist_id_group = set()
-        with open(ArtistSongSpider._PAGE_FILE + 'playlist_hot_main_id.txt', 'r') as f:
+        with open(ArtistSongSpider._PAGE_FILE + 'hot_folt.txt', 'r') as f:
             for line in f.readlines():
                 self.playlist_id_group.add(line[:-1])
 

@@ -88,7 +88,7 @@ NEWSPIDER_MODULE = 'thor_crawl.spiders'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-DOWNLOAD_DELAY = 1.5
+DOWNLOAD_DELAY = 3
 
 # 自己的设置
 RANDOMIZE_DOWNLOAD_DELAY = False
