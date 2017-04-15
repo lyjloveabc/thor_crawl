@@ -83,9 +83,6 @@ CREATE TABLE `m163_song` (
   `rt_urls`              VARCHAR(256)  NOT NULL DEFAULT ''
   COMMENT '',
 
-  `copyright`            INT           NOT NULL DEFAULT 0
-  COMMENT '版权',
-
   `mv_id`                INT           NOT NULL DEFAULT 0
   COMMENT 'mvID',
 

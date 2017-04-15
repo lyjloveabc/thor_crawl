@@ -39,7 +39,7 @@ class ArtistSongSpider(BaseSpider):
                 self.playlist_id_group.add(line[:-1])
 
         # ============ 持久化 ============
-        self.save_threshold = 100
+        self.save_threshold = 1
 
         self.m163_song_table = 'm163_song'
         self.m163_music_level_table = 'm163_music_level'
@@ -104,7 +104,7 @@ class ArtistSongSpider(BaseSpider):
 
         artists = json_str['artists']
         for artist in artists:
-            artist_ids.append(artist['id'])
+            artist_ids.append(str(artist['id']))
 
         param = {
             'm163_id': json_str['id'],
@@ -132,9 +132,8 @@ class ArtistSongSpider(BaseSpider):
             'rt_url': json_str['rtUrl'],
             'f_type': json_str['ftype'],
             'rt_urls': json_str['rtUrls'],
-            'copyright': json_str['copyright'],
             'mv_id': json_str['mvid'],
-            'mp3_url': json_str['mp3_url'],
+            'mp3_url': json_str['mp3Url'],
             'rtype': json_str['rtype'],
             'r_url': json_str['rurl'],
             'artist_ids': ','.join(artist_ids),
