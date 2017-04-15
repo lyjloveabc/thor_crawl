@@ -18,3 +18,9 @@ http://music.163.com/#/playlist?id=649646170&userid=278673575&from=singlemessage
 3、歌单详情
 http://music.163.com/api/playlist/detail?id=695550541
 
+4、歌曲详情
+http://music.163.com/api/song/detail?ids=[449818741]
+
+5、专辑详情
+http://music.163.com/api/album/{album_id}
+

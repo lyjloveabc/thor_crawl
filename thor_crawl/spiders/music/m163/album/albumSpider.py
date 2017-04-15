@@ -17,8 +17,8 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class ArtistSongSpider(BaseSpider):
-    name = 'music_m163_song_artistSong'
+class AlbumSpider(BaseSpider):
+    name = 'music_m163_album_album'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     _PAGE_FILE = 'spiders/music/m163/song/file/'
@@ -30,24 +30,22 @@ class ArtistSongSpider(BaseSpider):
         self.dao = DaoUtils()
         self.common_util = CommonUtil()
 
-        self.base_url = 'http://music.163.com/api/playlist/detail?id={id}'
+        self.base_url = 'http://music.163.com/api/album/{album_id}'
 
         # ============ 数据库数据 ============
         self.playlist_id_group = set()
-        with open(ArtistSongSpider._PAGE_FILE + 'playlist_hot_main_id.txt', 'r') as f:
+        with open(AlbumSpider._PAGE_FILE + 'playlist_hot_main_id.txt', 'r') as f:
             for line in f.readlines():
                 self.playlist_id_group.add(line[:-1])
 
-        # ============ 持久化 ============
+        # 持久化
+        self.main_table = 'm163_playlist'
+        self.user_table = 'm163_user'
         self.save_threshold = 100
+        self.persistent_data_user = list()
+        self.persistent_data_playlist = list()
 
-        self.m163_song_table = 'm163_song'
-        self.m163_music_level_table = 'm163_music_level'
-        self.m163_playlist_x_song_table = 'm163_playlist_x_song'
-
-        self.persistent_data_song = list()
-        self.persistent_data_music_level = list()
-        self.persistent_data_playlist_x_song = list()
+        self.playlist_id_group = [35093341]
 
     def __del__(self):
         logging.info(Constant.SPIDER_DEL)
@@ -57,7 +55,7 @@ class ArtistSongSpider(BaseSpider):
         start_requests = list()
 
         for playlist_id in self.playlist_id_group:
-            form_request = scrapy.FormRequest(url=self.base_url.format(id=playlist_id), method='GET',
+            form_request = scrapy.FormRequest(url=self.base_url.format(album_id=playlist_id), method='GET',
                                               headers=M163Constant.HEADERS, cookies=M163Constant.COOKIES)
             start_requests.append(form_request)
 
@@ -73,28 +71,13 @@ class ArtistSongSpider(BaseSpider):
 
     def parse(self, response):
         text = response.text
+        meta = response.meta
+        url = response.url
 
+        print(response.body)
+        print(text)
         # 解析json数据
         text_json = json.loads(text)
-
-        result = text_json['result']
-        code = text_json['code']
-
-        # 正常返回数据
-        if code == 200:
-            for track_json in result['tracks']:
-                track_json['hMusic']['music_level'] = 'hMusic'
-                track_json['mMusic']['music_level'] = 'mMusic'
-                track_json['lMusic']['music_level'] = 'lMusic'
-                track_json['bMusic']['music_level'] = 'bMusic'
-                music_levels = [track_json['hMusic'], track_json['mMusic'], track_json['lMusic'], track_json['bMusic']]
-
-                track = self.get_play_list_track(track_json)
-                music_level_group = self.get_play_list_music_level_group(music_levels, track['m163_id'])
-
-                self.persistent_data_song.append(track)
-                self.persistent_data_music_level.append(music_level_group)
-                self.persistent_data_playlist_x_song.append({'m163_playlist_id': result['id'], 'm163_song_id': track['m163_id']})
 
         self.save()
 
@@ -138,9 +121,6 @@ class ArtistSongSpider(BaseSpider):
             'rtype': json_str['rtype'],
             'r_url': json_str['rurl'],
             'artist_ids': ','.join(artist_ids),
-            'first_artist_id': artists[0]['id'],
-            'first_artist_name': artists[0]['name'],
-            'first_artist_pic_url': artists[0]['picUrl'],
             'album_id': json_str['album']['id'],
             'b_music_id': json_str['bMusic']['id'],
             'h_music_id': json_str['hMusic']['id'],
@@ -156,64 +136,60 @@ class ArtistSongSpider(BaseSpider):
         return param
 
     @staticmethod
-    def get_play_list_music_level_group(music_levels, track_id):
-        music_level_group = list()
+    def get_play_list_track_artist_group(items):
+        artist_group = list()
 
-        for music_level in music_levels:
+        for item in items:
             param = {
-                'music_level_id': music_level['id'],
-                'name': music_level['name'],
-                'size': music_level['size'],
-                'extension': music_level['extension'],
-                'sr': music_level['sr'],
-                'dfs_id': music_level['dfsId'],
-                'bitrate': music_level['bitrate'],
-                'play_time': music_level['playTime'],
-                'volume_delta': music_level['volumeDelta'],
-                'dfs_id_str': music_level['dfsId_str'],
-                'music_level': music_level['music_level'],
-                'm163_song_id': track_id
+                'name': item['name'],
+                'm163_id': item['id'],
+                'pic_url': item['picUrl']
             }
-            music_level_group.append(param)
 
-        return music_level_group
+            artist_group.append(param)
+
+        return artist_group
 
     def save(self):
-        self.save_detail(self.m163_song_table, self.persistent_data_song, self.save_threshold)
-        self.save_detail(self.m163_music_level_table, self.persistent_data_music_level, self.save_threshold)
-        self.save_detail(self.m163_playlist_x_song_table, self.persistent_data_playlist_x_song, self.save_threshold)
-
-        self.persistent_data_song = list()
-        self.persistent_data_music_level = list()
-        self.persistent_data_playlist_x_song = list()
-
-    def save_final(self):
-        self.save_final_detail(self.m163_song_table, self.persistent_data_song)
-        self.save_final_detail(self.m163_music_level_table, self.persistent_data_music_level)
-        self.save_final_detail(self.m163_playlist_x_song_table, self.persistent_data_playlist_x_song)
-
-    def save_detail(self, table, persistent_data, save_threshold):
-        if len(persistent_data) > save_threshold:
+        if len(self.persistent_data_playlist) > self.save_threshold:
             try:
-                self.dao.customizable_replace_batch(table, persistent_data)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_replace_batch(table, persistent_data)
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
                 logging.error('save except:', e)
             finally:
-                pass
-
-    def save_final_detail(self, table, persistent_data):
-        if len(self.persistent_data_playlist) > 0:
+                self.persistent_data_playlist = list()
+        if len(self.persistent_data_user) > self.save_threshold:
             try:
-                self.dao.customizable_replace_batch(table, persistent_data)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
             except AttributeError as e:
                 self.dao = DaoUtils()
-                self.dao.customizable_replace_batch(table, persistent_data)
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
+                logging.error('save except:', e)
+            finally:
+                self.persistent_data_user = list()
+
+    def save_final(self):
+        if len(self.persistent_data_playlist) > 0:
+            try:
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
+            except AttributeError as e:
+                self.dao = DaoUtils()
+                self.dao.customizable_replace_batch(self.main_table, self.persistent_data_playlist)
                 logging.error('save_final except:', e)
             finally:
-                pass
+                self.persistent_data_playlist = list()
+        if len(self.persistent_data_user) > 0:
+            try:
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
+            except AttributeError as e:
+                self.dao = DaoUtils()
+                self.dao.customizable_replace_batch(self.user_table, self.persistent_data_user)
+                logging.error('save_final except:', e)
+            finally:
+                self.persistent_data_user = list()
 
 
 if __name__ == '__main__':
-    logging.info(ArtistSongSpider)
+    logging.info(AlbumSpider)

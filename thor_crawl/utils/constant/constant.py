@@ -42,3 +42,20 @@ class Constant:
         'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3',
         'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'
     ]
+
+    # =========================== 文件路径 ===========================
+    SPIDER_BASE_PATH = {
+        'music': {
+            'path': 'spiders/music/file/',
+            'sub': {
+                'm163': {
+                    'path': 'spiders/music/m163/file/',
+                    'sub': {
+                        'song': {
+                            'path': 'spiders/music/m163/song/file/'
+                        }
+                    }
+                }
+            }
+        }
+    }

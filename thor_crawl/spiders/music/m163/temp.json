@@ -1,0 +1,233 @@
+{
+  "code": 200,
+  "album": {
+    "songs": [
+      {
+        "starred": false,
+        "popularity": 100.0,
+        "starredNum": 0,
+        "playedNum": 0,
+        "dayPlays": 0,
+        "hearTime": 0,
+        "mp3Url": "http://m2.music.126.net/N00CyjhZrhWXrowcN27PmQ==/18603736743646803.mp3",
+        "rtUrls": null,
+        "status": 0,
+        "alias": [
+          "电影《太空旅客》中文主题曲"
+        ],
+        "score": 100,
+        "mvid": 5404646,
+        "ftype": 0,
+        "rtype": 0,
+        "rurl": null,
+        "hMusic": {
+          "dfsId": 18812643952932238,
+          "volumeDelta": -1.44,
+          "playTime": 235505,
+          "sr": 44100,
+          "bitrate": 320000,
+          "name": null,
+          "id": 1265475727,
+          "size": 9422933,
+          "extension": "mp3",
+          "dfsId_str": "18812643952932238"
+        },
+        "mMusic": {
+          "dfsId": 18735678138984519,
+          "volumeDelta": -1.01,
+          "playTime": 235505,
+          "sr": 44100,
+          "bitrate": 160000,
+          "name": null,
+          "id": 1265475728,
+          "size": 4711489,
+          "extension": "mp3",
+          "dfsId_str": "18735678138984519"
+        },
+        "lMusic": {
+          "dfsId": 18603736743646803,
+          "volumeDelta": -1.07,
+          "playTime": 235505,
+          "sr": 44100,
+          "bitrate": 96000,
+          "name": null,
+          "id": 1265475729,
+          "size": 2826911,
+          "extension": "mp3",
+          "dfsId_str": "18603736743646803"
+        },
+        "artists": [
+          {
+            "img1v1Id": 18686200114669622,
+            "topicPerson": 0,
+            "alias": [],
+            "picUrl": "http://p4.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "albumSize": 0,
+            "img1v1Url": "http://p3.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+            "musicSize": 0,
+            "picId": 0,
+            "trans": "",
+            "briefDesc": "",
+            "name": "G.E.M.邓紫棋",
+            "id": 7763,
+            "img1v1Id_str": "18686200114669622"
+          }
+        ],
+        "copyrightId": 0,
+        "copyFrom": "",
+        "commentThreadId": "R_SO_4_449818741",
+        "album": {
+          "songs": [],
+          "paid": false,
+          "onSale": false,
+          "status": 0,
+          "tags": "",
+          "alias": [
+            "电影《太空旅客》中文主题曲"
+          ],
+          "picUrl": "http://p4.music.126.net/fkqFqMaEt0CzxYS-0NpCog==/18587244069235039.jpg",
+          "publishTime": 1483027200007,
+          "company": "蜂鸟音乐",
+          "picId": 18587244069235039,
+          "artists": [
+            {
+              "img1v1Id": 18686200114669622,
+              "topicPerson": 0,
+              "alias": [],
+              "picUrl": "http://p3.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+              "albumSize": 0,
+              "img1v1Url": "http://p4.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+              "musicSize": 0,
+              "picId": 0,
+              "trans": "",
+              "briefDesc": "",
+              "name": "G.E.M.邓紫棋",
+              "id": 7763,
+              "img1v1Id_str": "18686200114669622"
+            }
+          ],
+          "copyrightId": 0,
+          "briefDesc": "",
+          "commentThreadId": "R_AL_3_35093341",
+          "artist": {
+            "img1v1Id": 18686200114669622,
+            "topicPerson": 0,
+            "alias": [],
+            "picUrl": "http://p3.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "albumSize": 0,
+            "img1v1Url": "http://p4.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+            "musicSize": 0,
+            "picId": 0,
+            "trans": "",
+            "briefDesc": "",
+            "name": "",
+            "id": 0,
+            "img1v1Id_str": "18686200114669622"
+          },
+          "name": "光年之外",
+          "id": 35093341,
+          "type": "EP/Single",
+          "size": 1,
+          "description": "",
+          "subType": "录音室版",
+          "blurPicUrl": "http://p3.music.126.net/fkqFqMaEt0CzxYS-0NpCog==/18587244069235039.jpg",
+          "companyId": 0,
+          "pic": 18587244069235039,
+          "picId_str": "18587244069235039"
+        },
+        "fee": 0,
+        "audition": null,
+        "ringtone": null,
+        "disc": "",
+        "no": 0,
+        "name": "光年之外",
+        "id": 449818741,
+        "position": 1,
+        "duration": 235505,
+        "crbt": null,
+        "bMusic": {
+          "dfsId": 18603736743646803,
+          "volumeDelta": -1.07,
+          "playTime": 235505,
+          "sr": 44100,
+          "bitrate": 96000,
+          "name": null,
+          "id": 1265475729,
+          "size": 2826911,
+          "extension": "mp3",
+          "dfsId_str": "18603736743646803"
+        },
+        "rtUrl": null
+      }
+    ],
+    "paid": false,
+    "onSale": false,
+    "status": 0,
+    "tags": "",
+    "alias": [
+      "电影《太空旅客》中文主题曲"
+    ],
+    "picUrl": "http://p3.music.126.net/fkqFqMaEt0CzxYS-0NpCog==/18587244069235039.jpg",
+    "publishTime": 1483027200007,
+    "company": "蜂鸟音乐",
+    "picId": 18587244069235039,
+    "artists": [
+      {
+        "img1v1Id": 18686200114669622,
+        "topicPerson": 0,
+        "alias": [],
+        "picUrl": "http://p4.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+        "albumSize": 0,
+        "img1v1Url": "http://p4.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+        "musicSize": 0,
+        "picId": 0,
+        "trans": "",
+        "briefDesc": "",
+        "name": "G.E.M.邓紫棋",
+        "id": 7763,
+        "img1v1Id_str": "18686200114669622"
+      }
+    ],
+    "copyrightId": 0,
+    "briefDesc": "",
+    "commentThreadId": "R_AL_3_35093341",
+    "artist": {
+      "img1v1Id": 18686200114669622,
+      "topicPerson": 0,
+      "alias": [
+        "G.E.M."
+      ],
+      "picUrl": "http://p4.music.126.net/LD43F0LQrm_C7_QRN6XuyA==/4404643580880465.jpg",
+      "albumSize": 28,
+      "img1v1Url": "http://p3.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+      "musicSize": 236,
+      "picId": 4404643580880465,
+      "trans": "",
+      "briefDesc": "",
+      "name": "G.E.M.邓紫棋",
+      "id": 7763,
+      "img1v1Id_str": "18686200114669622"
+    },
+    "name": "光年之外",
+    "id": 35093341,
+    "type": "EP/Single",
+    "size": 1,
+    "description": "",
+    "subType": "录音室版",
+    "blurPicUrl": "http://p3.music.126.net/fkqFqMaEt0CzxYS-0NpCog==/18587244069235039.jpg",
+    "companyId": 0,
+    "pic": 18587244069235039,
+    "picId_str": "18587244069235039",
+    "info": {
+      "latestLikedUsers": null,
+      "liked": false,
+      "comments": null,
+      "resourceType": 3,
+      "resourceId": 35093341,
+      "commentCount": 511,
+      "shareCount": 191,
+      "likedCount": 0,
+      "threadId": "R_AL_3_35093341"
+    }
+  }
+}
