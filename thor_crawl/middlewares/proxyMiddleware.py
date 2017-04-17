@@ -88,10 +88,7 @@ class ProxyMiddleware:
     def expand_proxy_poll_from_db(self):
         # proxy_ip_group = self.dao.get_all('select id, ipv4, port, ip_type from ' + ProxyMiddleware.__DB_TABLE_MAIN + ' where is_effective = "Y" and id <2205')
         proxy_ip_group = [
-            {'ip_type': 'http', 'ipv4': '192.168.1.1', 'port': '80'},
-            {'ip_type': 'http', 'ipv4': '192.168.1.2', 'port': '80'},
-            {'ip_type': 'http', 'ipv4': '192.168.1.3', 'port': '80'},
-            {'ip_type': 'http', 'ipv4': '192.168.1.4', 'port': '80'}
+            {'ip_type': 'http', 'ipv4': '122.244.54.100', 'port': '808'}
         ]
 
         for proxy_ip in proxy_ip_group:
@@ -115,7 +112,6 @@ class ProxyMiddleware:
         else:
             if 'proxy' in request.meta.keys():
                 del request.meta['proxy']  # 不使用代理
-        print('set_proxy', request.meta.keys())
 
     # 调整当前proxy_index到下一个有效代理的位置, 同时删除无效代理
     def invalid_proxy(self, index):
