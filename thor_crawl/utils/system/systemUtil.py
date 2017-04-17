@@ -39,6 +39,24 @@ class SystemUtil:
                 else:
                     logging.error(ResultCode.CONDITION_NOT_CONFORM)
 
+    @staticmethod
+    def dict_value_handle(dict_data):
+        """
+        把dict里面的None值数据转化为空字符串，双引号转化为单引号，[]转化为空字符串
+        :param dict_data: 原始数据
+        :return: 转化后的数据
+        """
+        for key, value in dict_data.items():
+            value_str = str(dict_data[key])
+
+            if dict_data[key] is None:
+                dict_data[key] = Constant.STR_EMPTY
+            if '\'' in value_str:
+                dict_data[key] = value_str.replace('\'', '"')
+            if '[]' in value_str:
+                dict_data[key] = value_str.replace('\'', '"')
+        return dict_data
+
 
 if __name__ == '__main__':
     SystemUtil.batch_rename_file('/Users/luoyanjie/PycharmProjects/thor_crawl')

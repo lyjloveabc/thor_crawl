@@ -154,7 +154,7 @@ CREATE TABLE `m163_music_level` (
   `sr`             VARCHAR(16)  NOT NULL  DEFAULT ''
   COMMENT '',
 
-  `dfs_id`         INT          NOT NULL  DEFAULT 0
+  `dfs_id`         VARCHAR(32)  NOT NULL  DEFAULT 0
   COMMENT '关键ID',
 
   `bitrate`        VARCHAR(16)  NOT NULL  DEFAULT ''

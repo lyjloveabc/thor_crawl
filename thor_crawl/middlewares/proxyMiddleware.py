@@ -25,7 +25,7 @@ class ProxyMiddleware:
         self.proxy_poll_min_size = 10  # 代理IP池, 大小
         self.proxies = [{'proxy': None, 'count': 0}]  # 代理池，初始放进去一个代表不使用代理的字典
         self.switch_time_point = datetime.now()  # 代理和非代理的切换时间点，初始化的时候是当前时间
-        self.switch_proxy_interval = 60  # 代理切换时间间隔，以秒数记
+        self.switch_proxy_interval = 3  # 代理切换时间间隔，以秒数记
         self.proxy_index = 0  # 初始时使用0号代理(即不用代理)
         self.last_proxy_index = 0  # 上次使用的代理的下标
 

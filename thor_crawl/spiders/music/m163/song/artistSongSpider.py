@@ -15,6 +15,7 @@ from thor_crawl.utils.constant.constant import Constant
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
+from thor_crawl.utils.system.systemUtil import SystemUtil
 
 
 class ArtistSongSpider(Spider):
@@ -66,10 +67,6 @@ class ArtistSongSpider(Spider):
 
     def closed(self, res):
         logging.info(Constant.SPIDER_CLOSED)
-        sum_source_total = 0
-        for value in self.source_total.values():
-            sum_source_total += value
-        print('条数校验:', sum_source_total, '  <>  ', self.sum_total)
         self.save_final()
 
     def parse(self, response):
@@ -84,17 +81,12 @@ class ArtistSongSpider(Spider):
         # 正常返回数据
         if code == 200:
             for track_json in result['tracks']:
-                track_json['hMusic']['music_level'] = 'hMusic'
-                track_json['mMusic']['music_level'] = 'mMusic'
-                track_json['lMusic']['music_level'] = 'lMusic'
-                track_json['bMusic']['music_level'] = 'bMusic'
-                music_levels = [track_json['hMusic'], track_json['mMusic'], track_json['lMusic'], track_json['bMusic']]
-
+                music_levels = self.get_music_level(track_json)
                 track = self.get_play_list_track(track_json)
                 music_level_group = self.get_play_list_music_level_group(music_levels, track['m163_id'])
 
                 self.persistent_data_song.append(track)
-                self.persistent_data_music_level.append(music_level_group)
+                self.persistent_data_music_level += music_level_group
                 self.persistent_data_playlist_x_song.append({'m163_playlist_id': result['id'], 'm163_song_id': track['m163_id']})
 
         self.save()
@@ -111,7 +103,7 @@ class ArtistSongSpider(Spider):
             'm163_id': json_str['id'],
             'name': json_str['name'],
             'position': json_str['position'],
-            'alias': json_str['alias'],
+            'alias': ','.join(json_str['alias']) if len(json_str['alias']) > 0 else '',
             'status': json_str['status'],
             'fee': json_str['fee'],
             'copyright_id': json_str['copyrightId'],
@@ -142,18 +134,13 @@ class ArtistSongSpider(Spider):
             'first_artist_name': artists[0]['name'],
             'first_artist_pic_url': artists[0]['picUrl'],
             'album_id': json_str['album']['id'],
-            'b_music_id': json_str['bMusic']['id'],
-            'h_music_id': json_str['hMusic']['id'],
-            'm_music_id': json_str['mMusic']['id'],
-            'l_music_id': json_str['lMusic']['id']
+            'b_music_id': json_str['bMusic']['id'] if 'bMusic' in json_str and json_str['bMusic'] is not None else -1,
+            'h_music_id': json_str['hMusic']['id'] if 'hMusic' in json_str and json_str['hMusic'] is not None else -1,
+            'm_music_id': json_str['mMusic']['id'] if 'mMusic' in json_str and json_str['mMusic'] is not None else -1,
+            'l_music_id': json_str['lMusic']['id'] if 'lMusic' in json_str and json_str['lMusic'] is not None else -1
         }
 
-        for key, value in param.items():
-            value_str = str(param[key])
-            if '\'' in value_str:
-                param[key] = value_str.replace('\'', '"')
-
-        return param
+        return SystemUtil.dict_value_handle(param)
 
     @staticmethod
     def get_play_list_music_level_group(music_levels, track_id):
@@ -173,7 +160,7 @@ class ArtistSongSpider(Spider):
                 'music_level': music_level['music_level'],
                 'm163_song_id': track_id
             }
-            music_level_group.append(param)
+            music_level_group.append(SystemUtil.dict_value_handle(param))
 
         return music_level_group
 
@@ -203,7 +190,7 @@ class ArtistSongSpider(Spider):
                 pass
 
     def save_final_detail(self, table, persistent_data):
-        if len(self.persistent_data_playlist) > 0:
+        if len(persistent_data) > 0:
             try:
                 self.dao.customizable_replace_batch(table, persistent_data)
             except AttributeError as e:
@@ -212,6 +199,25 @@ class ArtistSongSpider(Spider):
                 logging.error('save_final except:', e)
             finally:
                 pass
+
+    @staticmethod
+    def get_music_level(track_json):
+        music_levels = list()
+
+        if 'hMusic' in track_json and track_json['hMusic'] is not None:
+            track_json['hMusic']['music_level'] = 'hMusic'
+            music_levels.append(track_json['hMusic'])
+        if 'mMusic' in track_json and track_json['mMusic'] is not None:
+            track_json['mMusic']['music_level'] = 'mMusic'
+            music_levels.append(track_json['mMusic'])
+        if 'lMusic' in track_json and track_json['lMusic'] is not None:
+            track_json['lMusic']['music_level'] = 'lMusic'
+            music_levels.append(track_json['lMusic'])
+        if 'bMusic' in track_json and track_json['bMusic'] is not None:
+            track_json['bMusic']['music_level'] = 'bMusic'
+            music_levels.append(track_json['bMusic'])
+
+        return music_levels
 
 
 if __name__ == '__main__':
