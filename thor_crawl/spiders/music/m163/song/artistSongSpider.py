@@ -169,7 +169,6 @@ class ArtistSongSpider(BaseSpider):
                 'bitrate': music_level['bitrate'],
                 'play_time': music_level['playTime'],
                 'volume_delta': music_level['volumeDelta'],
-                'dfs_id_str': music_level['dfsId_str'],
                 'music_level': music_level['music_level'],
                 'm163_song_id': track_id
             }

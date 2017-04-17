@@ -165,8 +165,6 @@ CREATE TABLE `m163_music_level` (
 
   `volume_delta`   VARCHAR(16)  NOT NULL  DEFAULT ''
   COMMENT '',
-  `dfs_id_str`     VARCHAR(32)  NOT NULL  DEFAULT ''
-  COMMENT '',
 
   `music_level`    VARCHAR(16)  NOT NULL  DEFAULT ''
   COMMENT '音乐等级',

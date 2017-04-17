@@ -100,9 +100,7 @@ DUPEFILTER_DEBUG = True
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-    'thor_crawl.middlewares.myUserAgentMiddleware.MyUserAgentMiddleware': 400,
-    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
-    # 'crawlMain.spiders.util.middlewares.ProxyMiddleware': 100
-    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
-    # 'crawlMain.middleware.ProxyMiddleware.ProxyMiddleware': 100
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+    'thor_crawl.middlewares.proxyMiddleware.ProxyMiddleware': 100,
+    'thor_crawl.middlewares.myUserAgentMiddleware.MyUserAgentMiddleware': 400
 }
