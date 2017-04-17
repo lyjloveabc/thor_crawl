@@ -26,7 +26,7 @@ class ProxyMiddleware:
         self.proxies = [{'proxy': None, 'count': 0}]  # 代理池，初始放进去一个代表不使用代理的字典
         self.switch_time_point = datetime.now()  # 代理和非代理的切换时间点，初始化的时候是当前时间
         self.switch_proxy_interval = 3  # 代理切换时间间隔，以秒数记
-        self.proxy_index = 0  # 初始时使用0号代理(即不用代理)
+        self.proxy_index = 1  # 初始时使用0号代理(即不用代理)
         self.last_proxy_index = 0  # 上次使用的代理的下标
 
         self.fixed_proxy = len(self.proxies)  # 表示可信代理的数量(如自己搭建的HTTP代理)+1(不用代理直接连接)
@@ -43,10 +43,11 @@ class ProxyMiddleware:
         current_switch_time_point = self.switch_time_point + timedelta(seconds=self.switch_proxy_interval)
 
         if datetime_now > current_switch_time_point:
-            logging.info('====== {current_proxy_index} 切换'.format(current_proxy_index=self.proxy_index))
             self.last_proxy_index = self.proxy_index
             self.switch_time_point = datetime_now
             self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
+            logging.info('====== {last_proxy_index} 切换 {current_proxy_index}'
+                         .format(last_proxy_index=self.last_proxy_index, current_proxy_index=self.proxy_index))
 
         self.set_proxy(request)
 
@@ -54,9 +55,10 @@ class ProxyMiddleware:
     def process_response(self, request, response, spider):
         # 打印响应对应的这次请求使用代理的情况
         if 'proxy' in request.meta.keys():
-            logging.info('======请求的代理情况: {proxy} {status} {url}'.format(proxy=request.meta['proxy'], status=response.status, url=request.url))
+            logging.info('======process_response 请求的代理情况: {proxy} {status} {url}'
+                         .format(proxy=request.meta['proxy'], status=response.status, url=request.url))
         else:
-            logging.info('======请求未使用代理: None {status} {url}'.format(status=response.status, url=request.url))
+            logging.info('======process_response 请求未使用代理: None {status} {url}'.format(status=response.status, url=request.url))
 
         if response.status == 200 or not hasattr(spider, 'handle_httpstatus_list'):
             # 响应是200，或者spider对象没有设置handle_httpstatus_list，则不重新发起请求
@@ -72,6 +74,11 @@ class ProxyMiddleware:
 
     # 处理由于使用代理导致的连接异常
     def process_exception(self, request, exception, spider):
+        if 'proxy' in request.meta.keys():
+            logging.info('======process_exception 请求的代理情况: {proxy} {url}'.format(proxy=request.meta['proxy'], url=request.url))
+        else:
+            logging.info('======process_exception 请求未使用代理: None {url}'.format(url=request.url))
+
         if isinstance(exception, self.REQUEST_ERRORS):
             self.invalid_proxy(request.meta['proxy_index'])
             new_request = request.copy()
@@ -108,6 +115,7 @@ class ProxyMiddleware:
         else:
             if 'proxy' in request.meta.keys():
                 del request.meta['proxy']  # 不使用代理
+        print('set_proxy', request.meta.keys())
 
     # 调整当前proxy_index到下一个有效代理的位置, 同时删除无效代理
     def invalid_proxy(self, index):

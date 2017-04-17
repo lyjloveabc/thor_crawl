@@ -102,9 +102,11 @@ LOG_ENABLED = False  # 启用日志
 # LOG_ENCODING = 'utf-8'  # 设置日志字符集
 # LOG_LEVEL = 'DEBUG'
 
+DOWNLOAD_TIMEOUT = 10
+
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+    # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
     'thor_crawl.middlewares.proxyMiddleware.ProxyMiddleware': 100,
     'thor_crawl.middlewares.myUserAgentMiddleware.MyUserAgentMiddleware': 400
 }
