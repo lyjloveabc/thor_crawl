@@ -88,7 +88,9 @@ class ProxyMiddleware:
     def expand_proxy_poll_from_db(self):
         # proxy_ip_group = self.dao.get_all('select id, ipv4, port, ip_type from ' + ProxyMiddleware.__DB_TABLE_MAIN + ' where is_effective = "Y" and id <2205')
         proxy_ip_group = [
-            {'ip_type': 'http', 'ipv4': '122.244.54.100', 'port': '808'}
+            {'ip_type': 'http', 'ipv4': '122.244.54.100', 'port': '808'},
+            {'ip_type': 'http', 'ipv4': '223.223.144.207', 'port': '8080'},
+            {'ip_type': 'http', 'ipv4': '191.5.102.220', 'port': '3128'},
         ]
 
         for proxy_ip in proxy_ip_group:

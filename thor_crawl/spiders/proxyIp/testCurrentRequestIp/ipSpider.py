@@ -13,7 +13,16 @@ class IpSpider(Spider):
     name = 'proxyIp_testCurrentRequestIp_ip138Spider'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
-    start_urls = ['http://www.ip.cn/']
+    start_urls = [
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+        'http://www.ip.cn/',
+    ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
