@@ -3,14 +3,12 @@ UA 中间件
 """
 
 import random
-from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
 
 from thor_crawl.utils.constant.constant import Constant
 
 
-class MyUserAgentMiddleware(UserAgentMiddleware):
+class MyUserAgentMiddleware:
     def __init__(self, user_agent=''):
-        super().__init__(user_agent)
         self.user_agent = user_agent
 
     def process_request(self, request, spider):

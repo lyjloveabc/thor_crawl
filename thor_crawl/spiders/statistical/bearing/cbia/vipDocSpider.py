@@ -6,17 +6,19 @@ from datetime import datetime
 
 import scrapy
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class VipDocSpider(BaseSpider):
+class VipDocSpider(Spider):
     name = 'bearing_cbia_vip_doc'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()

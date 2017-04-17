@@ -2,19 +2,21 @@
 中国轴承产业服务平台 商品类别
 """
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class GoodsCategorySpider(BaseSpider):
+class GoodsCategorySpider(Spider):
     name = 'bearing_zc_goodsCategory'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     start_urls = ['http://www.zhoucheng.cn/']
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()

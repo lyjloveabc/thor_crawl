@@ -88,19 +88,23 @@ NEWSPIDER_MODULE = 'thor_crawl.spiders'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+# ================== START 自己的设置 ==================
 DOWNLOAD_DELAY = 3
 
-# 自己的设置
 RANDOMIZE_DOWNLOAD_DELAY = False
-# 是否启用cookies
-COOKIES_ENABLED = True
+
+COOKIES_ENABLED = True  # 是否启用cookies
 COOKIES_DEBUG = True
 
 DUPEFILTER_DEBUG = True
 
+LOG_ENABLED = False  # 启用日志
+# LOG_ENCODING = 'utf-8'  # 设置日志字符集
+# LOG_LEVEL = 'DEBUG'
+
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
     'thor_crawl.middlewares.proxyMiddleware.ProxyMiddleware': 100,
     'thor_crawl.middlewares.myUserAgentMiddleware.MyUserAgentMiddleware': 400
 }

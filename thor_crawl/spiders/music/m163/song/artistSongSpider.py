@@ -8,7 +8,7 @@ import json
 import logging
 
 import scrapy
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.spiders.music.m163.m163Constant import M163Constant
 from thor_crawl.utils.constant.constant import Constant
@@ -17,13 +17,14 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class ArtistSongSpider(BaseSpider):
+class ArtistSongSpider(Spider):
     name = 'music_m163_song_artistSong'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     _PAGE_FILE = 'spiders/music/m163/song/file/'
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         logging.info(Constant.SPIDER_INIT)
 
         # ============ 工具 ============

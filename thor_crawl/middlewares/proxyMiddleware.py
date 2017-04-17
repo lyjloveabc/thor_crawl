@@ -9,10 +9,6 @@ from twisted.internet.error import TimeoutError, ConnectionRefusedError, Connect
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
-__author__ = 'lyj'
-
-logger = logging.getLogger(__name__)
-
 
 class ProxyMiddleware:
     # 遇到这些类型的错误直接当做代理不可用处理掉
@@ -47,7 +43,7 @@ class ProxyMiddleware:
         current_switch_time_point = self.switch_time_point + timedelta(seconds=self.switch_proxy_interval)
 
         if datetime_now > current_switch_time_point:
-            logger.info('====== {current_proxy_index} 切换'.format(current_proxy_index=self.proxy_index))
+            logging.info('====== {current_proxy_index} 切换'.format(current_proxy_index=self.proxy_index))
             self.last_proxy_index = self.proxy_index
             self.switch_time_point = datetime_now
             self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
@@ -58,9 +54,9 @@ class ProxyMiddleware:
     def process_response(self, request, response, spider):
         # 打印响应对应的这次请求使用代理的情况
         if 'proxy' in request.meta.keys():
-            logger.info('======请求的代理情况: {proxy} {status} {url}'.format(proxy=request.meta['proxy'], status=response.status, url=request.url))
+            logging.info('======请求的代理情况: {proxy} {status} {url}'.format(proxy=request.meta['proxy'], status=response.status, url=request.url))
         else:
-            logger.info('======请求未使用代理: None {status} {url}'.format(status=response.status, url=request.url))
+            logging.info('======请求未使用代理: None {status} {url}'.format(status=response.status, url=request.url))
 
         if response.status == 200 or not hasattr(spider, 'handle_httpstatus_list'):
             # 响应是200，或者spider对象没有设置handle_httpstatus_list，则不重新发起请求
@@ -98,7 +94,7 @@ class ProxyMiddleware:
             }
             self.proxies.append(proxy_ip_dict)
 
-        logger.info('======当前代理IP池代理IP的数量: {proxies}'.format(proxies=len(self.proxies)))
+        logging.info('======当前代理IP池代理IP的数量: {proxies}'.format(proxies=len(self.proxies)))
 
     # 设置代理
     def set_proxy(self, request):

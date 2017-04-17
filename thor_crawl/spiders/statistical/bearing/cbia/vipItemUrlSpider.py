@@ -4,13 +4,13 @@
 from datetime import datetime
 
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class VipItemUrlSpider(BaseSpider):
+class VipItemUrlSpider(Spider):
     name = 'bearing_cbia_vip_item_url'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
@@ -18,7 +18,9 @@ class VipItemUrlSpider(BaseSpider):
         'http://www.cbia.com.cn/index.php/Home/Infoforum/foruminfolist/code/AT1451369946MAWF?&page=1'
     ]
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()

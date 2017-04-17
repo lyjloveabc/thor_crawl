@@ -13,7 +13,7 @@ import logging
 
 import re
 import scrapy
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.constant.constant import Constant
 
@@ -21,11 +21,12 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class PlaylistSpider(BaseSpider):
+class PlaylistSpider(Spider):
     name = 'music_m163_playlist_playlist'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         logging.info(Constant.SPIDER_INIT)
 
         # ============ 工具 ============

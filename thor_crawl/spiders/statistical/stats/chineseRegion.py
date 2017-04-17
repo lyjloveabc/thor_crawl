@@ -4,19 +4,21 @@ http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2015/index.html
 """
 import scrapy
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class ChineseRegion(BaseSpider):
+class ChineseRegion(Spider):
     name = 'statistical_stats_chineseRegion'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     start_urls = ['http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2015/index.html']
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()

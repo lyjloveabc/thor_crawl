@@ -2,12 +2,12 @@
 # http://kg.qq.com/
 import json
 
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from scrapy import Selector
 
 
-class Kg(BaseSpider):
+class Kg(Spider):
     name = 'music_qmkg_kg'
     handle_httpstatus_list = [404]
     start_urls = {
@@ -16,8 +16,8 @@ class Kg(BaseSpider):
         '&type=get_uinfo&start=1&num=8&touin=&share_uid=63989e842128328c36&_=1482150988164'
     }
 
-    def __init__(self):
-        pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     # http://kg.qq.com/personal.html?uid=63989e842128328c36
     def parse(self, response):
@@ -26,4 +26,3 @@ class Kg(BaseSpider):
 
         json.load(response.body)
         print()
-

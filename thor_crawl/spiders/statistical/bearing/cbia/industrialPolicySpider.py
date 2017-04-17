@@ -6,13 +6,13 @@ from datetime import datetime
 
 import scrapy
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class IndustrialPolicySpider(BaseSpider):
+class IndustrialPolicySpider(Spider):
     name = 'bearing_cbia_industrial_policy'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
@@ -20,7 +20,9 @@ class IndustrialPolicySpider(BaseSpider):
         'http://www.cbia.com.cn/index.php/Home/Infoforum/foruminfolist/code/AT1451446685AKPQ?&page=1'
     ]
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()

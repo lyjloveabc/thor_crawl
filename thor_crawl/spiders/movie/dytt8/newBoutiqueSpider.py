@@ -1,18 +1,20 @@
 """
 电影天堂
 """
+import re
+import logging
 from datetime import datetime
 
-import re
 import scrapy
 from scrapy import Selector
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 
 from thor_crawl.utils.commonUtil import CommonUtil
+from thor_crawl.utils.constant.constant import Constant
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class NewBoutiqueSpider(BaseSpider):
+class NewBoutiqueSpider(Spider):
     name = 'movie_dytt8_new_boutique'
     handle_httpstatus_list = [204, 206, 301, 302, 404, 500]
 
@@ -20,7 +22,10 @@ class NewBoutiqueSpider(BaseSpider):
         'http://www.ygdy8.net/html/gndy/dyzz/index.html'
     ]
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        logging.info(Constant.SPIDER_INIT)
+
         # ============ 工具 ============
         self.dao = DaoUtils()
         self.common_util = CommonUtil()
@@ -49,7 +54,6 @@ class NewBoutiqueSpider(BaseSpider):
         items = hxf.xpath('//div[@class="co_content8"]/ul/td/table')
         for item in items:
             item.xpath('tr[2]/td[2]/')
-
 
         # 下一页
         total = self.common_util.get_extract(hxf.xpath('//div[@class="page"]/b[1]/text()'))
