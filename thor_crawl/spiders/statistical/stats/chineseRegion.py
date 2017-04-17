@@ -31,11 +31,11 @@ class ChineseRegion(Spider):
 
     def __del__(self):
         pass
-        #self.save_final()
+        # self.save_final()
 
     def closed(self, res):
         pass
-        #self.save_final()
+        # self.save_final()
 
     def parse(self, response):
         body = response.body.decode('gb2312')
@@ -53,42 +53,42 @@ class ChineseRegion(Spider):
                 print(self.common_util.get_extract(province.xpath('a/@href')))
                 print(self.common_util.get_extract(province.xpath('a/text()')))
 
-            # code = self.common_util.get_extract(fund_item.xpath('td[1]/text()'))
-            # simple_name = self.common_util.get_extract(fund_item.xpath('td[2]/a/text()'))
-            # latest_net_value = self.common_util.get_extract(fund_item.xpath('td[3]/p[1]/text()'))
-            # latest_net_value_date = self.common_util.get_extract(fund_item.xpath('td[3]/p[2]/text()'))
-            # day_of_growth = self.common_util.get_extract(fund_item.xpath('td[4]/span/text()'))
-            # nearly_a_month = self.common_util.get_extract(fund_item.xpath('td[5]/span/text()'))
-            # nearly_three_months = self.common_util.get_extract(fund_item.xpath('td[6]/span/text()'))
-            # almost_a_year = self.common_util.get_extract(fund_item.xpath('td[7]/span/text()'))
-            # since_this_year = self.common_util.get_extract(fund_item.xpath('td[8]/span/text()'))
-            # since_set_up = self.common_util.get_extract(fund_item.xpath('td[9]/span/text()'))
-            # investment_amount_threshold = self.common_util.get_extract(fund_item.xpath('td[10]/text()'))
-            # lu_fund = {
-            #     'code': code,
-            #     'simple_name': simple_name,
-            #     'latest_net_value': latest_net_value,
-            #     'latest_net_value_date': latest_net_value_date,
-            #     'day_of_growth': day_of_growth,
-            #     'nearly_a_month': nearly_a_month,
-            #     'nearly_three_months': nearly_three_months,
-            #     'almost_a_year': almost_a_year,
-            #     'since_this_year': since_this_year,
-            #     'since_set_up': since_set_up,
-            #     'investment_amount_threshold': investment_amount_threshold
-            # }
-            # self.persistent_data.append(lu_fund)
+                # code = self.common_util.get_extract(fund_item.xpath('td[1]/text()'))
+                # simple_name = self.common_util.get_extract(fund_item.xpath('td[2]/a/text()'))
+                # latest_net_value = self.common_util.get_extract(fund_item.xpath('td[3]/p[1]/text()'))
+                # latest_net_value_date = self.common_util.get_extract(fund_item.xpath('td[3]/p[2]/text()'))
+                # day_of_growth = self.common_util.get_extract(fund_item.xpath('td[4]/span/text()'))
+                # nearly_a_month = self.common_util.get_extract(fund_item.xpath('td[5]/span/text()'))
+                # nearly_three_months = self.common_util.get_extract(fund_item.xpath('td[6]/span/text()'))
+                # almost_a_year = self.common_util.get_extract(fund_item.xpath('td[7]/span/text()'))
+                # since_this_year = self.common_util.get_extract(fund_item.xpath('td[8]/span/text()'))
+                # since_set_up = self.common_util.get_extract(fund_item.xpath('td[9]/span/text()'))
+                # investment_amount_threshold = self.common_util.get_extract(fund_item.xpath('td[10]/text()'))
+                # lu_fund = {
+                #     'code': code,
+                #     'simple_name': simple_name,
+                #     'latest_net_value': latest_net_value,
+                #     'latest_net_value_date': latest_net_value_date,
+                #     'day_of_growth': day_of_growth,
+                #     'nearly_a_month': nearly_a_month,
+                #     'nearly_three_months': nearly_three_months,
+                #     'almost_a_year': almost_a_year,
+                #     'since_this_year': since_this_year,
+                #     'since_set_up': since_set_up,
+                #     'investment_amount_threshold': investment_amount_threshold
+                # }
+                # self.persistent_data.append(lu_fund)
 
-        # self.save()
+                # self.save()
 
-        # 下一页
-        # page_num_text = self.common_util.get_extract(hxf.xpath('//div[@class="pagination-inner"]/p[@class="pageNum"]/text()'))
-        # page_nums = re.search(r'第(\d+)页/共(\d+)页', page_num_text)
-        # this_page_num = int(page_nums.group(1))
-        # total_page_num = int(page_nums.group(2))
-        # if this_page_num < total_page_num:
-        #     next_page_url = self.base_url_format.format(current_page=this_page_num + 1)
-        #     yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
+                # 下一页
+                # page_num_text = self.common_util.get_extract(hxf.xpath('//div[@class="pagination-inner"]/p[@class="pageNum"]/text()'))
+                # page_nums = re.search(r'第(\d+)页/共(\d+)页', page_num_text)
+                # this_page_num = int(page_nums.group(1))
+                # total_page_num = int(page_nums.group(2))
+                # if this_page_num < total_page_num:
+                #     next_page_url = self.base_url_format.format(current_page=this_page_num + 1)
+                #     yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
