@@ -102,7 +102,7 @@ LOG_ENABLED = False  # 启用日志
 # LOG_ENCODING = 'utf-8'  # 设置日志字符集
 # LOG_LEVEL = 'DEBUG'
 
-DOWNLOAD_TIMEOUT = 10
+DOWNLOAD_TIMEOUT = 60
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
