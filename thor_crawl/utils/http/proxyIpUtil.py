@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 
 class ProxyIpUtil:
     __REQUEST_URL = 'http://www.w3school.com.cn/index.html'
-    __TIME_OUT = 3
-    __CONTENT_LENGTH = 10
+    __TIME_OUT = 2
 
     def __init__(self):
         pass
