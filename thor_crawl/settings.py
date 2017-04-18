@@ -89,7 +89,7 @@ NEWSPIDER_MODULE = 'thor_crawl.spiders'
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # ================== START 自己的设置 ==================
-DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 3
 
 RANDOMIZE_DOWNLOAD_DELAY = False
 
@@ -106,7 +106,7 @@ DOWNLOAD_TIMEOUT = 60
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-    'thor_crawl.middlewares.proxyMiddleware.ProxyMiddleware': 100,
+    # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+    # 'thor_crawl.middlewares.proxyMiddleware.ProxyMiddleware': 100,
     'thor_crawl.middlewares.myUserAgentMiddleware.MyUserAgentMiddleware': 400
 }
