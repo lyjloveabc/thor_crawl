@@ -23,6 +23,9 @@ CREATE TABLE `proxy_ip` (
   `ip_type`       VARCHAR(8)  NOT NULL DEFAULT 'http'
   COMMENT '代理IP类型: http、https',
 
+  `status`        TINYINT     NOT NULL DEFAULT 1
+  COMMENT '代理状态: 1代理有效，0代理无效',
+
   `check_time`    VARCHAR(64) NOT NULL DEFAULT ''
   COMMENT '验证时间: 时间字符串',
 
@@ -36,7 +39,7 @@ CREATE TABLE `proxy_ip` (
   COMMENT '来源网站名称',
 
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_m163_user_id`(m163_playlist_id, m163_song_id)
+  UNIQUE KEY `uk_m163_user_id`(ip, port, ip_type)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
