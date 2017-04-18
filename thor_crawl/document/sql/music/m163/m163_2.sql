@@ -11,7 +11,7 @@ CREATE TABLE `m163_song` (
   `m163_id`              INT           NOT NULL
   COMMENT '163的歌曲ID',
 
-  `name`                 VARCHAR(128)  NOT NULL DEFAULT ''
+  `name`                 VARCHAR(256)  NOT NULL DEFAULT ''
   COMMENT '歌曲名称',
 
   `position`             VARCHAR(16)   NOT NULL DEFAULT '1'
@@ -95,7 +95,7 @@ CREATE TABLE `m163_song` (
   `r_url`                VARCHAR(128)  NOT NULL DEFAULT ''
   COMMENT 'lMusic mp3 url',
 
-  `artist_ids`           VARCHAR(128)  NOT NULL DEFAULT ''
+  `artist_ids`           VARCHAR(1024) NOT NULL DEFAULT ''
   COMMENT 'artists 中的 artist 的ID',
 
   `first_artist_id`      INT           NOT NULL DEFAULT 0
@@ -142,7 +142,7 @@ CREATE TABLE `m163_music_level` (
   `music_level_id` INT          NOT NULL
   COMMENT 'music_level_id',
 
-  `name`           VARCHAR(128) NOT NULL  DEFAULT ''
+  `name`           VARCHAR(256) NOT NULL  DEFAULT ''
   COMMENT 'music_level_id',
 
   `size`           INT          NOT NULL  DEFAULT 1

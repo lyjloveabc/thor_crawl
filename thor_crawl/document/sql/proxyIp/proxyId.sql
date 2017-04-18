@@ -23,7 +23,7 @@ CREATE TABLE `proxy_ip` (
   `ip_type`       VARCHAR(8)  NOT NULL DEFAULT 'http'
   COMMENT '代理IP类型: http、https',
 
-  `status`        TINYINT     NOT NULL DEFAULT 1
+  `status`        TINYINT     NOT NULL DEFAULT 0
   COMMENT '代理状态: 1代理有效，0代理无效',
 
   `check_time`    VARCHAR(64) NOT NULL DEFAULT ''

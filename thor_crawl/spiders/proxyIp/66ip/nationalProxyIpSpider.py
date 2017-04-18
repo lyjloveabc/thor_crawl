@@ -46,11 +46,11 @@ class NationalProxyIpSpider(Spider):
         form_request = scrapy.FormRequest(url='http://www.66ip.cn/1.html', method='GET', meta=meta)
         start_requests.append(form_request)
 
-        meta = {'page_num': 1}
-        for index in range(1, 35):
-            form_request = scrapy.FormRequest(url='http://www.66ip.cn/areaindex_{index}/1.html'.format(index=index),
-                                              method='GET', meta=meta)
-            start_requests.append(form_request)
+        # meta = {'page_num': 1}
+        # for index in range(1, 35):
+        #     form_request = scrapy.FormRequest(url='http://www.66ip.cn/areaindex_{index}/1.html'.format(index=index),
+        #                                       method='GET', meta=meta)
+        #     start_requests.append(form_request)
 
         return start_requests
 

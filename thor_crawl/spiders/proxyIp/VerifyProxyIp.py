@@ -32,5 +32,6 @@ class VerifyProxyIp(object):
 
 
 if __name__ == '__main__':
-    while True:
-        print(VerifyProxyIp().handle())
+    print(VerifyProxyIp().handle())
+    # while True:
+    #     print(VerifyProxyIp().handle())

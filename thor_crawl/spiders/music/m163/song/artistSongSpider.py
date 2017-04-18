@@ -6,8 +6,10 @@ select * from m163_playlist where url_cat = '全部';
 """
 import json
 import logging
+import time
 
 import scrapy
+from pymysql import OperationalError
 from scrapy.spiders import Spider
 
 from thor_crawl.spiders.music.m163.m163Constant import M163Constant
@@ -41,7 +43,7 @@ class ArtistSongSpider(Spider):
                 self.playlist_id_group.add(line[:-1])
 
         # ============ 持久化 ============
-        self.save_threshold = 1
+        self.save_threshold = 100
 
         self.m163_song_table = 'm163_song'
         self.m163_music_level_table = 'm163_music_level'
@@ -50,6 +52,8 @@ class ArtistSongSpider(Spider):
         self.persistent_data_song = list()
         self.persistent_data_music_level = list()
         self.persistent_data_playlist_x_song = list()
+
+        self.flag = 0
 
     def __del__(self):
         logging.info(Constant.SPIDER_DEL)
@@ -78,6 +82,8 @@ class ArtistSongSpider(Spider):
         result = text_json['result']
         code = text_json['code']
 
+        self.flag += 1
+
         # 正常返回数据
         if code == 200:
             for track_json in result['tracks']:
@@ -88,6 +94,9 @@ class ArtistSongSpider(Spider):
                 self.persistent_data_song.append(track)
                 self.persistent_data_music_level += music_level_group
                 self.persistent_data_playlist_x_song.append({'m163_playlist_id': result['id'], 'm163_song_id': track['m163_id']})
+
+        if self.flag == 50:
+            time.sleep(10)
 
         self.save()
 
@@ -129,7 +138,7 @@ class ArtistSongSpider(Spider):
             'mp3_url': json_str['mp3Url'],
             'rtype': json_str['rtype'],
             'r_url': json_str['rurl'],
-            'artist_ids': ','.join(artist_ids),
+            'artist_ids': str(','.join(artist_ids)),
             'first_artist_id': artists[0]['id'],
             'first_artist_name': artists[0]['name'],
             'first_artist_pic_url': artists[0]['picUrl'],
@@ -182,7 +191,7 @@ class ArtistSongSpider(Spider):
         if len(persistent_data) > save_threshold:
             try:
                 self.dao.customizable_replace_batch(table, persistent_data)
-            except AttributeError as e:
+            except OperationalError as e:
                 self.dao = DaoUtils()
                 self.dao.customizable_replace_batch(table, persistent_data)
                 logging.error('save except:', e)
@@ -193,7 +202,7 @@ class ArtistSongSpider(Spider):
         if len(persistent_data) > 0:
             try:
                 self.dao.customizable_replace_batch(table, persistent_data)
-            except AttributeError as e:
+            except OperationalError as e:
                 self.dao = DaoUtils()
                 self.dao.customizable_replace_batch(table, persistent_data)
                 logging.error('save_final except:', e)
