@@ -4,6 +4,7 @@ http://www.66ip.cn/
 """
 import logging
 
+import re
 import scrapy
 from scrapy import Selector
 from scrapy.spiders import Spider
@@ -27,13 +28,10 @@ class NationalProxyIpSpider(Spider):
         self.dao = DaoUtils()
         self.common_util = CommonUtil()
 
-        # 参数
-        self.base_url = 'http://www.66ip.cn/{page_num}.html'
-
         # 持久化
         self.source = '66免费代理网'
         self.main_table = 'proxy_ip'
-        self.save_threshold = 100
+        self.save_threshold = 1
         self.persistent_data = list()
 
     def __del__(self):
@@ -42,12 +40,17 @@ class NationalProxyIpSpider(Spider):
 
     def start_requests(self):
         start_requests = list()
+        meta = {'page_num': 1, 'flag': 1}
 
-        url = 'http://www.66ip.cn/1.html'
-        meta = {'page_num': 1}
-
-        form_request = scrapy.FormRequest(url=url, method='GET', meta=meta)
+        # 全国代理IP
+        form_request = scrapy.FormRequest(url='http://www.66ip.cn/1.html', method='GET', meta=meta)
         start_requests.append(form_request)
+
+        meta = {'page_num': 1}
+        for index in range(1, 35):
+            form_request = scrapy.FormRequest(url='http://www.66ip.cn/areaindex_{index}/1.html'.format(index=index),
+                                              method='GET', meta=meta)
+            start_requests.append(form_request)
 
         return start_requests
 
@@ -59,8 +62,13 @@ class NationalProxyIpSpider(Spider):
         text = response.text
         hxf = Selector(text=text)
         meta = response.meta
+        url = response.url
 
-        center = hxf.xpath('//div[@id="main"]/div/div[1]/table/tr')
+        if 'flag' in meta:
+            center = hxf.xpath('//div[@id="main"]/div/div[1]/table/tr')
+        else:
+            center = hxf.xpath('//div[@id="footer"]/div[1]/table/tr')
+
         for item in center[1:]:
             proxy_id = {
                 'ip': self.common_util.get_extract(item.xpath('td[1]/text()')),
@@ -75,10 +83,10 @@ class NationalProxyIpSpider(Spider):
         # 下一页
         my_page = hxf.xpath('//div[@id="PageList"]/a')
         last_a_class = self.common_util.get_extract(my_page[-1].xpath('@class'))
-        if last_a_class != 'pageCurrent':
-            current_page_num = meta['page_num']
+        current_page_num = meta['page_num']
+        if last_a_class != 'pageCurrent' and current_page_num < 2:
             next_page_num = current_page_num + 1
-            next_url = self.base_url.format(page_num=next_page_num)
+            next_url = re.sub(r'/\d+\.html', '/' + str(next_page_num) + '.html', url)
             meta['page_num'] = next_page_num
             yield scrapy.FormRequest(url=next_url, method='GET', meta=meta)
 
