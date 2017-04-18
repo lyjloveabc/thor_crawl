@@ -86,14 +86,14 @@ class ProxyMiddleware:
 
     # 扩充代理IP池
     def expand_proxy_poll_from_db(self):
-        # proxy_ip_group = self.dao.get_all('select id, ipv4, port, ip_type from ' + ProxyMiddleware.__DB_TABLE_MAIN + ' where is_effective = "Y" and id <2205')
-        proxy_ip_group = [
-            {'ip_type': 'http', 'ipv4': '180.110.4.78', 'port': '808'},
-        ]
+        proxy_ip_group = self.dao.get_all('select id, ip, port, ip_type from ' + ProxyMiddleware.__DB_TABLE_MAIN)
+        # proxy_ip_group = [
+        #     {'ip_type': 'http', 'ipv4': '180.110.4.78', 'port': '808'},
+        # ]
 
         for proxy_ip in proxy_ip_group:
             proxy_ip_dict = {
-                'proxy': proxy_ip['ip_type'].lower() + '://' + proxy_ip['ipv4'] + ':' + proxy_ip['port'],
+                'proxy': proxy_ip['ip_type'].lower() + '://' + proxy_ip['ip'] + ':' + proxy_ip['port'],
                 'count': 0
             }
             self.proxies.append(proxy_ip_dict)

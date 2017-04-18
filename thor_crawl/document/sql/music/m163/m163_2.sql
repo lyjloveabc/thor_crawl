@@ -14,7 +14,7 @@ CREATE TABLE `m163_song` (
   `name`                 VARCHAR(128)  NOT NULL DEFAULT ''
   COMMENT '歌曲名称',
 
-  `position`             TINYINT       NOT NULL DEFAULT 1
+  `position`             VARCHAR(16)   NOT NULL DEFAULT '1'
   COMMENT '位置',
 
   `alias`                VARCHAR(1024) NOT NULL DEFAULT ''

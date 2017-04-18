@@ -84,7 +84,7 @@ class NationalProxyIpSpider(Spider):
         my_page = hxf.xpath('//div[@id="PageList"]/a')
         last_a_class = self.common_util.get_extract(my_page[-1].xpath('@class'))
         current_page_num = meta['page_num']
-        if last_a_class != 'pageCurrent' and current_page_num < 2:
+        if last_a_class != 'pageCurrent' and current_page_num < 1:
             next_page_num = current_page_num + 1
             next_url = re.sub(r'/\d+\.html', '/' + str(next_page_num) + '.html', url)
             meta['page_num'] = next_page_num
