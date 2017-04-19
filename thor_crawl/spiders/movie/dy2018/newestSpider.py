@@ -62,7 +62,7 @@ class NewestSpider(Spider):
             font_text = self.common_util.get_extract(item.xpath('tr[3]/td[2]/font/text()'))
             font_text_search = re.search(r'日期：(.+)\s+点击：(.+)', font_text)
             movie = {
-                'dy2018_id': re.search(r'/i/(\d+).html', href).group(1),
+                'dy2018_id': re.search(r'.+/(\d+)\.html', href).group(1),
                 'name': self.common_util.get_extract(item.xpath('tr[2]/td[2]/b/a/text()')),
                 'publish_day': font_text_search.group(1),
                 'click_count': font_text_search.group(2),
