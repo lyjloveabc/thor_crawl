@@ -87,8 +87,10 @@ class DaoUtils:
     def customizable_add(self, table, value_dic, time=False):
         if time:
             gmt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            value_dic['gmt_create'] = gmt
-            value_dic['gmt_modify'] = gmt
+            # value_dic['gmt_create'] = gmt
+            # value_dic['gmt_modify'] = gmt
+            value_dic['create_time'] = gmt
+            value_dic['modify_time'] = gmt
         sql = 'insert into ' + table + '(' + ','.join(value_dic.keys()) + ') values'
         value_list = list()
         for key, value in value_dic.items():
@@ -102,8 +104,10 @@ class DaoUtils:
         if time:
             gmt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             for data in data_list:
-                data['gmt_create'] = gmt
-                data['gmt_modify'] = gmt
+                # data['gmt_create'] = gmt
+                # data['gmt_modify'] = gmt
+                data['create_time'] = gmt
+                data['modify_time'] = gmt
         sql = 'insert into ' + table + '(' + ','.join(data_list[0].keys()) + ') values'
         value_list = list()
         for data in data_list:
@@ -123,8 +127,10 @@ class DaoUtils:
         if time:
             gmt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             for data in data_list:
-                data['gmt_create'] = gmt
-                data['gmt_modify'] = gmt
+                # data['gmt_create'] = gmt
+                # data['gmt_modify'] = gmt
+                data['create_time'] = gmt
+                data['modify_time'] = gmt
         sql = 'replace into ' + table + '(' + ','.join(data_list[0].keys()) + ') values'
         value_list = list()
         for data in data_list:
@@ -142,7 +148,8 @@ class DaoUtils:
     # 更新数据
     def customizable_modify(self, table, db_dict, where_dict, time=True):
         if time:
-            db_dict['gmt_modify'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            # db_dict['gmt_modify'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            db_dict['modify_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # 更新的内容
         value_list = list()
