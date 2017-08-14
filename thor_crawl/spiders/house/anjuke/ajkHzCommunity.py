@@ -24,7 +24,7 @@ class AjkHzCommunity(Spider):
         self.common_util = CommonUtil()
 
         # ============ 持久化相关变量定义 ============
-        self.save_threshold = 1000
+        self.save_threshold = 100
         self.persistent_data = list()
         self.main_table = 'ajk_hz_community'
 
