@@ -54,8 +54,6 @@ class AjkHzCommunity(Spider):
         meta = response.meta
         hxf = Selector(text=text)
 
-        print(text)
-
         items = hxf.xpath('//div[@class="maincontent"]/div[@id="list-content"]/div[@class="li-itemmod"]')
         for item in items:
             db_obj = {
