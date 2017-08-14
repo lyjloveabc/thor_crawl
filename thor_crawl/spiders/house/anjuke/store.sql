@@ -29,6 +29,10 @@ CREATE TABLE `ajk_hz_community` (
   `modify_time`         DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
   COMMENT '数据修改时间',
 
+  `hz_area_id`          INT          NOT NULL
+  COMMENT '地区ID',
+  `hz_area_name`        VARCHAR(16)
+  COMMENT '地区名称',
   `url`                 VARCHAR(128) NOT NULL DEFAULT ''
   COMMENT 'url',
   `name`                VARCHAR(16)  NOT NULL DEFAULT ''

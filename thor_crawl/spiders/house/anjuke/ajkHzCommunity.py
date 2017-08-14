@@ -29,14 +29,15 @@ class AjkHzCommunity(Spider):
         self.main_table = 'ajk_hz_community'
 
     def start_requests(self):
-        items = self.dao.get_all('SELECT base_url, name FROM ajk_hz_area WHERE id > 1')
+        items = self.dao.get_all('SELECT base_url, name, id FROM ajk_hz_area WHERE id > 1')
 
         start_requests = set()
         for item in items:
             base_url = str(item['base_url']) + 'p1'
             meta = {
                 'name': item['name'],
-                'url': str(item['base_url']) + 'p{pn}'
+                'url': str(item['base_url']) + 'p{pn}',
+                'id': item['id']
             }
             form_request = scrapy.FormRequest(url=base_url, method='GET', meta=meta)
             start_requests.add(form_request)
@@ -61,18 +62,25 @@ class AjkHzCommunity(Spider):
                 'name': self.common_util.get_extract(item.xpath('div[1]/h3/a/text()')),
                 'community_address': self.common_util.get_extract(item.xpath('div[1]/address/text()')),
                 'date': self.common_util.get_extract(item.xpath('div[1]/p[@class="date"]/text()')),
-                'village_house_price': self.common_util.get_extract(item.xpath('div[2]/p[1]/strong/text()'))
+                'village_house_price': self.common_util.get_extract(item.xpath('div[2]/p[1]/strong/text()')),
+
+                'hz_area_id': meta['id'],
+                'hz_area_name': meta['name']
             }
             self.persistent_data.append(db_obj)
 
         self.save()
 
         # 下一页
-        next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
-        this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
         if len(items) > 0:
-            next_page_url = meta['url'].format(pn=this_page_num + 1)
-            yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
+            try:
+                next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
+                this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
+
+                next_page_url = meta['url'].format(pn=this_page_num + 1)
+                yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
+            except Exception:
+                print(meta)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
