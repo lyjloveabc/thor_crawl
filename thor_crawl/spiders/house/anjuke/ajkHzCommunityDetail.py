@@ -10,7 +10,7 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
 class AjkHzCommunityDetail(Spider):
-    name = 'house_ajk_hz_community_detail'
+    name = 'ajk_hz_community_detail'
     handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
@@ -21,9 +21,9 @@ class AjkHzCommunityDetail(Spider):
         self.common_util = CommonUtil()
 
         # ============ 持久化相关变量定义 ============
-        self.save_threshold = 100
+        self.save_threshold = 0
         self.persistent_data = list()
-        self.main_table = 'ajk_hz_community'
+        self.main_table = 'ajk_hz_community_detail'
         self.base_url = 'https://hangzhou.anjuke.com'
 
     def start_requests(self):
@@ -55,32 +55,29 @@ class AjkHzCommunityDetail(Spider):
         meta = response.meta
         hxf = Selector(text=text)
 
-        items = hxf.xpath('//div[@id="container"]/div[@id="content"]/div[@class="comm-basic-mod"]/div[@id="basic-infos-box"]/div[@class="basic-parms-mod"]')
-        for item in items:
-            db_obj = {
-                'url': self.common_util.get_extract(item.xpath('div[1]/h3/a/@href')),
-                'name': self.common_util.get_extract(item.xpath('div[1]/h3/a/text()')),
-                'community_address': self.common_util.get_extract(item.xpath('div[1]/address/text()')),
-                'date': self.common_util.get_extract(item.xpath('div[1]/p[@class="date"]/text()')),
-                'village_house_price': self.common_util.get_extract(item.xpath('div[2]/p[1]/strong/text()')),
+        item = hxf.xpath('//div[@id="basic-infos-box"]/dl[@class="basic-parms-mod"]')
+        db_obj = {
+            'hz_area_id': meta['hz_area_id'],
+            'hz_area_name': meta['hz_area_name'],
+            'community_name': meta['name'],
+            'community_address': meta['community_address'],
 
-                'hz_area_id': meta['id'],
-                'hz_area_name': meta['name']
-            }
-            self.persistent_data.append(db_obj)
+            'property_type': self.common_util.get_extract(item.xpath('dd[1]/text()')),
+            'property_fee': self.common_util.get_extract(item.xpath('dd[2]/text()')),
+            'total_area': self.common_util.get_extract(item.xpath('dd[3]/text()')),
+            'total_house': self.common_util.get_extract(item.xpath('dd[4]/text()')),
+            'build_year': self.common_util.get_extract(item.xpath('dd[5]/text()')),
+            'parking': self.common_util.get_extract(item.xpath('dd[6]/text()')),
+            'plot_ratio': self.common_util.get_extract(item.xpath('dd[7]/text()')),
+            'developer': self.common_util.get_extract(item.xpath('dd[9]/text()')),
+            'property_company': self.common_util.get_extract(item.xpath('dd[10]/text()')),
 
+            'village_house_price': meta['village_house_price']
+        }
+        self.persistent_data.append(db_obj)
+
+        print(1)
         self.save()
-
-        # 下一页
-        if len(items) > 0:
-            try:
-                next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
-                this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
-
-                next_page_url = meta['url'].format(pn=this_page_num + 1)
-                yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
-            except Exception:
-                print(meta)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
