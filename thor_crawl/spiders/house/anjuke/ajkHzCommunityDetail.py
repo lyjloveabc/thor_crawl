@@ -9,9 +9,8 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class AjkHzCommunity(Spider):
-    name = 'house_ajk_hz_community'
-    # handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
+class AjkHzCommunityDetail(Spider):
+    name = 'house_ajk_hz_community_detail'
     handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
@@ -25,19 +24,22 @@ class AjkHzCommunity(Spider):
         self.save_threshold = 100
         self.persistent_data = list()
         self.main_table = 'ajk_hz_community'
+        self.base_url = 'https://hangzhou.anjuke.com'
 
     def start_requests(self):
-        items = self.dao.get_all('SELECT base_url, name, id FROM ajk_hz_area WHERE id > 1')
+        items = self.dao.get_all('SELECT id, hz_area_id, hz_area_name, url, name, community_address, village_house_price FROM ajk_hz_community ORDER BY id')
 
         start_requests = set()
         for item in items:
-            base_url = str(item['base_url']) + 'p1'
             meta = {
+                'id': item['id'],
+                'hz_area_id': item['hz_area_id'],
+                'hz_area_name': item['hz_area_name'],
                 'name': item['name'],
-                'url': str(item['base_url']) + 'p{pn}',
-                'id': item['id']
+                'community_address': item['community_address'],
+                'village_house_price': item['village_house_price']
             }
-            form_request = scrapy.FormRequest(url=base_url, method='GET', meta=meta)
+            form_request = scrapy.FormRequest(url=self.base_url + item['url'], method='GET', meta=meta)
             start_requests.add(form_request)
 
         return start_requests
@@ -53,7 +55,7 @@ class AjkHzCommunity(Spider):
         meta = response.meta
         hxf = Selector(text=text)
 
-        items = hxf.xpath('//div[@class="maincontent"]/div[@id="list-content"]/div[@class="li-itemmod"]')
+        items = hxf.xpath('//div[@id="container"]/div[@id="content"]/div[@class="comm-basic-mod"]/div[@id="basic-infos-box"]/div[@class="basic-parms-mod"]')
         for item in items:
             db_obj = {
                 'url': self.common_util.get_extract(item.xpath('div[1]/h3/a/@href')),
