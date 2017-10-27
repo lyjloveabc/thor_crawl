@@ -12,7 +12,7 @@ from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 class AjkSecondCommunity(Spider):
     name = 'house_ajk_second_community'
-    handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
+    handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -73,6 +73,7 @@ class AjkSecondCommunity(Spider):
             this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
 
             next_page_url = meta['url'].format(pn=this_page_num + 1)
+            print("next_page_url", next_page_url)
             yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
             # except Exception:
             # print(meta)
