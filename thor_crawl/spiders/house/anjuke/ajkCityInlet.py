@@ -32,8 +32,8 @@ class AjkCityInlet(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for city in self.dao.get_all('SELECT name, url FROM ajk_city'):
-            start_requests.append(scrapy.FormRequest(url=city['url'], method='GET', meta={'name': city['name']}))
+        for row in self.dao.get_all('SELECT id, name, url FROM ajk_city'):
+            start_requests.append(scrapy.FormRequest(url=row['url'], method='GET', meta={'id': row['id'], 'name': row['name']}))
 
         return start_requests
 
@@ -45,20 +45,22 @@ class AjkCityInlet(Spider):
         meta = response.meta
         hxf = Selector(text=body)
 
-        new = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[2]')
-        second = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[3]')
+        new = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[2]/a/@href')
+        second = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[3]/div[1]/a[2]/@href')
         self.persistent_data.append(
             {
-                'name': meta['name'],
+                'city_id': meta['id'],
+                'city_name': meta['name'],
                 'type': 'NEW',
-                'url': self.common_util.get_extract(new.xpath('a/@href')),
+                'url': self.common_util.get_extract(new),
             }
         )
         self.persistent_data.append(
             {
-                'name': meta['name'],
+                'city_id': meta['id'],
+                'city_name': meta['name'],
                 'type': 'SECOND',
-                'url': self.common_util.get_extract(second.xpath('a/@href')),
+                'url': self.common_util.get_extract(second),
             }
         )
 
