@@ -1,7 +1,7 @@
 """
-安居客-某个城市-所有的区域
+安居客-所有城市
 """
-import scrapy
+
 from scrapy import Selector
 from scrapy.spiders import Spider
 
@@ -10,9 +10,11 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 
-class AjkCityInlet(Spider):
-    name = 'house_ajk_city_area'
+class AjkCity(Spider):
+    name = 'house_ajk_city'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
+
+    start_urls = ['https://www.anjuke.com/sy-city.html']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,19 +26,10 @@ class AjkCityInlet(Spider):
         # ============ 持久化相关变量定义 ============
         self.save_threshold = 1000
         self.persistent_data = list()
-        self.main_table = 'ajk_city_area'
+        self.main_table = 'ajk_city'
 
     def __del__(self):
         self.save_final()
-
-    def start_requests(self):
-        start_requests = list()
-
-        for row in self.dao.get_all('SELECT name, type, url FROM ajk_city_inlet'):
-            if row['url'] != '':
-                start_requests.append(scrapy.FormRequest(url=row['url'], method='GET', meta={'name': row['name'], 'type': row['type']}))
-
-        return start_requests
 
     def closed(self, res):
         self.save_final()
@@ -45,29 +38,19 @@ class AjkCityInlet(Spider):
         body = response.body
         meta = response.meta
         hxf = Selector(text=body)
-        url = response.url
 
-        if meta['type'] == 'NEW':
-            total = self.common_util.get_extract(
-                hxf.xpath('//div[@id="container"]/div[@class="list-contents"]/div[@class="list-results"]/div[@class="key-sort"]/div[@class="sort-condi"]/span/em/text()')
-            )
+        lis = hxf.xpath('//div[@class="content"]/div[@class="city-itm"]/div[2]/ul/li')
+        for li in lis[:-1]:
+            a_s = li.xpath('div[1]/a')
+            for a in a_s:
+                self.persistent_data.append(
+                    {
+                        'name': self.common_util.get_extract(a.xpath('text()')),
+                        'url': self.common_util.get_extract(a.xpath('@href'))
+                    }
+                )
 
-            if total != '':
-                self.dao.dao.execute('UPDATE ajk_city_inlet SET total = "{total}" WHERE url = "{url}"'.format(total=total, url=url))
-
-        a_s = hxf.xpath('//div[@class="filter"]/a')
-
-        for a in a_s:
-            self.persistent_data.append(
-                {
-                    'city_name': meta['name'],
-                    'city_url_type': meta['type'],
-                    'area_name': self.common_util.get_extract(a.xpath('text()')),
-                    'area_url': self.common_util.get_extract(a.xpath('@href'))
-                }
-            )
-
-        self.save()
+            self.save()
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:

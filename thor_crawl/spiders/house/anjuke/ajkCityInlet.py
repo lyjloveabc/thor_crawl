@@ -1,5 +1,5 @@
 """
-安居客-某个城市-所有的区域
+安居客-城市的新房、二手房的入口
 """
 import scrapy
 from scrapy import Selector
@@ -11,7 +11,7 @@ from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 
 class AjkCityInlet(Spider):
-    name = 'house_ajk_city_area'
+    name = 'house_ajk_city_inlet'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class AjkCityInlet(Spider):
         # ============ 持久化相关变量定义 ============
         self.save_threshold = 1000
         self.persistent_data = list()
-        self.main_table = 'ajk_city_area'
+        self.main_table = 'ajk_city_inlet'
 
     def __del__(self):
         self.save_final()
@@ -32,9 +32,8 @@ class AjkCityInlet(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for row in self.dao.get_all('SELECT name, type, url FROM ajk_city_inlet'):
-            if row['url'] != '':
-                start_requests.append(scrapy.FormRequest(url=row['url'], method='GET', meta={'name': row['name'], 'type': row['type']}))
+        for city in self.dao.get_all('SELECT name, url FROM ajk_city'):
+            start_requests.append(scrapy.FormRequest(url=city['url'], method='GET', meta={'name': city['name']}))
 
         return start_requests
 
@@ -45,27 +44,23 @@ class AjkCityInlet(Spider):
         body = response.body
         meta = response.meta
         hxf = Selector(text=body)
-        url = response.url
 
-        if meta['type'] == 'NEW':
-            total = self.common_util.get_extract(
-                hxf.xpath('//div[@id="container"]/div[@class="list-contents"]/div[@class="list-results"]/div[@class="key-sort"]/div[@class="sort-condi"]/span/em/text()')
-            )
-
-            if total != '':
-                self.dao.dao.execute('UPDATE ajk_city_inlet SET total = "{total}" WHERE url = "{url}"'.format(total=total, url=url))
-
-        a_s = hxf.xpath('//div[@class="filter"]/a')
-
-        for a in a_s:
-            self.persistent_data.append(
-                {
-                    'city_name': meta['name'],
-                    'city_url_type': meta['type'],
-                    'area_name': self.common_util.get_extract(a.xpath('text()')),
-                    'area_url': self.common_util.get_extract(a.xpath('@href'))
-                }
-            )
+        new = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[2]')
+        second = hxf.xpath('//div[@id="glbNavigation"]/div[1]/ul/li[3]')
+        self.persistent_data.append(
+            {
+                'name': meta['name'],
+                'type': 'NEW',
+                'url': self.common_util.get_extract(new.xpath('a/@href')),
+            }
+        )
+        self.persistent_data.append(
+            {
+                'name': meta['name'],
+                'type': 'SECOND',
+                'url': self.common_util.get_extract(second.xpath('a/@href')),
+            }
+        )
 
         self.save()
 
