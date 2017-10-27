@@ -32,7 +32,7 @@ class AjkSecondCommunity(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for row in self.dao.get_all('SELECT id, city_name, area_name, area_url FROM ajk_city_area WHERE city_inlet_type = "SECOND";'):
+        for row in self.dao.get_all('SELECT id, city_name, area_name, area_url FROM ajk_city_area WHERE city_inlet_type = "SECOND" AND city_name = "宁波";'):
             if row['area_url'] != '':
                 start_requests.append(
                     scrapy.FormRequest(
@@ -65,6 +65,17 @@ class AjkSecondCommunity(Spider):
             self.persistent_data.append(db_obj)
 
         self.save()
+
+        # 下一页
+        if len(items) > 0:
+            try:
+                next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
+                this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
+
+                next_page_url = meta['url'].format(pn=this_page_num + 1)
+                yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
+            except Exception:
+                print(meta)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
