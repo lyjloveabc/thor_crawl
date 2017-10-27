@@ -37,7 +37,7 @@ class AjkSecondCommunity(Spider):
                 start_requests.append(
                     scrapy.FormRequest(
                         url=row['area_url'], method='GET',
-                        meta={'id': row['id'], 'city_name': row['city_name'], 'area_name': row['area_name']}
+                        meta={'id': row['id'], 'city_name': row['city_name'], 'area_name': row['area_name'], 'url': str(row['area_url']) + 'p{pn}'}
                     )
                 )
 
@@ -68,14 +68,14 @@ class AjkSecondCommunity(Spider):
 
         # 下一页
         if len(items) > 0:
-            try:
-                next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
-                this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
+            # try:
+            next_page_info = hxf.xpath('//div[@class="maincontent"]/div[@class="page-content"]')
+            this_page_num = int(self.common_util.get_extract(next_page_info.xpath('div/i[@class="curr"]/text()')))
 
-                next_page_url = meta['url'].format(pn=this_page_num + 1)
-                yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
-            except Exception:
-                print(meta)
+            next_page_url = meta['url'].format(pn=this_page_num + 1)
+            yield scrapy.FormRequest(url=next_page_url, method='GET', meta=meta)
+            # except Exception:
+            # print(meta)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:

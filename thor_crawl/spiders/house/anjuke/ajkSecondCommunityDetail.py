@@ -25,6 +25,7 @@ class AjkSecondCommunityDetail(Spider):
         self.save_threshold = 1000
         self.persistent_data = list()
         self.main_table = 'ajk_second_community_detail'
+        self.base_url = 'https://hangzhou.anjuke.com'
 
     def __del__(self):
         self.save_final()
@@ -36,7 +37,7 @@ class AjkSecondCommunityDetail(Spider):
             if row['url'] != '':
                 start_requests.append(
                     scrapy.FormRequest(
-                        url=row['url'], method='GET',
+                        url=self.base_url + row['url'], method='GET',
                         meta={'id': row['id'], 'area_name': row['area_name'], 'community_name': row['community_name']}
                     )
                 )
@@ -69,7 +70,8 @@ class AjkSecondCommunityDetail(Spider):
             'developer': self.common_util.get_extract(item.xpath('dd[9]/text()')),
             'property_company': self.common_util.get_extract(item.xpath('dd[10]/text()')),
 
-            'village_house_price': meta['village_house_price']
+            'village_house_price': self.common_util.get_extract(hxf.xpath('//div[@id="basic-infos-box"]/div[@class="price"]/span[1]/text()')) +
+                                   self.common_util.get_extract(hxf.xpath('//div[@id="basic-infos-box"]/div[@class="price"]/span[1]/em/text()')),
         }
         self.persistent_data.append(db_obj)
 
