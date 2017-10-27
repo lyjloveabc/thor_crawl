@@ -99,3 +99,55 @@ CREATE TABLE `ajk_second_community` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COMMENT = '安居客二手房小区';
+
+# 安居客小区详情
+DROP TABLE IF EXISTS `ajk_second_community_detail`;
+CREATE TABLE `ajk_second_community_detail` (
+  `id`                  INT      NOT NULL AUTO_INCREMENT
+  COMMENT '数据库自增ID',
+  `create_time`         DATETIME NOT NULL DEFAULT '1970-01-01 00:00:01'
+  COMMENT '数据创建时间',
+  `modify_time`         DATETIME NOT NULL DEFAULT '1970-01-01 00:00:01'
+  COMMENT '数据修改时间',
+
+  `city_area_id`        INT      NOT NULL
+  COMMENT '地区ID',
+  `area_name`           VARCHAR(16)
+  COMMENT '地区名称',
+  `community_name`      VARCHAR(32)
+  COMMENT '小区名称',
+  `community_address`   VARCHAR(64)
+  COMMENT '小区地址',
+
+  `property_type`       VARCHAR(64)
+  COMMENT '物业类型',
+  `property_fee`        VARCHAR(64)
+  COMMENT '物业费',
+  `total_area`          VARCHAR(64)
+  COMMENT '总建面积',
+  `total_house`         VARCHAR(64)
+  COMMENT '总户数',
+  `build_year`          VARCHAR(64)
+  COMMENT '建造年代',
+  `parking`             VARCHAR(64)
+  COMMENT '停车位数量',
+  `plot_ratio`          VARCHAR(64)
+  COMMENT '容积率',
+  `developer`           VARCHAR(64)
+  COMMENT '开发商',
+  `property_company`    VARCHAR(64)
+  COMMENT '物业公司',
+
+  `second-hand_count`   VARCHAR(32)
+  COMMENT '二手房源数',
+  `rent_count`          VARCHAR(32)
+  COMMENT '租房源数',
+  `village_house_price` VARCHAR(32)
+  COMMENT '小区房价',
+
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk`(`city_area_id`, `community_name`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COMMENT = '居客小区详情';

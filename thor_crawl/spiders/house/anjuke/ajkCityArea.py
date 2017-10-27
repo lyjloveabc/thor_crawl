@@ -32,7 +32,7 @@ class AjkCityArea(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for row in self.dao.get_all('SELECT id, city_name, type, url FROM ajk_city_inlet'):
+        for row in self.dao.get_all('SELECT id, city_name, type, url FROM ajk_city_inlet WHERE city_name IN ("宁波", "湖州", "上海") AND type = "SECOND"'):
             if row['url'] != '':
                 start_requests.append(scrapy.FormRequest(url=row['url'], method='GET', meta={'id': row['id'], 'city_name': row['city_name'], 'type': row['type']}))
 
@@ -70,7 +70,7 @@ class AjkCityArea(Spider):
         elif meta['type'] == 'SECOND':
             a_s = hxf.xpath('//div[@class="w1180"]/div[2]/div[1]/span[2]/a')
 
-            for a in a_s[:-1]:
+            for a in a_s[1:]:
                 self.persistent_data.append(
                     {
                         'city_inlet_id': meta['id'],
