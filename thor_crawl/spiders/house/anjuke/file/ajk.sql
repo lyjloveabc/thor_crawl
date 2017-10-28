@@ -145,8 +145,7 @@ CREATE TABLE `ajk_second_community_detail` (
   `village_house_price` VARCHAR(32)
   COMMENT '小区房价',
 
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk`(`city_area_id`, `community_name`)
+  PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

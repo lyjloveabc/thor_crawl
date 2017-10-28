@@ -12,7 +12,7 @@ from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 class AjkSecondCommunityDetail(Spider):
     name = 'house_ajk_second_community_detail'
-    handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
+    # handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,7 +22,7 @@ class AjkSecondCommunityDetail(Spider):
         self.common_util = CommonUtil()
 
         # ============ 持久化相关变量定义 ============
-        self.save_threshold = 10
+        self.save_threshold = 4
         self.persistent_data = list()
         self.main_table = 'ajk_second_community_detail'
         self.base_url = 'https://hangzhou.anjuke.com'
@@ -53,7 +53,8 @@ class AjkSecondCommunityDetail(Spider):
         hxf = Selector(text=body)
         url = response.url
 
-        item = hxf.xpath('//div[@id="basic-infos-box"]/dl[@class="basic-parms-mod"]')
+        item = hxf.xpath('//div[@id="basic-infos-box"]/dl')
+        print(item)
         db_obj = {
             'city_area_id': meta['id'],
             'area_name': meta['area_name'],
