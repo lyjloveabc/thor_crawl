@@ -32,7 +32,7 @@ class AjkSecondCommunity(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for row in self.dao.get_all('SELECT id, city_name, area_name, area_url FROM ajk_city_area WHERE city_inlet_type = "SECOND" AND city_name = "宁波";'):
+        for row in self.dao.get_all('SELECT id, city_name, area_name, area_url FROM ajk_city_area WHERE city_inlet_type = "SECOND" AND city_name = "南京";'):
             if row['area_url'] != '':
                 start_requests.append(
                     scrapy.FormRequest(

@@ -1,5 +1,7 @@
 """
 安居客-二手房-小区
+之前的记录最大ID：6543
+2017-12-08 21:05:19
 """
 import scrapy
 from scrapy import Selector
@@ -12,6 +14,7 @@ from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 class AjkSecondCommunityDetail(Spider):
     name = 'house_ajk_second_community_detail'
+
     # handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
@@ -33,7 +36,8 @@ class AjkSecondCommunityDetail(Spider):
     def start_requests(self):
         start_requests = list()
 
-        for row in self.dao.get_all('SELECT id, area_name, community_name, url FROM ajk_second_community;'):
+        for row in self.dao.get_all(
+                'SELECT id, area_name, community_name, url FROM ajk_second_community WHERE city_name = "南京" AND id NOT IN (SELECT city_area_id FROM ajk_second_community_detail);'):
             if row['url'] != '':
                 start_requests.append(
                     scrapy.FormRequest(
