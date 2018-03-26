@@ -15,7 +15,7 @@ from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 class AjkSecondCommunityDetail(Spider):
     name = 'house_ajk_second_community_detail'
 
-    # handle_httpstatus_list = [204, 206, 404, 500]
+    handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,7 +28,7 @@ class AjkSecondCommunityDetail(Spider):
         self.save_threshold = 4
         self.persistent_data = list()
         self.main_table = 'ajk_second_community_detail'
-        self.base_url = 'https://hangzhou.anjuke.com'
+        self.base_url = 'https://nb.anjuke.com'
 
     def __del__(self):
         self.save_final()
@@ -37,12 +37,12 @@ class AjkSecondCommunityDetail(Spider):
         start_requests = list()
 
         for row in self.dao.get_all(
-                'SELECT id, area_name, community_name, url FROM ajk_second_community WHERE city_name = "南京" AND id NOT IN (SELECT city_area_id FROM ajk_second_community_detail);'):
+                'SELECT id, area_name, community_name, url FROM ajk_second_community WHERE id =1 ;'):
             if row['url'] != '':
                 start_requests.append(
                     scrapy.FormRequest(
-                        url=self.base_url + row['url'], method='GET',
-                        meta={'id': row['id'], 'area_name': row['area_name'], 'community_name': row['community_name']}
+                        url=self.base_url + row['url'] + '?from=Filter_1&hfilter=filterlist', method='GET',
+                        meta={'id': row['id'], 'area_name': row['area_name'], 'community_name': row['community_name']},
                     )
                 )
 
