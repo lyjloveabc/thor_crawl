@@ -31,8 +31,8 @@ class MySQLConfig:
     @staticmethod
     def inner():
         config = MySQLConfig.__common_config()
-        config['host'] = '192.168.1.101'
-        config['user'] = 'itianluo'
-        config['password'] = '^itianluo@0928$'
-        config['db'] = 'itianluo'
+        config['host'] = ''
+        config['user'] = ''
+        config['password'] = ''
+        config['db'] = ''
         return config
