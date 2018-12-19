@@ -10,11 +10,11 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 
-class AjkCity(Spider):
-    name = 'house_ajk_city'
+class RentInHz(Spider):
+    name = 'house_fang_city'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
-    start_urls = ['https://www.anjuke.com/sy-city.html']
+    start_urls = ['http://hz.zu.fang.com/']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +26,7 @@ class AjkCity(Spider):
         # ============ 持久化相关变量定义 ============
         self.save_threshold = 1000
         self.persistent_data = list()
-        self.main_table = 'ajk_city'
+        self.main_table = 'fang'
 
     def __del__(self):
         self.save_final()
