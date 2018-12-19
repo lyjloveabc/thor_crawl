@@ -17,7 +17,7 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 
 class CityArea(Spider):
     name = 'community_fang_city_area'
-    handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
+    handle_httpstatus_list = [302, 204, 206, 404, 500]
 
     start_urls = ['http://www.fang.com/SoufunFamily.htm']
 
@@ -35,7 +35,7 @@ class CityArea(Spider):
             self.db_data.add(row['area_url'])
 
         # ============ 持久化相关变量定义 ============
-        self.save_threshold = 1000  # 一次性插入数据库阈值
+        self.save_threshold = 10  # 一次性插入数据库阈值
         self.persistent_data = list()  # 内存暂存处理的数据，批量插入数据库
         self.main_table = 'fang_city_area'  # 数据库存储表
 
