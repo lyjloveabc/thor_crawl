@@ -14,7 +14,7 @@ class RentInHz(Spider):
     name = 'house_fang_city'
     handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
 
-    start_urls = ['http://hz.zu.fang.com/']
+    start_urls = ['http://hz.zu.souFang.com/']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +26,7 @@ class RentInHz(Spider):
         # ============ 持久化相关变量定义 ============
         self.save_threshold = 1000
         self.persistent_data = list()
-        self.main_table = 'fang'
+        self.main_table = 'souFang'
 
     def __del__(self):
         self.save_final()

@@ -122,6 +122,29 @@ class DaoUtils:
         self.handle_sql_log(sql)
         return self.dao.execute(sql)
 
+    # 批量插入数据，重复则忽略
+    def customizable_add_ignore_batch(self, table, data_list, time=True):
+        if time:
+            gmt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            for data in data_list:
+                # data['gmt_create'] = gmt
+                # data['gmt_modify'] = gmt
+                data['create_time'] = gmt
+                data['modify_time'] = gmt
+        sql = 'insert ignore into ' + table + '(' + ','.join(data_list[0].keys()) + ') values'
+        value_list = list()
+        for data in data_list:
+            inner_value_list = list()
+            for key, value in data.items():
+                if isinstance(value, str):
+                    inner_value_list.append('\'' + value + '\'')
+                else:
+                    inner_value_list.append(str(value))
+            value_list.append('(' + ','.join(inner_value_list) + ')')
+        sql += ','.join(value_list)
+        self.handle_sql_log(sql)
+        return self.dao.execute(sql)
+
     # 批量插入数据(如果存在primary or unique相同的记录，则先删除掉。再插入新记录。)
     def customizable_replace_batch(self, table, data_list, time=True):
         if time:

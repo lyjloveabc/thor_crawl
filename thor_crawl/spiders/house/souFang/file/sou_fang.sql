@@ -1,8 +1,8 @@
 BEGIN;
 
-### 搜房网所有城市
-DROP TABLE IF EXISTS `fang_city_area`;
-CREATE TABLE `fang_city_area` (
+### 房天下所有城市的主页信息
+DROP TABLE IF EXISTS `sou_fang_city_index`;
+CREATE TABLE `sou_fang_city_index` (
   `id`             INT         NOT NULL AUTO_INCREMENT
   COMMENT '数据库自增ID',
   `create_time`    DATETIME    NOT NULL DEFAULT '1970-01-01 00:00:01'
@@ -12,88 +12,61 @@ CREATE TABLE `fang_city_area` (
 
   `province_name`  VARCHAR(40) NULL
   COMMENT '省份名称',
-
   `city_name`      VARCHAR(10) NOT NULL
   COMMENT '城市名称',
   `city_index_url` VARCHAR(40) NOT NULL
   COMMENT '城市首页链接',
 
-  `base_url`       VARCHAR(128)
-  COMMENT '基础链接，后续用',
-
-  `area_name`      VARCHAR(16) NOT NULL
-  COMMENT '区域名称',
-  `area_url`       VARCHAR(128)
-  COMMENT '区域链接',
-
-  `sub_name`       VARCHAR(16) NOT NULL
-  COMMENT '子区域名称',
-  `sub_url`        VARCHAR(128)
-  COMMENT '子区域链接',
-
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk`(`sub_url`)
+  UNIQUE KEY `uk`(`city_index_url`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COMMENT = '搜房网所有城市';
+  COMMENT = '房天下所有城市的主页信息';
 
-# 搜房网-小区详情首页-原始数据
-DROP TABLE IF EXISTS `fang_community`;
-CREATE TABLE `fang_community` (
-  `id`                  INT          NOT NULL AUTO_INCREMENT
+# 房天下租房数据
+DROP TABLE IF EXISTS `sou_fang_renting`;
+CREATE TABLE `sou_fang_renting` (
+  `id`            INT          NOT NULL AUTO_INCREMENT
   COMMENT '数据库自增ID',
-  `create_time`         DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
+  `create_time`   DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
   COMMENT '数据创建时间',
-  `modify_time`         DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
+  `modify_time`   DATETIME     NOT NULL DEFAULT '1970-01-01 00:00:01'
   COMMENT '数据修改时间',
 
-  `city_area_id`        INT          NOT NULL
-  COMMENT 'fang_city_area的自增ID',
-  `province_name`       VARCHAR(40)  NULL
+  `city_index_id` INT          NOT NULL
+  COMMENT 'sou_fang_city_index的自增ID',
+  `province_name` VARCHAR(40)  NULL
   COMMENT '省份名称',
-  `city_name`           VARCHAR(10)  NOT NULL
+  `city_name`     VARCHAR(10)  NOT NULL
   COMMENT '城市名称',
-  `area_name`           VARCHAR(16)  NOT NULL
+  `area_name`     VARCHAR(20)  NOT NULL
   COMMENT '区域名称',
-  `sub_name`            VARCHAR(16)  NOT NULL
-  COMMENT '子区域名称',
 
-  `community_index_url` VARCHAR(128) NOT NULL
-  COMMENT '列表跳进来的详情主页的链接',
+  `detail_url`    VARCHAR(120) NOT NULL
+  COMMENT '房屋详情的url',
 
-  `name`                VARCHAR(32)
-  COMMENT '小区名称',
-  `type`                VARCHAR(8)
-  COMMENT '物业类别',
-  `completion_time`     VARCHAR(16)
-  COMMENT '建成时间',
-  `price`               VARCHAR(32)
-  COMMENT '小区房价',
-
-  `address`             VARCHAR(64)
-  COMMENT '小区地址',
-  `building_type`       VARCHAR(64)
-  COMMENT '建筑类型',
-  `property_company`    VARCHAR(64)
-  COMMENT '物业公司',
-  `developer`           VARCHAR(64)
-  COMMENT '开发商',
-
-  `image`               VARCHAR(300)
-  COMMENT '小区图片',
-
-  `detail_url`          VARCHAR(64)
-  COMMENT '小区详情链接',
-  `evaluate_url`        VARCHAR(64)
-  COMMENT '小区评价链接',
+  `name`          VARCHAR(50)
+  COMMENT '名称',
+  `rent_way`      VARCHAR(4)
+  COMMENT '出租方式',
+  `door_model`    VARCHAR(4)
+  COMMENT '户型',
+  `area`          VARCHAR(10)
+  COMMENT '建筑面积',
+  `toward`        VARCHAR(10)
+  COMMENT '朝向',
+  `unit_price`    VARCHAR(10)
+  COMMENT '单价',
+  `feature`       VARCHAR(100)
+  COMMENT '特色',
 
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`community_index_url`)
+  UNIQUE KEY (`detail_url`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COMMENT = '搜房网-小区详情首页-原始数据';
+  COMMENT = '房天下租房数据';
 
 # 搜房网-小区详情首页-小区详情-原始数据
 DROP TABLE IF EXISTS `fang_community_detail`;
