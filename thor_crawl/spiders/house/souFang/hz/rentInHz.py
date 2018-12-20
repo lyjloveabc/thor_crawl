@@ -2,74 +2,59 @@
 算算你再杭州的租房成本
 """
 
-from scrapy import Selector
-from scrapy.spiders import Spider
-
-from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 from thor_crawl.utils.db.mysql.mySQLConfig import MySQLConfig
 
 
-class RentInHz(Spider):
-    name = 'house_fang_city'
-    handle_httpstatus_list = [301, 302, 204, 206, 404, 500]
-
-    start_urls = ['http://hz.zu.souFang.com/']
-
+class RentInHz:
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         # ============ 工具 ============
         self.dao = DaoUtils(**{'dbType': 'MySQL', 'config': MySQLConfig.localhost()})
-        self.common_util = CommonUtil()
 
-        # ============ 持久化相关变量定义 ============
-        self.save_threshold = 1000
-        self.persistent_data = list()
-        self.main_table = 'souFang'
+    def calc(self):
+        hz_data = self.dao.get_all('SELECT area_name, area, unit_price FROM sou_fang_renting')
 
-    def __del__(self):
-        self.save_final()
+        temp = dict()
+        for row in hz_data:
+            if row['area_name'] in temp:
+                temp[row['area_name']].append(row)
+            else:
+                temp[row['area_name']] = list()
+                temp[row['area_name']].append(row)
 
-    def closed(self, res):
-        self.save_final()
+        result = list()
+        for x, y in temp.items():
+            total = 0
+            num = 0
+            for row in y:
+                try:
+                    # print(float(row['unit_price']))
+                    # print(float(str(row['area']).replace('㎡', '')))
+                    total += float(row['unit_price']) / float(str(row['area']).replace('㎡', ''))
+                    num += 1
+                except ValueError as e:
+                    print(e, x, row)
+            result.append({'城市': x, '平均数': total / num})
+        print(result)
 
-    def parse(self, response):
-        body = response.body
-        meta = response.meta
-        hxf = Selector(text=body)
+    def feature(self):
+        hz_data = self.dao.get_all('SELECT feature FROM sou_fang_renting')
 
-        lis = hxf.xpath('//div[@class="content"]/div[@class="city-itm"]/div[2]/ul/li')
-        for li in lis[:-1]:
-            a_s = li.xpath('div[1]/a')
-            for a in a_s:
-                self.persistent_data.append(
-                    {
-                        'name': self.common_util.get_extract(a.xpath('text()')),
-                        'url': self.common_util.get_extract(a.xpath('@href'))
-                    }
-                )
+        feature_list = list()
+        for row in hz_data:
+            if row['feature'] is not None and row['feature'] != '':
+                for x in str(row['feature']).split(","):
+                    feature_list.append(x)
 
-            self.save()
+        temp = dict()
+        for row in feature_list:
+            if row in temp:
+                temp[row] = temp[row] + 1
+            else:
+                temp[row] = 1
+        print(temp)
 
-    def save(self):
-        if len(self.persistent_data) > self.save_threshold:
-            try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data)
-            except AttributeError as e:
-                self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data)
-                print('save except:', e)
-            finally:
-                self.persistent_data = list()
 
-    def save_final(self):
-        if len(self.persistent_data) > 0:
-            try:
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data)
-            except AttributeError as e:
-                self.dao = DaoUtils()
-                self.dao.customizable_add_batch(self.main_table, self.persistent_data)
-                print('save_final except:', e)
-            finally:
-                self.persistent_data = list()
+if __name__ == '__main__':
+    tj = RentInHz()
+    tj.feature()
