@@ -8,7 +8,7 @@ from scrapy.spiders import Spider
 from thor_crawl.spiders.spider_setting import DEFAULT_DB_ENV
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
-from thor_crawl.utils.email.emailUtil import EmailUtils
+# from thor_crawl.utils.email.emailUtil import EmailUtils
 
 # import sys
 # from imp import reload
