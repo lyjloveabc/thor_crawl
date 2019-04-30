@@ -103,7 +103,7 @@ class CityZone(Spider):
                     'city_base_url': bj_url if city_info[1] == '北京' else other_url.format(code=code),
                     'city_code': code
                 }
-        EmailUtils.send_mail('开始！！！', 'GOGOGO')
+        # EmailUtils.send_mail('开始！！！', 'GOGOGO')
 
     def __del__(self):
         self.save_final()
