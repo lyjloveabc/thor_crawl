@@ -44,6 +44,11 @@ CREATE TABLE `fang_city_zone` (
   `city_name`     VARCHAR(10)
   COMMENT '城市名称',
 
+  `first_area`    VARCHAR(10)
+  COMMENT '地区名称1',
+  `second_area`   VARCHAR(10)
+  COMMENT '地区名称2',
+
   `name`          VARCHAR(50)
   COMMENT '小区名称',
   `url`           VARCHAR(100)

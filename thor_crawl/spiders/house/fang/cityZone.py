@@ -114,7 +114,7 @@ class CityZone(Spider):
             yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=response.meta, callback=self.parse_zone_index)
 
         # 下一页
-        page_a_list = hxf.xpath('//div[@class="fanye"]/a')
+        page_a_list = hxf.xpath('//div[@id="houselist_B14_01"]/a')
         if len(page_a_list) > 0:
             for page_a in page_a_list:
                 if self.common_util.get_extract(page_a.xpath('text()')) == '下一页':
@@ -147,14 +147,16 @@ class CityZone(Spider):
         building_area = ''
         fields = hxf.xpath('//dl[@class=" clearfix mr30"]/dd')
         for field in fields:
-            if self.common_util.get_extract(field.xpath('//strong/text()')) == '占地面积：':
+            if self.common_util.get_extract(field.xpath('strong/text()')) == '占地面积：':
                 land_area = self.common_util.get_extract(field.xpath('text()'))
-            if self.common_util.get_extract(field.xpath('//strong/text()')) == '建筑面积：':
+            if self.common_util.get_extract(field.xpath('strong/text()')) == '建筑面积：':
                 building_area = self.common_util.get_extract(field.xpath('text()'))
         self.persistent_data.append(
             {
                 'province_name': meta['province_name'],
                 'city_name': meta['city_name'],
+                'first_area': meta['first_area'],
+                'second_area': meta['second_area'],
                 'name': meta['name'],
                 'url': meta['url'],
                 'detail_url': meta['detail_url'],
@@ -163,6 +165,7 @@ class CityZone(Spider):
                 'building_area': building_area
             }
         )
+        self.save()
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
