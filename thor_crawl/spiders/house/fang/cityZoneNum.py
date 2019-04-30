@@ -13,8 +13,6 @@ class CityZoneNum(Spider):
     name = 'fang_zone'
     handle_httpstatus_list = [204, 206, 404, 500]
 
-    start_urls = ['https://www.fang.com/SoufunFamily.htm']
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

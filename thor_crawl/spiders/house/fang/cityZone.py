@@ -9,7 +9,7 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class CityZoneNum(Spider):
+class CityZone(Spider):
     name = 'fang_zone'
     handle_httpstatus_list = [204, 206, 404, 500]
 
