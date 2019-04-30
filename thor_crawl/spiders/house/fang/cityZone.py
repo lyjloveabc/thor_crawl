@@ -108,16 +108,10 @@ class CityZone(Spider):
 
         houses = hxf.xpath('//div[@class="houseList"]/div')
 
-        print(self.common_util.get_extract(houses[0].xpath('dl/dd/p/a/text()')))
-        print(self.common_util.get_extract(houses[1].xpath('dl/dd/p/a/text()')))
-        print(self.common_util.get_extract(houses[1].xpath('dl/dd/p/a/@href')))
-
         for house in houses:
-            print(house)
             meta['name'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/text()'))
             meta['url'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/@href'))
             meta['price'] = self.common_util.get_extract(house.xpath('p[@class="priceAverage"]/span/text()'))
-            print('https:' + self.common_util.get_extract(house.xpath('dl/dd/p/a/@href')))
             yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=meta, callback=self.parse_zone_index)
 
         # 下一页
