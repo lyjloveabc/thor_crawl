@@ -8,8 +8,8 @@ from email.mime.text import MIMEText
 
 mailto_list = ["546223592@qq.com"]  # 目标邮箱
 mail_host = "smtp.163.com"  # SMTP 服务器主机
-mail_user = ""
-mail_pass = ""  # 163邮箱smtp生成的密码
+mail_user = "luoyanjiewade@163.com"
+mail_pass = "zucc416lyj"  # 163邮箱smtp生成的密码
 
 
 class EmailUtils(object):
