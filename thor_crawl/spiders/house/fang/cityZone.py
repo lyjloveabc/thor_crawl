@@ -26,7 +26,55 @@ class CityZone(Spider):
         self.main_table = 'fang_city_zone'  # 数据库存储表
 
         # ============ 业务数据 ============
-        self.need_city = ['上海']
+        self.need_city = ['上海',
+                          '北京',
+                          '深圳',
+                          '广州',
+                          '成都',
+                          '杭州',
+                          '重庆',
+                          '武汉',
+                          '苏州',
+                          '西安',
+                          '天津',
+                          '南京',
+                          '郑州',
+                          '长沙',
+                          '沈阳',
+                          '青岛',
+                          '宁波',
+                          '东莞',
+                          '无锡',
+                          '昆明',
+                          '大连',
+                          '厦门',
+                          '合肥',
+                          '佛山',
+                          '福州',
+                          '哈尔滨',
+                          '济南',
+                          '温州',
+                          '长春',
+                          '石家庄',
+                          '常州',
+                          '泉州',
+                          '南宁',
+                          '贵阳',
+                          '南昌',
+                          '南通',
+                          '金华',
+                          '徐州',
+                          '太原',
+                          '嘉兴',
+                          '烟台',
+                          '惠州',
+                          '保定',
+                          '台州',
+                          '中山',
+                          '绍兴',
+                          '乌鲁木齐',
+                          '潍坊',
+                          '兰州']
         self.sign = '/housing/'
         self.detail_sign = 'xiangqing'
 
@@ -72,8 +120,7 @@ class CityZone(Spider):
 
         areas = hxf.xpath('//div[@id="houselist_B03_02"]/div[@class="qxName"]/a')
 
-        # for area in areas[:-1]:
-        for area in areas[1:2]:
+        for area in areas[:-1]:
             meta['first_area'] = self.common_util.get_extract(area.xpath('text()'))
             href = self.common_util.get_extract(area.xpath('@href'))
             yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=meta, callback=self.parse_first_area)
@@ -91,8 +138,7 @@ class CityZone(Spider):
 
         areas = hxf.xpath('//p[@id="shangQuancontain"]/a')
 
-        # for area in areas[:-1]:
-        for area in areas[1:2]:
+        for area in areas[:-1]:
             meta['second_area'] = self.common_util.get_extract(area.xpath('text()'))
             href = self.common_util.get_extract(area.xpath('@href'))
             yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=meta, callback=self.parse_second_area)
