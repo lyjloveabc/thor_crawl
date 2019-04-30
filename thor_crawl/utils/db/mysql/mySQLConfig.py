@@ -25,14 +25,14 @@ class MySQLConfig:
         config['host'] = '127.0.0.1'
         config['user'] = 'root'
         config['password'] = '123456'
-        config['db'] = 'crawler'
+        config['db'] = 'crawler_itl'
         return config
 
     @staticmethod
     def inner():
         config = MySQLConfig.__common_config()
-        config['host'] = ''
-        config['user'] = ''
-        config['password'] = ''
-        config['db'] = ''
+        config['host'] = '127.0.0.1'
+        config['user'] = 'root'
+        config['password'] = 'freedom@Lyj0408'
+        config['db'] = 'crawler_itl'
         return config
