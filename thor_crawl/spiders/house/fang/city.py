@@ -1,10 +1,3 @@
-"""
-一次性
-房天下-所有城市的主页
-该爬虫，一般情况只需要爬取一次就够了：因为中国的城市变化，个人觉得是不频繁的
-页面：http://www.fang.com/SoufunFamily.htm
-"""
-
 from scrapy import Selector
 from scrapy.spiders import Spider
 
@@ -13,7 +6,7 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class CityIndex(Spider):
+class City(Spider):
     name = 'fang_city'
     handle_httpstatus_list = [204, 206, 404, 500]
 
