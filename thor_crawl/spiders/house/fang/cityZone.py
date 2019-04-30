@@ -109,7 +109,7 @@ class CityZone(Spider):
         self.save_final()
 
     def closed(self, res):
-        EmailUtils.send_mail('挂了！！！', '挂了')
+        # EmailUtils.send_mail('挂了！！！', '挂了')
         self.save_final()
 
     def start_requests(self):
