@@ -11,9 +11,12 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 from thor_crawl.utils.email.emailUtil import EmailUtils
 
 # import sys
-# from imp import reload
+from imp import reload
 # reload(sys)
 # sys.setdefaultencoding('utf8')
+import requests, re, sys
+reload(sys)
+# sys.setdefaultencoding("utf-8")
 
 
 class CityZone(Spider):
