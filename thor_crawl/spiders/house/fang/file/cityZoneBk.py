@@ -9,9 +9,11 @@ from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
 
 
-class CityZoneNum(Spider):
-    name = 'fang_zone_num'
+class CityZone(Spider):
+    name = 'fang_zone'
     handle_httpstatus_list = [204, 206, 404, 500]
+
+    start_urls = ['https://www.fang.com/SoufunFamily.htm']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -129,6 +131,26 @@ class CityZoneNum(Spider):
             }
         )
         self.save()
+        # areas = hxf.xpath('//div[@id="houselist_B03_02"]/div[@class="qxName"]/a')
+        #
+        # for area in areas[:-1]:
+        #     meta['first_area'] = self.common_util.get_extract(area.xpath('text()'))
+        #     href = self.common_util.get_extract(area.xpath('@href'))
+        #     yield scrapy.FormRequest(url=meta['url'] + href, method='GET', meta=response.meta, callback=self.parse_first_area)
+        #
+        # self.save()
+
+    def parse_first_area(self, response):
+        try:
+            body = response.body.decode('gb18030').encode('utf-8')
+        except UnicodeDecodeError as e:
+            print(e)
+            body = response.body
+        hxf = Selector(text=body)
+        meta = response.meta
+
+        num = self.common_util.get_extract(hxf.xpath('//div[@id="pxBox"]/p/b/text()'))
+        print(num)
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
