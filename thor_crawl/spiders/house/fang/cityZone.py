@@ -11,11 +11,11 @@ from thor_crawl.utils.db.daoUtil import DaoUtils
 from thor_crawl.utils.email.emailUtil import EmailUtils
 
 # import sys
-from imp import reload
+# from imp import reload
 # reload(sys)
 # sys.setdefaultencoding('utf8')
-import requests, re, sys
-reload(sys)
+# import requests, re, sys
+# reload(sys)
 # sys.setdefaultencoding("utf-8")
 
 
@@ -91,7 +91,7 @@ class CityZone(Spider):
         other_url = 'https://{code}.esf.fang.com'
         bj_url = 'https://esf.fang.com/housing'
         self.cities = dict()
-        with open('city_after_format.txt', 'r') as f:
+        with open('city_after_format.txt', 'r', encoding='utf-8') as f:
             for line in f.readlines():
                 data = line.replace('\n', '')
                 city_info = data.split(',')
