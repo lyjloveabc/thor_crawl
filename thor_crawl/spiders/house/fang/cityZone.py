@@ -76,7 +76,7 @@ class CityZone(Spider):
         for area in areas[1:2]:
             meta['first_area'] = self.common_util.get_extract(area.xpath('text()'))
             href = self.common_util.get_extract(area.xpath('@href'))
-            yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=response.meta, callback=self.parse_first_area)
+            yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=meta, callback=self.parse_first_area)
 
         self.save()
 
@@ -91,10 +91,11 @@ class CityZone(Spider):
 
         areas = hxf.xpath('//p[@id="shangQuancontain"]/a')
 
-        for area in areas[:-1]:
+        # for area in areas[:-1]:
+        for area in areas[1:2]:
             meta['second_area'] = self.common_util.get_extract(area.xpath('text()'))
             href = self.common_util.get_extract(area.xpath('@href'))
-            yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=response.meta, callback=self.parse_second_area)
+            yield scrapy.FormRequest(url=meta['city_base_url'] + href, method='GET', meta=meta, callback=self.parse_second_area)
 
     def parse_second_area(self, response):
         try:
@@ -105,13 +106,19 @@ class CityZone(Spider):
         hxf = Selector(text=body)
         meta = response.meta
 
-        houses = hxf.xpath('//div[@class="houseList"]')
+        houses = hxf.xpath('//div[@class="houseList"]/div')
+
+        print(self.common_util.get_extract(houses[0].xpath('dl/dd/p/a/text()')))
+        print(self.common_util.get_extract(houses[1].xpath('dl/dd/p/a/text()')))
+        print(self.common_util.get_extract(houses[1].xpath('dl/dd/p/a/@href')))
 
         for house in houses:
-            meta['name'] = self.common_util.get_extract(house.xpath('//dl/dd/p/a/text()'))
-            meta['url'] = self.common_util.get_extract(house.xpath('//dl/dd/p/a/@href'))
-            meta['price'] = self.common_util.get_extract(house.xpath('//p[@class="priceAverage"]/span/text()'))
-            yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=response.meta, callback=self.parse_zone_index)
+            print(house)
+            meta['name'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/text()'))
+            meta['url'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/@href'))
+            meta['price'] = self.common_util.get_extract(house.xpath('p[@class="priceAverage"]/span/text()'))
+            print('https:' + self.common_util.get_extract(house.xpath('dl/dd/p/a/@href')))
+            yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=meta, callback=self.parse_zone_index)
 
         # 下一页
         page_a_list = hxf.xpath('//div[@id="houselist_B14_01"]/a')
@@ -132,7 +139,7 @@ class CityZone(Spider):
         meta = response.meta
 
         meta['detail_url'] = self.common_util.get_extract(hxf.xpath('//li[@data="xqxq"]/a/@href'))
-        yield scrapy.FormRequest(url='https:' + meta['detail_url'], method='GET', meta=response.meta, callback=self.parse_zone_detail)
+        yield scrapy.FormRequest(url='https:' + meta['detail_url'], method='GET', meta=meta, callback=self.parse_zone_detail)
 
     def parse_zone_detail(self, response):
         try:
