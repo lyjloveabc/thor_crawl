@@ -7,6 +7,7 @@ from scrapy.spiders import Spider
 from thor_crawl.spiders.spider_setting import DEFAULT_DB_ENV
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
+from thor_crawl.utils.email.emailUtil import EmailUtils
 
 
 class CityZone(Spider):
@@ -98,6 +99,7 @@ class CityZone(Spider):
         self.save_final()
 
     def closed(self, res):
+        EmailUtils.send_mail('挂了！！！', '挂了')
         self.save_final()
 
     def start_requests(self):
