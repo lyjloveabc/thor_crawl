@@ -61,6 +61,8 @@ CREATE TABLE `fang_city_zone` (
   COMMENT '占地面积',
   `building_area` VARCHAR(50)
   COMMENT '建筑面积',
+  `property_fee`  VARCHAR(50)
+  COMMENT '物业费',
 
   PRIMARY KEY (`id`)
 )

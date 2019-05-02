@@ -207,12 +207,15 @@ class CityZone(Spider):
 
         land_area = ''
         building_area = ''
+        property_fee = ''
         fields = hxf.xpath('//dl[@class=" clearfix mr30"]/dd')
         for field in fields:
             if self.common_util.get_extract(field.xpath('strong/text()')) == '占地面积：':
                 land_area = self.common_util.get_extract(field.xpath('text()'))
             if self.common_util.get_extract(field.xpath('strong/text()')) == '建筑面积：':
                 building_area = self.common_util.get_extract(field.xpath('text()'))
+            if self.common_util.get_extract(field.xpath('strong/text()')) == '物 业 费：':
+                property_fee = self.common_util.get_extract(field.xpath('text()'))
         self.persistent_data.append(
             {
                 'province_name': meta['province_name'],
@@ -224,7 +227,8 @@ class CityZone(Spider):
                 'detail_url': meta['detail_url'],
                 'price': meta['price'],
                 'land_area': land_area,
-                'building_area': building_area
+                'building_area': building_area,
+                'property_fee': property_fee
             }
         )
         self.save()
