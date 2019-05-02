@@ -8,6 +8,8 @@ from scrapy.spiders import Spider
 from thor_crawl.spiders.spider_setting import DEFAULT_DB_ENV
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
+
+
 # from thor_crawl.utils.email.emailUtil import EmailUtils
 
 # import sys
@@ -36,55 +38,57 @@ class CityZone(Spider):
         self.main_table = 'fang_city_zone'  # 数据库存储表
 
         # ============ 业务数据 ============
-        self.need_city = ['上海',
-                          '北京',
-                          '深圳',
-                          '广州',
-                          '成都',
-                          '杭州',
-                          '重庆',
-                          '武汉',
-                          '苏州',
-                          '西安',
-                          '天津',
-                          '南京',
-                          '郑州',
-                          '长沙',
-                          '沈阳',
-                          '青岛',
-                          '宁波',
-                          '东莞',
-                          '无锡',
-                          '昆明',
-                          '大连',
-                          '厦门',
-                          '合肥',
-                          '佛山',
-                          '福州',
-                          '哈尔滨',
-                          '济南',
-                          '温州',
-                          '长春',
-                          '石家庄',
-                          '常州',
-                          '泉州',
-                          '南宁',
-                          '贵阳',
-                          '南昌',
-                          '南通',
-                          '金华',
-                          '徐州',
-                          '太原',
-                          '嘉兴',
-                          '烟台',
-                          '惠州',
-                          '保定',
-                          '台州',
-                          '中山',
-                          '绍兴',
-                          '乌鲁木齐',
-                          '潍坊',
-                          '兰州']
+        self.need_city = [
+            # '上海',
+            '北京',
+            # '深圳',
+            # '广州',
+            # '成都',
+            # '杭州',
+            # '重庆',
+            # '武汉',
+            # '苏州',
+            # '西安',
+            # '天津',
+            # '南京',
+            # '郑州',
+            # '长沙',
+            # '沈阳',
+            # '青岛',
+            # '宁波',
+            # '东莞',
+            # '无锡',
+            # '昆明',
+            # '大连',
+            # '厦门',
+            # '合肥',
+            # '佛山',
+            # '福州',
+            # '哈尔滨',
+            # '济南',
+            # '温州',
+            # '长春',
+            # '石家庄',
+            # '常州',
+            # '泉州',
+            # '南宁',
+            # '贵阳',
+            # '南昌',
+            # '南通',
+            # '金华',
+            # '徐州',
+            # '太原',
+            # '嘉兴',
+            # '烟台',
+            # '惠州',
+            # '保定',
+            # '台州',
+            # '中山',
+            # '绍兴',
+            # '乌鲁木齐',
+            # '潍坊',
+            # '兰州'
+        ]
         self.sign = '/housing/'
         self.detail_sign = 'xiangqing'
 
@@ -103,20 +107,18 @@ class CityZone(Spider):
                     'city_base_url': bj_url if city_info[1] == '北京' else other_url.format(code=code),
                     'city_code': code
                 }
-        # EmailUtils.send_mail('开始！！！', 'GOGOGO')
 
     def __del__(self):
         self.save_final()
 
     def closed(self, res):
-        # EmailUtils.send_mail('挂了！！！', '挂了')
         self.save_final()
 
     def start_requests(self):
         start_requests = set()
         for row in self.need_city:
             if row in self.cities.keys():
-                start_requests.add(scrapy.FormRequest(url=self.cities[row]['city_base_url'] + self.sign, method='GET', meta=self.cities[row]))
+                start_requests.add(scrapy.FormRequest(url=self.cities[row]['city_base_url'] + ('' if row == '北京' else self.sign), method='GET', meta=self.cities[row]))
             else:
                 print("----------------------------------no ", row)
         return start_requests
