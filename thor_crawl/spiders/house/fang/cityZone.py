@@ -93,7 +93,7 @@ class CityZone(Spider):
         self.detail_sign = 'xiangqing'
 
         other_url = 'https://{code}.esf.fang.com'
-        bj_url = 'https://esf.fang.com/housing'
+        bj_url = 'https://esf.fang.com'
         self.cities = dict()
         with open('city_after_format.txt', 'r', encoding='utf-8') as f:
             for line in f.readlines():
@@ -105,6 +105,7 @@ class CityZone(Spider):
                     'city_name': city_info[1],
                     'city_index_url': city_info[2],
                     'city_base_url': bj_url if city_info[1] == '北京' else other_url.format(code=code),
+                    # 'city_base_url': other_url.format(code=code),
                     'city_code': code
                 }
 
@@ -118,7 +119,7 @@ class CityZone(Spider):
         start_requests = set()
         for row in self.need_city:
             if row in self.cities.keys():
-                start_requests.add(scrapy.FormRequest(url=self.cities[row]['city_base_url'] + ('' if row == '北京' else self.sign), method='GET', meta=self.cities[row]))
+                start_requests.add(scrapy.FormRequest(url=self.cities[row]['city_base_url'] + self.sign, method='GET', meta=self.cities[row]))
             else:
                 print("----------------------------------no ", row)
         return start_requests
