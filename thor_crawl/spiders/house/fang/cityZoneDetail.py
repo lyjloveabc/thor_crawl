@@ -45,7 +45,8 @@ class CityZoneDetail:
                 f.write(row + '\n')
 
     def handle(self, file_name):
-        SystemUtil.say("现在开始处理第" + file_name.replace('zone_url_', '').replace('.txt', '') + "个文件")
+        print(file_name.replace('file/zone_url_', '').replace('.txt', ''))
+        SystemUtil.say("现在开始处理第" + file_name.replace('file/zone_url_', '').replace('.txt', '') + "个文件")
         db_data = CityZoneDetail.read_data(file_name)
         print("db_data: " + str(len(db_data)))
 
@@ -93,7 +94,7 @@ class CityZoneDetail:
         with open(file_name.replace('.txt', '') + '_out.txt', 'a') as f:
             for row in need_update:
                 f.write(row + '\n')
-        SystemUtil.say("第" + file_name.replace('zone_url_', '').replace('.txt', '') + "个文件处理完毕！")
+        SystemUtil.say("第" + file_name.replace('file/zone_url_', '').replace('.txt', '') + "个文件处理完毕！")
 
 
 if __name__ == '__main__':

@@ -61,7 +61,7 @@ class SystemUtil:
         return dict_data
 
     @staticmethod
-    def say(content="主人救命啊！", circle_num=10):
+    def say(content="主人救命啊！", circle_num=1):
         for n in range(1, circle_num):
             os.system('say ' + content + '')
             time.sleep(10)
