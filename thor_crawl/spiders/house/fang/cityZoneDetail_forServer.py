@@ -10,8 +10,8 @@ from scrapy import Selector
 class CityZoneDetail:
     def __init__(self):
         self.update_sql = 'UPDATE fang_city_zone_new SET land_area = "{land_area}", building_area = "{building_area}", property_fee = "{property_fee}" WHERE id = {id};'
-        self.value = 2000
-        self.value_2 = 10000
+        self.value = 1000
+        self.value_2 = 5000
 
         self.UA_GROUP = [
             # ************************************ START 新加 ************************************ #
@@ -75,13 +75,13 @@ class CityZoneDetail:
             index += 1
             print(index, row)
             if index % self.value_2 == 0:
-                CityZoneDetail.say("index是" + str(index) + "，要暂停60秒了")
-                time.sleep(60)
-                CityZoneDetail.say("暂停60秒结束，继续开始")
+                CityZoneDetail.say("index是" + str(index) + "，要暂停120秒了")
+                time.sleep(120)
+                CityZoneDetail.say("暂停120秒结束，继续开始")
             if index % self.value == 0 and index % self.value_2 != 0:
-                CityZoneDetail.say("index是" + str(index) + "，要暂停10秒了")
-                time.sleep(10)
-                CityZoneDetail.say("暂停10秒结束，继续开始")
+                CityZoneDetail.say("index是" + str(index) + "，要暂停20秒了")
+                time.sleep(20)
+                CityZoneDetail.say("暂停20秒结束，继续开始")
 
             try:
                 requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL'
@@ -137,13 +137,13 @@ class CityZoneDetail:
 
 if __name__ == '__main__':
     czd = CityZoneDetail()
-    czd.handle('file/zone_url_1.txt')
-    CityZoneDetail.say("等待两分钟")
-    time.sleep(120)
-    czd.handle('file/zone_url_2.txt')
-    CityZoneDetail.say("等待两分钟")
-    time.sleep(120)
+    # czd.handle('file/zone_url_1.txt')
+    # CityZoneDetail.say("等待两分钟")
+    # time.sleep(120)
+    # czd.handle('file/zone_url_2.txt')
+    # CityZoneDetail.say("等待两分钟")
+    # time.sleep(120)
     czd.handle('file/zone_url_3.txt')
     CityZoneDetail.say("等待两分钟")
-    time.sleep(120)
-    czd.handle('file/zone_url_4.txt')
+    # time.sleep(120)
+    # czd.handle('file/zone_url_4.txt')
