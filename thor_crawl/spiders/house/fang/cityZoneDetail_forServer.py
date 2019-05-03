@@ -9,7 +9,7 @@ from scrapy import Selector
 class CityZoneDetail:
     def __init__(self):
         self.update_sql = 'UPDATE fang_city_zone_new SET land_area = "{land_area}", building_area = "{building_area}", property_fee = "{property_fee}" WHERE id = {id};'
-        self.value = 100
+        self.value = 50
         self.value_2 = 5000
 
         self.UA_GROUP = [
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # czd.handle('file/zone_url_2.txt')
     # CityZoneDetail.say("等待两分钟")
     # time.sleep(120)
-    # czd.handle('file/zone_url_3.txt')
+    czd.handle('file/zone_url_3.txt')
     # CityZoneDetail.say("等待两分钟")
     # time.sleep(120)
-    czd.handle('file/zone_url_4.txt')
+    # czd.handle('file/zone_url_4.txt')
