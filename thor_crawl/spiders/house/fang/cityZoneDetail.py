@@ -50,10 +50,11 @@ class CityZoneDetail:
         db_data = CityZoneDetail.read_data(file_name)
         print("db_data: " + str(len(db_data)))
 
-        index = 1
+        index = 0
         need_update = list()
         for row in db_data:
-            print(row)
+            index += 1
+            print(index, row)
             if index % self.value_2 == 0:
                 SystemUtil.say("index是" + str(index) + "，要暂停60秒了")
                 time.sleep(60)
