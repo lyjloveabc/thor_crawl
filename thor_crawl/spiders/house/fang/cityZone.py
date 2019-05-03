@@ -173,12 +173,26 @@ class CityZone(Spider):
             meta['price'] = self.common_util.get_extract(house.xpath('p[@class="priceAverage"]/span/text()'))
             # yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=meta, callback=self.parse_zone_index)
 
-            if self.sleep_count % 1000 == 0:
-                print("sleep---------------5:")
-                time.sleep(5)
+            # if self.sleep_count % 1000 == 0:
+            #     print("sleep---------------5:")
+            #     time.sleep(5)
+            # meta['detail_url'] = str(meta['url']).replace('/esf/', '/xiangqing/') if '/esf/' in meta['url'] else (meta['url'] + 'xiangqing/')
+            # yield scrapy.FormRequest(url='https:' + meta['detail_url'], method='GET', meta=meta, callback=self.parse_zone_detail)
+            # self.sleep_count += 1
+
             meta['detail_url'] = str(meta['url']).replace('/esf/', '/xiangqing/') if '/esf/' in meta['url'] else (meta['url'] + 'xiangqing/')
-            yield scrapy.FormRequest(url='https:' + meta['detail_url'], method='GET', meta=meta, callback=self.parse_zone_detail)
-            self.sleep_count += 1
+            self.persistent_data.append(
+                {
+                    'province_name': meta['province_name'],
+                    'city_name': meta['city_name'],
+                    'first_area': meta['first_area'],
+                    'second_area': meta['second_area'],
+                    'name': meta['name'],
+                    'url': meta['url'],
+                    'detail_url': meta['detail_url']
+                }
+            )
+        self.save()
 
         # 下一页
         page_a_list = hxf.xpath('//div[@id="houselist_B14_01"]/a')
