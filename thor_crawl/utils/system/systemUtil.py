@@ -4,8 +4,11 @@
 import os
 import logging
 
+import time
+
 from thor_crawl.utils.constant.constant import Constant
 from thor_crawl.utils.constant.resultCode import ResultCode
+from thor_crawl.utils.email.emailUtil import EmailUtils
 
 
 class SystemUtil:
@@ -57,6 +60,14 @@ class SystemUtil:
                 dict_data[key] = value_str.replace('\'', '"')
         return dict_data
 
+    @staticmethod
+    def say(content="主人救命啊！", circle_num=10):
+        for n in range(1, circle_num):
+            os.system('say ' + content + '')
+            time.sleep(10)
+
 
 if __name__ == '__main__':
-    SystemUtil.batch_rename_file('/Users/luoyanjie/PycharmProjects/thor_crawl')
+    # SystemUtil.batch_rename_file('/Users/luoyanjie/PycharmProjects/thor_crawl')
+    # SystemUtil.say()
+    EmailUtils.send_mail("he", "1111")

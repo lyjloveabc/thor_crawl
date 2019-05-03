@@ -1,24 +1,17 @@
 # coding=utf-8
 import re
+import os
 
 import scrapy
+import time
 from scrapy import Selector
 from scrapy.spiders import Spider
 
 from thor_crawl.spiders.spider_setting import DEFAULT_DB_ENV
 from thor_crawl.utils.commonUtil import CommonUtil
 from thor_crawl.utils.db.daoUtil import DaoUtils
-
-
-# from thor_crawl.utils.email.emailUtil import EmailUtils
-
-# import sys
-# from imp import reload
-# reload(sys)
-# sys.setdefaultencoding('utf8')
-# import requests, re, sys
-# reload(sys)
-# sys.setdefaultencoding("utf-8")
+from thor_crawl.utils.email.emailUtil import EmailUtils
+from thor_crawl.utils.system.systemUtil import SystemUtil
 
 
 class CityZone(Spider):
@@ -35,59 +28,60 @@ class CityZone(Spider):
         # ============ 持久化相关变量定义 ============
         self.save_threshold = 20  # 一次性插入数据库阈值
         self.persistent_data = list()  # 内存暂存处理的数据，批量插入数据库
-        self.main_table = 'fang_city_zone'  # 数据库存储表
+        self.main_table = 'fang_city_zone_new'  # 数据库存储表
+        self.sleep_count = 1
 
         # ============ 业务数据 ============
         self.need_city = [
             '上海',
-            '北京',
-            '深圳',
-            '广州',
-            '成都',
-            '杭州',
-            '重庆',
-            '武汉',
-            '苏州',
-            '西安',
-            '天津',
-            '南京',
-            '郑州',
-            '长沙',
-            '沈阳',
-            '青岛',
-            '宁波',
-            '东莞',
-            '无锡',
-            '昆明',
-            '大连',
-            '厦门',
-            '合肥',
-            '佛山',
-            '福州',
-            '哈尔滨',
-            '济南',
-            '温州',
-            '长春',
-            '石家庄',
-            '常州',
-            '泉州',
-            '南宁',
-            '贵阳',
-            '南昌',
-            '南通',
-            '金华',
-            '徐州',
-            '太原',
-            '嘉兴',
-            '烟台',
-            '惠州',
-            '保定',
-            '台州',
-            '中山',
-            '绍兴',
-            '乌鲁木齐',
-            '潍坊',
-            '兰州'
+            # '北京',
+            # '深圳',
+            # '广州',
+            # '成都',
+            # '杭州',
+            # '重庆',
+            # '武汉',
+            # '苏州',
+            # '西安',
+            # '天津',
+            # '南京',
+            # '郑州',
+            # '长沙',
+            # '沈阳',
+            # '青岛',
+            # '宁波',
+            # '东莞',
+            # '无锡',
+            # '昆明',
+            # '大连',
+            # '厦门',
+            # '合肥',
+            # '佛山',
+            # '福州',
+            # '哈尔滨',
+            # '济南',
+            # '温州',
+            # '长春',
+            # '石家庄',
+            # '常州',
+            # '泉州',
+            # '南宁',
+            # '贵阳',
+            # '南昌',
+            # '南通',
+            # '金华',
+            # '徐州',
+            # '太原',
+            # '嘉兴',
+            # '烟台',
+            # '惠州',
+            # '保定',
+            # '台州',
+            # '中山',
+            # '绍兴',
+            # '乌鲁木齐',
+            # '潍坊',
+            # '兰州'
         ]
         self.sign = '/housing/'
         self.detail_sign = 'xiangqing'
@@ -111,9 +105,13 @@ class CityZone(Spider):
 
     def __del__(self):
         self.save_final()
+        EmailUtils.send_mail("爬虫结束了，快回来", "1111")
+        SystemUtil.say()
 
     def closed(self, res):
         self.save_final()
+        EmailUtils.send_mail("爬虫结束了，快回来", "1111")
+        SystemUtil.say()
 
     def start_requests(self):
         start_requests = set()
@@ -173,7 +171,14 @@ class CityZone(Spider):
             meta['name'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/text()'))
             meta['url'] = self.common_util.get_extract(house.xpath('dl/dd/p/a/@href'))
             meta['price'] = self.common_util.get_extract(house.xpath('p[@class="priceAverage"]/span/text()'))
-            yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=meta, callback=self.parse_zone_index)
+            # yield scrapy.FormRequest(url='https:' + meta['url'], method='GET', meta=meta, callback=self.parse_zone_index)
+
+            if self.sleep_count % 1000 == 0:
+                print("sleep---------------5:")
+                time.sleep(5)
+            meta['detail_url'] = str(meta['url']).replace('/esf/', '/xiangqing/') if '/esf/' in meta['url'] else (meta['url'] + 'xiangqing/')
+            yield scrapy.FormRequest(url='https:' + meta['detail_url'], method='GET', meta=meta, callback=self.parse_zone_detail)
+            self.sleep_count += 1
 
         # 下一页
         page_a_list = hxf.xpath('//div[@id="houselist_B14_01"]/a')
