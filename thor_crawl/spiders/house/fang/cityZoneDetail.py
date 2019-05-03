@@ -100,7 +100,7 @@ class CityZoneDetail:
 
 if __name__ == '__main__':
     czd = CityZoneDetail()
-    czd.handle('file/zone_url_1.txt')
+    # czd.handle('file/zone_url_1.txt')
     # SystemUtil.say("等待两分钟")
     # time.sleep(120)
     czd.handle('file/zone_url_2.txt')
