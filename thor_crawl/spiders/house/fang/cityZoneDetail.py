@@ -50,7 +50,7 @@ class CityZoneDetail:
 
         index = 1
         need_update = list()
-        for row in db_data[0:10]:
+        for row in db_data:
             print(row)
             if index % self.value_2 == 0:
                 SystemUtil.say("index是" + str(index) + "，要暂停60秒了")
