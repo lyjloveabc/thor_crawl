@@ -62,7 +62,7 @@ class SystemUtil:
 
     @staticmethod
     def say(content="主人救命啊！", circle_num=1):
-        for n in range(1, circle_num):
+        for n in range(0, circle_num):
             os.system('say ' + content + '')
             time.sleep(10)
 
