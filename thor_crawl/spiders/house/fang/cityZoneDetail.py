@@ -14,8 +14,8 @@ class CityZoneDetail:
     def __init__(self):
         self.common_util = CommonUtil()
         self.update_sql = 'UPDATE fang_city_zone_new SET land_area = "{land_area}", building_area = "{building_area}", property_fee = "{property_fee}" WHERE id = {id};'
-        self.value = 2000
-        self.value_2 = 10000
+        self.value = 1000
+        self.value_2 = 5000
 
     def __del__(self):
         SystemUtil.say(content="张莹老婆快来救救我啊", circle_num=2)
@@ -103,10 +103,10 @@ if __name__ == '__main__':
     czd.handle('file/zone_url_1.txt')
     # SystemUtil.say("等待两分钟")
     # time.sleep(120)
-    # czd.handle('file/zone_url_2.txt')
-    # SystemUtil.say("等待两分钟")
-    # time.sleep(120)
-    czd.handle('file/zone_url_3.txt')
+    czd.handle('file/zone_url_2.txt')
     SystemUtil.say("等待两分钟")
     time.sleep(120)
-    czd.handle('file/zone_url_4.txt')
+    czd.handle('file/zone_url_3.txt')
+    # SystemUtil.say("等待两分钟")
+    # time.sleep(120)
+    # czd.handle('file/zone_url_4.txt')
