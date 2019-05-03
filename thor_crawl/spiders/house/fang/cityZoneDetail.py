@@ -1,6 +1,4 @@
 # coding=utf-8
-import sys
-sys.path.append('../../utils/')
 
 import random
 import time
