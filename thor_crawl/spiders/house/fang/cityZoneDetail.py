@@ -13,7 +13,7 @@ from thor_crawl.utils.system.systemUtil import SystemUtil
 
 
 class CityZone(Spider):
-    name = 'fang_city_zone'
+    name = 'fang_city_zone_detail'
     handle_httpstatus_list = [204, 206, 404, 500]
 
     def __init__(self, *args, **kwargs):
@@ -103,12 +103,12 @@ class CityZone(Spider):
 
     def __del__(self):
         self.save_final()
-        # EmailUtils.send_mail("爬虫结束了，快回来", "1111")
+        EmailUtils.send_mail("爬虫结束了，快回来", "1111")
         SystemUtil.say(circle_num=2)
 
     def closed(self, res):
         self.save_final()
-        # EmailUtils.send_mail("爬虫结束了，快回来", "1111")
+        EmailUtils.send_mail("爬虫结束了，快回来", "1111")
         SystemUtil.say(circle_num=2)
 
     def start_requests(self):
