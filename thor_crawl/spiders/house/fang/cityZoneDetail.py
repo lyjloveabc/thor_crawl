@@ -14,7 +14,8 @@ class CityZoneDetail:
     def __init__(self):
         self.common_util = CommonUtil()
         self.update_sql = 'UPDATE fang_city_zone_new SET land_area = "{land_area}", building_area = "{building_area}", property_fee = "{property_fee}" WHERE id = {id};'
-        self.value = 1000
+        self.value = 2000
+        self.value_2 = 10000
 
     def __del__(self):
         SystemUtil.say(content="张莹老婆快来救救我啊", circle_num=2)
@@ -51,9 +52,14 @@ class CityZoneDetail:
         need_update = list()
         for row in db_data[0:10]:
             print(row)
-            if index % self.value == 0:
+            if index % self.value_2 == 0:
+                SystemUtil.say("index是" + str(index) + "，要暂停60秒了")
+                time.sleep(60)
+                SystemUtil.say("暂停60秒结束，继续开始")
+            if index % self.value == 0 and index % self.value_2 != 0:
                 SystemUtil.say("index是" + str(index) + "，要暂停10秒了")
                 time.sleep(10)
+                SystemUtil.say("暂停10秒结束，继续开始")
 
             try:
                 requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL'
