@@ -1,9 +1,7 @@
 # coding=utf-8
 import re
-import os
 
 import scrapy
-import time
 from scrapy import Selector
 from scrapy.spiders import Spider
 
