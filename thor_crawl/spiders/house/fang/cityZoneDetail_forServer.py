@@ -131,7 +131,7 @@ class CityZoneDetail:
     @staticmethod
     def say(content="主人救命啊！", circle_num=1):
         for n in range(0, circle_num):
-            os.system('say ' + content + '')
+            print(content)
             time.sleep(10)
 
 
