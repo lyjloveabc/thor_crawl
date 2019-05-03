@@ -1,5 +1,4 @@
 # coding=utf-8
-import os
 import random
 import time
 
@@ -10,7 +9,7 @@ from scrapy import Selector
 class CityZoneDetail:
     def __init__(self):
         self.update_sql = 'UPDATE fang_city_zone_new SET land_area = "{land_area}", building_area = "{building_area}", property_fee = "{property_fee}" WHERE id = {id};'
-        self.value = 1000
+        self.value = 50
         self.value_2 = 5000
 
         self.UA_GROUP = [
@@ -79,9 +78,9 @@ class CityZoneDetail:
                 time.sleep(120)
                 CityZoneDetail.say("暂停120秒结束，继续开始")
             if index % self.value == 0 and index % self.value_2 != 0:
-                CityZoneDetail.say("index是" + str(index) + "，要暂停20秒了")
-                time.sleep(20)
-                CityZoneDetail.say("暂停20秒结束，继续开始")
+                CityZoneDetail.say("index是" + str(index) + "，要暂停2秒了")
+                time.sleep(2)
+                CityZoneDetail.say("暂停2秒结束，继续开始")
 
             try:
                 requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL'
