@@ -52,7 +52,7 @@ class CityZoneDetail:
         for row in db_data[0:10]:
             print(row)
             if index % self.value == 0:
-                SystemUtil.say("index 是" + str(index) + "，要暂停10秒了")
+                SystemUtil.say("index是" + str(index) + "，要暂停10秒了")
                 time.sleep(10)
 
             try:
