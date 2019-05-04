@@ -19,7 +19,7 @@ class CityZoneDetail:
         self.value_2 = 10000
 
     def __del__(self):
-        SystemUtil.say(content="张莹老婆快来救救我啊", circle_num=2)
+        SystemUtil.say(content="程序结束了，快来救救我啊！", circle_num=2)
 
     @staticmethod
     def read_data(file_name):
@@ -101,13 +101,14 @@ class CityZoneDetail:
 
 if __name__ == '__main__':
     czd = CityZoneDetail()
-    czd.handle('file/zone_url_1.txt')
-    SystemUtil.say("等待两分钟")
-    time.sleep(120)
-    czd.handle('file/zone_url_2.txt')
-    SystemUtil.say("等待两分钟")
-    time.sleep(120)
-    czd.handle('file/zone_url_3.txt')
-    SystemUtil.say("等待两分钟")
-    time.sleep(120)
-    czd.handle('file/zone_url_4.txt')
+    # czd.handle('file/zone_url_1.txt')
+    # SystemUtil.say("等待两分钟")
+    # time.sleep(120)
+    # czd.handle('file/zone_url_2.txt')
+    # SystemUtil.say("等待两分钟")
+    # time.sleep(120)
+    # czd.handle('file/zone_url_3.txt')
+    # SystemUtil.say("等待两分钟")
+    # time.sleep(120)
+    # czd.handle('file/zone_url_4.txt')
+    czd.handle('file/zone_url_4_13.txt')

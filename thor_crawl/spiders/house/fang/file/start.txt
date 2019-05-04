@@ -1,2 +1,10 @@
 nohup scrapy crawl fang_city_zone > fang_city_zone_190430.log 2>&1 &
 ps -ef | grep scrapy
+
+
+下载文件
+scp -P 22 root@106.15.201.198:/root/zSky/project/thor_crawl/thor_crawl/spiders/house/fang/file/zone_url_4_out.txt /Users/luoyanjie/
+scp -P 22 root@121.43.166.200:/root/project/thor_crawl/thor_crawl/spiders/house/fang/file/zone_url_3_out.txt /Users/luoyanjie/
+
+
+

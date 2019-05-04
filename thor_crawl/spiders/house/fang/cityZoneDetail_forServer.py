@@ -36,7 +36,7 @@ class CityZoneDetail:
         ]
 
     def __del__(self):
-        CityZoneDetail.say(content="张莹老婆快来救救我啊", circle_num=2)
+        CityZoneDetail.say(content="程序结束了，快来救救我啊！", circle_num=2)
 
     @staticmethod
     def read_data(file_name):

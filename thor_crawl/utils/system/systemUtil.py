@@ -63,8 +63,9 @@ class SystemUtil:
     @staticmethod
     def say(content="主人救命啊！", circle_num=1):
         for n in range(0, circle_num):
+            if n > 0:
+                time.sleep(10)
             os.system('say ' + content + '')
-            time.sleep(10)
 
 
 if __name__ == '__main__':
