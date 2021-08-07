@@ -4,7 +4,6 @@ http://www.dy2018.com/html/gndy/dyzz/index_2.html
 """
 import json
 import logging
-
 import scrapy
 from scrapy.spiders import Spider
 
@@ -57,15 +56,13 @@ class Zb(Spider):
 
     def closed(self, res):
         logging.info(Constant.SPIDER_CLOSED)
-        # self.save_final()
-        print(self.sum)
+        self.save_final()
 
     def parse(self, response):
         text = response.text
         meta = response.meta
 
         json_data = json.loads(text)
-        # print('===============', str(json_data))
 
         for row in json_data['dataObj']:
             yield scrapy.FormRequest(url='https://ds.vzan.com/livesapi/gettopicdetail', method='POST', formdata=self.live_detail(row['Id']), callback=self.parse_detail, meta=row)
@@ -84,29 +81,26 @@ class Zb(Spider):
 
     def parse_detail(self, response):
         text = response.text
-        json_data = json.loads(text)
-
         meta = response.meta
 
-        # print('===============', str(json_data))
+        json_data = json.loads(text)
 
         data_obj = json_data['dataObj']
-        tvurl = data_obj['topic']['tvurl']
-
-        self.sum += 1
 
         self.persistent_data.append(
             {
                 't_id': meta['Id'],
                 'c_id': meta['cId'],
                 'zb_id': meta['zbId'],
-                'title': str(meta['title']),
+                'title': meta['title'],
                 'start_time': meta['starttime'],
                 'add_time': meta['addtime'],
                 'cover': meta['cover'],
-                'tv_url': tvurl
+                'tv_url': data_obj['topic']['tvurl']
             }
         )
+
+        self.sum += 1
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
