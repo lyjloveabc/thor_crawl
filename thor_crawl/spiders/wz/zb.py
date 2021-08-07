@@ -96,17 +96,17 @@ class Zb(Spider):
         self.sum += 1
 
         self.persistent_data.append(
-                    {
-                        't_id': meta['Id'],
-                        'c_id': meta['cId'],
-                        'zb_id': meta['zbId'],
-                        'title': str(meta['title']),
-                        'start_time': meta['starttime'],
-                        'add_time': meta['addtime'],
-                        'cover': meta['cover'],
-                        'tv_url': tvurl
-                    }
-                )
+            {
+                't_id': meta['Id'],
+                'c_id': meta['cId'],
+                'zb_id': meta['zbId'],
+                'title': str(meta['title']),
+                'start_time': meta['starttime'],
+                'add_time': meta['addtime'],
+                'cover': meta['cover'],
+                'tv_url': tvurl
+            }
+        )
 
     def save(self):
         if len(self.persistent_data) > self.save_threshold:
